@@ -6,7 +6,11 @@ public abstract class Codeamon {
     private String nickname;
 
     public Codeamon(Stats stats, int level) {
-       this.stats = stats;
+        if (level < 1) {
+            level = 1;
+        }
+
+        this.stats = stats;
         this.level = level;
         nickname = null;
     }

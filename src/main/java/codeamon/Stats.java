@@ -9,6 +9,10 @@ public abstract class Stats {
     private int defense;
 
     public Stats(int level) {
+        if (level < 1) {
+            level = 1;
+        }
+
         maxHitPoints = calculateMaxHitPoints(getBaseHitPoints(), level);
         currentHitPoints = maxHitPoints;
         attack = calculateStat(getBaseAttack(), level);
