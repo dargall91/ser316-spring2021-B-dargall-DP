@@ -1,13 +1,23 @@
 package codeamon;
 
-import javax.xml.crypto.dsig.spec.HMACParameterSpec;
-
+/**
+ * An abstract data structure that represents a Codeamon's stats. Has the necessary methods for
+ * getting a Codeamon's Hit Points, Attack, and Defense stats, inflicting damage, healing damage,
+ * and recalculating stats after leveling up.
+ */
 public abstract class Stats {
     private int maxHitPoints;
     private int currentHitPoints;
     private int attack;
     private int defense;
 
+    /**
+     * Constructs a Stat object based on the Codeamon's level. The stats will be influenced by
+     * the species's Base Stats from the corresponding TypedStat class.
+     *
+     * @param level The Codeamon's level. If this value is less than 1, it will calculate stats
+     *              as though it were level 1
+     */
     public Stats(int level) {
         if (level < 1) {
             level = 1;
@@ -20,7 +30,7 @@ public abstract class Stats {
     }
 
     /**
-     * Gets this Codeamon's Hit Point maximum
+     * Gets this Codeamon's Hit Point maximum.
      *
      * @return The Hit Point maximum
      */
@@ -29,7 +39,7 @@ public abstract class Stats {
     }
 
     /**
-     * Gets this Codeamon's current Hit Points
+     * Gets this Codeamon's current Hit Points.
      *
      * @return The Codeamon's current hit points
      */
@@ -38,7 +48,7 @@ public abstract class Stats {
     }
 
     /**
-     * Heals the Codeamon by a specified amount
+     * Heals the Codeamon by a specified amount.
      *
      * @param heal THe amount to heal
      */
@@ -51,14 +61,14 @@ public abstract class Stats {
     }
 
     /**
-     * This Codeamon rests and fully recovers all hit points
+     * This Codeamon rests and fully recovers all hit points.
      */
     public void rest() {
         currentHitPoints = maxHitPoints;
     }
 
     /**
-     * Damages the codeamon by the specified amount
+     * Damages the codeamon by the specified amount.
      *
      * @param damage The amount of damage inflicted
      */
@@ -71,7 +81,7 @@ public abstract class Stats {
     }
 
     /**
-     * Gets this Codeamon's attack stat
+     * Gets this Codeamon's attack stat.
      *
      * @return The Hit Point maximum
      */
@@ -80,7 +90,7 @@ public abstract class Stats {
     }
 
     /**
-     * Gets this Codeamon's defense stat
+     * Gets this Codeamon's defense stat.
      *
      * @return The Hit Point maximum
      */
@@ -89,7 +99,7 @@ public abstract class Stats {
     }
 
     /**
-     * Calculates a Codeamon's maximum hit point stat based on it's current level
+     * Calculates a Codeamon's maximum hit point stat based on it's current level.
      *
      * @param baseHitPoints The Codeamon's base hit point stat
      * @param level The Codeamon's current level
@@ -100,7 +110,7 @@ public abstract class Stats {
     }
 
     /**
-     * Calculates a Codeamon's non-hit point stat based on it's current level
+     * Calculates a Codeamon's non-hit point stat based on it's current level.
      *
      * @param baseStat The Codeamon's base stat for the stat to calculate
      * @param level The Codeamon's current level
@@ -110,9 +120,24 @@ public abstract class Stats {
         return (2 * baseStat * level) / 100 + 5;
     }
 
+    /**
+     * Gets this species of Codeamon's Base Hit Point value.
+     *
+     * @return The Base Hit Point Value
+     */
     public abstract int getBaseHitPoints();
 
+    /**
+     * Gets this species of Codeamon's Base Attack value.
+     *
+     * @return The Base Attack Value
+     */
     public abstract int getBaseAttack();
 
+    /**
+     * Gets this species of Codeamon's Base Defense value.
+     *
+     * @return The Base Defense Value
+     */
     public abstract int getBaseDefense();
 }

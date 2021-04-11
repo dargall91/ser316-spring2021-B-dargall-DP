@@ -1,11 +1,14 @@
 package codeamon;
 
+/**
+ * Data structure for a Fire type species of Codeamon.
+ */
 public class FireCodeamon extends Codeamon {
-    private final String NAME = "Fire Name";
-    private final Type TYPE = Type.Fire;
+    private static final String NAME = "Fire Name";
+    private static final Type TYPE = Type.Fire;
 
     /**
-     * Constructs a Fire Species of Codemon initializing its stats based on its level
+     * Constructs a Fire Species of Codemon initializing its stats based on its level.
      *
      * @param level The level of the Codeamon
      */
@@ -14,7 +17,7 @@ public class FireCodeamon extends Codeamon {
     }
 
     /**
-     * Gets this Codeamon's species's name
+     * Gets this Codeamon's species's name.
      *
      * @return The name of this Codeamon Species
      */
@@ -23,7 +26,7 @@ public class FireCodeamon extends Codeamon {
     }
 
     /**
-     * Gets this Codeamon's species's type
+     * Gets this Codeamon's species's type.
      *
      * @return The type
      */
