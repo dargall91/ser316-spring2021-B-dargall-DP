@@ -204,7 +204,7 @@ public abstract class CodeamonStats {
     public abstract int getBaseSpeed();
 
     /**
-     * Resets the stages of this Codeamon's stats
+     * Resets the stages of this Codeamon's stats.
      */
     public void resetStatStages() {
         attackStage = 0;
