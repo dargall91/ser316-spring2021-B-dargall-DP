@@ -10,6 +10,7 @@ public abstract class CodeamonStats {
     private int currentHitPoints;
     private int attack;
     private int defense;
+    private int speed;
 
     /**
      * Constructs a Stat object based on the Codeamon's level. The stats will be influenced by
@@ -27,6 +28,7 @@ public abstract class CodeamonStats {
         currentHitPoints = maxHitPoints;
         attack = calculateStat(getBaseAttack(), level);
         defense = calculateStat(getBaseDefense(), level);
+        speed = calculateStat(getBaseSpeed(), level);
     }
 
     /**
@@ -50,7 +52,7 @@ public abstract class CodeamonStats {
     /**
      * Heals the Codeamon by a specified amount.
      *
-     * @param heal THe amount to heal
+     * @param heal The amount to heal
      */
     public void heal(int heal) {
         currentHitPoints += heal;
@@ -83,7 +85,7 @@ public abstract class CodeamonStats {
     /**
      * Gets this Codeamon's attack stat.
      *
-     * @return The Hit Point maximum
+     * @return The Codeamon's Attack
      */
     public int getAttack() {
         return attack;
@@ -92,9 +94,18 @@ public abstract class CodeamonStats {
     /**
      * Gets this Codeamon's defense stat.
      *
-     * @return The Hit Point maximum
+     * @return The Codeamon's Defense
      */
     public int getDefense() {
+        return defense;
+    }
+
+    /**
+     * Gets this Codeamon's speed stat.
+     *
+     * @return The Codeamon's Speed
+     */
+    public int getSpeed() {
         return defense;
     }
 
@@ -140,4 +151,11 @@ public abstract class CodeamonStats {
      * @return The Base Defense Value
      */
     public abstract int getBaseDefense();
+
+    /**
+     * Gets this species of Codeamon's Base Speed value.
+     *
+     * @return The Base Speed Value
+     */
+    public abstract int getBaseSpeed();
 }

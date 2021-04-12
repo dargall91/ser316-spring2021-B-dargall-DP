@@ -1,5 +1,7 @@
 package codeamon;
 
+import java.util.Random;
+
 /**
  * Data structure for a Codeamon's attack. Attacks are created using a Builder Design Pattern.
  * Contains a method for applying the effects of the attack the appropriate target.
@@ -18,6 +20,7 @@ public class Attack {
     private static final double MIN_HEAL = 0.01;
     private static final int MAX_STAGE = 6;
     private static final int MIN_STAGE = -6;
+    private static final int ONE_HUNDRED = 100;
 
     /**
      * A Builder Factory Method for constructing an Attack. Allows full customization of the Attack
@@ -64,11 +67,19 @@ public class Attack {
         /**
          * Sets the accuracy of the attack.
          *
-         * @param accuracy The accuracy of the attack
+         * @param accuracy The accuracy of the attack. If greater than 100, it will be 100. If less
+         *                 than 1, it will be 1.
          * @return The Attack Builder
          */
         public Builder accuracy(int accuracy) {
-            this.accuracy = accuracy;
+            if (accuracy < ONE) {
+                this.accuracy = ONE;
+            } else if (accuracy > ONE_HUNDRED) {
+                this.accuracy = ONE_HUNDRED;
+            } else {
+                this.accuracy = accuracy;
+            }
+
             return this;
         }
 
@@ -182,27 +193,33 @@ public class Attack {
      * @param opponent The Codeamon the user if battling
      */
     public void applyAttack(Codeamon user, Codeamon opponent) {
-        boolean hit = false;
+        //Stat changes that are to be applied by damaging Attacks will not be applied if the
+        //Attack missed. Hit tracks if the target was hit by the attack so
+        boolean hit = isHit();
 
-        if (POWER > ONE) {
-            //hit is needed because effects that are applied to opponents only happen if the attack hits
-            hit = applyDamage(user, opponent);
-        } else if (!SELF) {
-            //accuracy check for non-damaging not targeting self
-        } else {
-            hit = false;
-        }
+        //If Attack hits and is a damaging attack, apply the damage
+        if (hit && POWER > ONE) {
+            applyDamage(user, opponent);
 
-        if (CHANCE >= ONE) {
+            //apply stat changes for damaging moves
             if (SELF) {
                 applyEffect(user);
-            } else if (hit) {
+            } else if (CHANCE > ONE) {
                 applyEffect(opponent);
             }
-        }
 
-        if (HEAL >= MIN_HEAL) {
+            //apply healing for damaging moves
             applyHeal(user);
+        } else if (POWER < ONE) { //Attack is non-damaging
+            //apply effects and healing self-targeting non-damaging moves
+            if (SELF) {
+                applyEffect(user);
+                applyHeal(user);
+            } else if (hit) {
+                //apply effects and healing for opponent targeting non-damaging moves if it hit
+                applyEffect(opponent);
+                applyHeal(user);
+            }
         }
     }
 
@@ -212,26 +229,63 @@ public class Attack {
      * @param target The Codeamon to apply the stat changes to
      */
     private void applyEffect(Codeamon target) {
+        //if event doesn't trigger, no effects applied
+        if (!effectTriggered()) {
+            return;
+        }
+
 
     }
 
     /**
      * Applies the effects of a self-healing attack.
      *
-     * @param target The user of the attack
+     * @param user The user of the attack
      */
-    private void applyHeal(Codeamon target) {
-        target.heal((int) (target.getMaxHitPoints() * HEAL));
+    private void applyHeal(Codeamon user) {
+        if (HEAL >= MIN_HEAL) {
+            user.heal((int) (user.getMaxHitPoints() * HEAL));
+        }
     }
 
     /**
      * Calculates damage inflicted by this attack and applies it to the target.
      *
      * @param user The attacker
-     * @param opponent THe Codeamon being attacked
-     * @return True if the attack hit and did damage, false if it missed
+     * @param opponent The Codeamon being attacked
      */
-    private boolean applyDamage(Codeamon user, Codeamon opponent) {
-        return true;
+    private void applyDamage(Codeamon user, Codeamon opponent) {
+
+    }
+
+    /**
+     * Accuracy check to see if the attack lands.
+     *
+     * @return True if the check passes, false if it fails
+     */
+    private boolean isHit() {
+        //Attacks with 100% accuracy always hit
+        if (ACCURACY == ONE_HUNDRED) {
+            return true;
+        }
+
+        //Get random number from 0-99, add one, then if it is is <= Accuracy, the attack hits
+        Random random = new Random();
+
+        return (random.nextInt(ONE_HUNDRED) + 1 <= ACCURACY);
+    }
+
+    private boolean effectTriggered() {
+        //An attack with a 100% effect chance always triggers and one with a 0% chance always fails
+        if (CHANCE == ONE_HUNDRED) {
+            return true;
+        } else if (CHANCE < ONE) {
+            return false;
+        }
+
+        //Get random number from 0-99, add one, then if it is is <= Accuracy, the attack hits
+        Random random = new Random();
+
+        return (random.nextInt(ONE_HUNDRED) + 1 <= CHANCE);
     }
 }

@@ -90,13 +90,15 @@ public class CodeamonTests {
         System.out.println("Current Hit Points: " + stats.getCurrentHitPoints());
         System.out.println("Attack: " + stats.getAttack());
         System.out.println("Defense: " + stats.getDefense());
+        System.out.println("Speed: " + stats.getSpeed());
 
         assertAll("Confirm a Codeamon's initial attributes are properly set",
                 () -> assertEquals(2 * stats.getBaseHitPoints() * level / 100
                         + level + 10, stats.getMaxHitPoints()),
                 () -> assertEquals(stats.getMaxHitPoints(), stats.getCurrentHitPoints()),
                 () -> assertEquals(2 * stats.getBaseAttack() * level / 100 + 5, stats.getAttack()),
-                () -> assertEquals(2 * stats.getBaseDefense() * level / 100 + 5, stats.getDefense()));
+                () -> assertEquals(2 * stats.getBaseDefense() * level / 100 + 5, stats.getDefense()),
+                () -> assertEquals(2 * stats.getBaseSpeed() * level / 100 + 5, stats.getSpeed()));
     }
 
     /**
@@ -116,12 +118,14 @@ public class CodeamonTests {
         System.out.println("Current Hit Points: " + stats.getCurrentHitPoints());
         System.out.println("Attack: " + stats.getAttack());
         System.out.println("Defense: " + stats.getDefense());
+        System.out.println("Speed: " + stats.getSpeed());
 
         assertAll("Confirm a Codeamon's initial attributes are properly set",
                 () -> assertEquals(2 * stats.getBaseHitPoints() * 1 / 100
                         + level + 10, stats.getMaxHitPoints()),
                 () -> assertEquals(stats.getMaxHitPoints(), stats.getCurrentHitPoints()),
                 () -> assertEquals(2 * stats.getBaseAttack() * level / 100 + 5, stats.getAttack()),
-                () -> assertEquals(2 * stats.getBaseDefense() * level / 100 + 5, stats.getDefense()));
+                () -> assertEquals(2 * stats.getBaseDefense() * level / 100 + 5, stats.getDefense()),
+                () -> assertEquals(2 * stats.getBaseSpeed() * level / 100 + 5, stats.getSpeed()));
     }
 }
