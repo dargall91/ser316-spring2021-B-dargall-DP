@@ -1,11 +1,8 @@
 import codeamon.*;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CodeamonTests {
     @AfterEach
@@ -13,6 +10,7 @@ public class CodeamonTests {
         System.out.println();
     }
 
+    //Codeamon Tests
     /**
      * Test that a Codeamon's attributes are properly set
      *
@@ -30,8 +28,7 @@ public class CodeamonTests {
         System.out.println("Level: " + mon.getLevel());
         System.out.println("Type: " + mon.getType());
 
-        assertAll("Confirm a Codeamon's initial attributes are properly set",
-                () -> assertEquals(mon.getSpeciesName(), mon.getName()),
+        assertAll(() -> assertEquals(mon.getSpeciesName(), mon.getName()),
                 () -> assertEquals(level, mon.getLevel()),
                 () -> assertEquals(type, mon.getType()));
     }
@@ -70,60 +67,8 @@ public class CodeamonTests {
         Codeamon mon = CodeamonFactory.getCodeamon(type, level);
         mon.setNickname(nickname);
 
-        System.out.println("Nickname: " + mon.getName());
+        System.out.println("Name: " + mon.getName());
 
         assertEquals(nickname, mon.getName());
-    }
-
-    /**
-     * Test that a Stat object is properly initialized with the correct values
-     *
-     * @throws Exception
-     */
-    @Test
-    public void TestStatValues() throws Exception {
-        System.out.println("TestStatValues");
-
-        Type type = Type.Fire;
-        int level = 10;
-        Stats stats = StatsFactory.getStats(type, level);
-
-        System.out.println("Max Hit Points: " + stats.getMaxHitPoints());
-        System.out.println("Current Hit Points: " + stats.getCurrentHitPoints());
-        System.out.println("Attack: " + stats.getAttack());
-        System.out.println("Defense: " + stats.getDefense());
-
-        assertAll("Confirm a Codeamon's initial attributes are properly set",
-                () -> assertEquals(2 * stats.getBaseHitPoints() * level / 100
-                        + level + 10, stats.getMaxHitPoints()),
-                () -> assertEquals(stats.getMaxHitPoints(), stats.getCurrentHitPoints()),
-                () -> assertEquals(2 * stats.getBaseAttack() * level / 100 + 5, stats.getAttack()),
-                () -> assertEquals(2 * stats.getBaseDefense() * level / 100 + 5, stats.getDefense()));
-    }
-
-    /**
-     * Test that a Stats created below level 1 generate level 1 stats
-     *
-     * @throws Exception
-     */
-    @Test
-    public void TestInvalidLevelStatValues() throws Exception {
-        System.out.println("TestInvalidLevelStatValues");
-
-        Type type = Type.Fire;
-        int level = 1;
-        Stats stats = StatsFactory.getStats(type, 0);
-
-        System.out.println("Max Hit Points: " + stats.getMaxHitPoints());
-        System.out.println("Current Hit Points: " + stats.getCurrentHitPoints());
-        System.out.println("Attack: " + stats.getAttack());
-        System.out.println("Defense: " + stats.getDefense());
-
-        assertAll("Confirm a Codeamon's initial attributes are properly set",
-                () -> assertEquals(2 * stats.getBaseHitPoints() * 1 / 100
-                        + level + 10, stats.getMaxHitPoints()),
-                () -> assertEquals(stats.getMaxHitPoints(), stats.getCurrentHitPoints()),
-                () -> assertEquals(2 * stats.getBaseAttack() * level / 100 + 5, stats.getAttack()),
-                () -> assertEquals(2 * stats.getBaseDefense() * level / 100 + 5, stats.getDefense()));
     }
 }

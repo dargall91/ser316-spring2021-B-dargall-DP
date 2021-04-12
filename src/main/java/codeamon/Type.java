@@ -1,5 +1,8 @@
 package codeamon;
 
+/**
+ * Enumeration of the 18 possible Codeamon species and Attack types
+ */
 public enum Type {
     Normal,
     Fire,
@@ -15,8 +18,8 @@ public enum Type {
     Bug,
     Rock,
     Ghost,
-    Dark,
     Dragon,
+    Dark,
     Steel,
     Fairy
 }
