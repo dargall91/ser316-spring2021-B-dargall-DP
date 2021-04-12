@@ -7,14 +7,31 @@ plugins {
 
 mainClassName = 'Main'
 
+// Custom Task that generates all test results and reports when executed
+tasks.register('reports') {
+	dependsOn spotbugsMain
+	dependsOn test
+	dependsOn checkstyleMain
+}
+
 // In this section you declare where to find the dependencies of your project
 repositories {
 	jcenter()
 }
 
-// Include JUnit 4
+// Include JUnit 5
 dependencies {
-	compile "junit:junit:4.12"
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}
+
+test {
+	useJUnitPlatform()
+	finalizedBy jacocoTestReport // report is always generated after tests run
+}
+
+jacocoTestReport {
+	dependsOn test // tests are required to run before generating the report
 }
 
 repositories {
