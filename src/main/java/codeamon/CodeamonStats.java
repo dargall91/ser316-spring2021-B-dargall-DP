@@ -11,6 +11,11 @@ public abstract class CodeamonStats {
     private int attack;
     private int defense;
     private int speed;
+    private int attackStage;
+    private int defenseStage;
+    private int speedStage;
+    private static final int MAX_STAGE = 6;
+    private static final int MIN_STAGE = -6;
 
     /**
      * Constructs a Stat object based on the Codeamon's level. The stats will be influenced by
@@ -29,6 +34,8 @@ public abstract class CodeamonStats {
         attack = calculateStat(getBaseAttack(), level);
         defense = calculateStat(getBaseDefense(), level);
         speed = calculateStat(getBaseSpeed(), level);
+
+        resetStages();
     }
 
     /**
@@ -67,6 +74,7 @@ public abstract class CodeamonStats {
      */
     public void rest() {
         currentHitPoints = maxHitPoints;
+        resetStages();
     }
 
     /**
@@ -85,28 +93,28 @@ public abstract class CodeamonStats {
     /**
      * Gets this Codeamon's attack stat.
      *
-     * @return The Codeamon's Attack
+     * @return The Codeamon's Attack after modifiers
      */
     public int getAttack() {
-        return attack;
+        return (int) (attack * getModifier(attackStage));
     }
 
     /**
      * Gets this Codeamon's defense stat.
      *
-     * @return The Codeamon's Defense
+     * @return The Codeamon's Defense after modifiers
      */
     public int getDefense() {
-        return defense;
+        return (int) (defense * getModifier(defenseStage));
     }
 
     /**
      * Gets this Codeamon's speed stat.
      *
-     * @return The Codeamon's Speed
+     * @return The Codeamon's Speed after modifiers
      */
     public int getSpeed() {
-        return defense;
+        return (int) (speed * getModifier(speedStage));
     }
 
     /**
@@ -158,4 +166,63 @@ public abstract class CodeamonStats {
      * @return The Base Speed Value
      */
     public abstract int getBaseSpeed();
+
+    /**
+     * Resets the stages of this Codeamon's stats
+     */
+    public void resetStages() {
+        attackStage = 0;
+        defenseStage = 0;
+        speedStage = 0;
+    }
+
+    /**
+     * Applies stat stage changes to a Stat
+     *
+     * @param stat The Stat to apply the changes to
+     * @param stages The number of stages to be applied
+     */
+    public void applyStatStageChange(Stat stat, int stages) {
+        if (stat == Stat.Attack) {
+            attackStage += stages;
+            if (attackStage > MAX_STAGE) {
+                attackStage = MAX_STAGE;
+            } else if (attackStage < MIN_STAGE) {
+                attackStage = MIN_STAGE;
+            }
+        } else if (stat == Stat.Defense) {
+            defenseStage += stages;
+            if (defenseStage > MAX_STAGE) {
+                defenseStage = MAX_STAGE;
+            } else if (defenseStage < MIN_STAGE) {
+                defenseStage = MIN_STAGE;
+            }
+        } else if (stat == Stat.Speed) {
+            speedStage += stages;
+            if (speedStage > MAX_STAGE) {
+                speedStage = MAX_STAGE;
+            } else if (speedStage < MIN_STAGE) {
+                speedStage = MIN_STAGE;
+            }
+        }
+    }
+
+    /**
+     * Gets the multiplier for a stat based on the stage changes. The formula for the multiplier is
+     * as follows: If the stage changes is 0, then the result is 1.0. If the stage changes is
+     * negative, then the result is 2.0 / (2.0 + -1 * stages). If the stage changes is positive,
+     * then the result is (2.0 + stages) / 2.0.
+     *
+     * @param stages The stat's stage change level
+     * @return The multiplier
+     */
+    private double getModifier(int stages) {
+        if (stages < 0) {
+            return 2.0 / (2.0 + -1 * stages);
+        } else if (stages == 0) {
+            return 1.0;
+        } else {
+            return (2.0 + stages) / 2.0;
+        }
+    }
 }

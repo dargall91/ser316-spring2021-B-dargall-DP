@@ -4,7 +4,14 @@ import java.util.Random;
 
 /**
  * Data structure for a Codeamon's attack. Attacks are created using a Builder Design Pattern.
- * Contains a method for applying the effects of the attack the appropriate target.
+ * Contains a method for applying the effects of the attack the appropriate target. Attacks are
+ * fully customizable. An attack can do any combination of the following: deal damage, have a
+ * chance to buff or debuff either the user or the opponent, and heal the user. The only things
+ * that every Attack must have is a name and attack type. Attack power, Accuracy and chance to
+ * apply the buffs and debuffs are customizable, as it the self-healing amount. An attack that
+ * deals damage must hit the opponent in order to apply any additional effects. A non-damaging
+ * Attack that buffs, debuffs, or heals the user always succeeds. A non-damaging attack the targets
+ * the opponent must hit the opponent in order to apply any additional effects.
  */
 public class Attack {
     private final String NAME;
@@ -89,10 +96,10 @@ public class Attack {
          * stages to buff or debuff the stat.
          *
          * @param chance The percent chance of applying the buff or debuff. If less than 1 it will
-         *               be set to 1
+         *             be set to 1
          * @param stat The stat to be buffed or debuffed
          * @param stages How many stages to buff or debuff. If greater than 6 or less than -6 this
-         *               value will be set to 6 or -6, respectively.
+         *             value will be set to 6 or -6, respectively.
          * @param self Flag that determines if the stat changes are to applied to the user or to
          *             to it's opponent. Set to true to target the user
          * @return The Attack Builder
@@ -234,6 +241,7 @@ public class Attack {
             return;
         }
 
+        target.applyStatStageChange(STAT, STAGES);
 
     }
 
@@ -255,7 +263,7 @@ public class Attack {
      * @param opponent The Codeamon being attacked
      */
     private void applyDamage(Codeamon user, Codeamon opponent) {
-
+        opponent.damage(POWER);
     }
 
     /**
@@ -269,7 +277,7 @@ public class Attack {
             return true;
         }
 
-        //Get random number from 0-99, add one, then if it is is <= Accuracy, the attack hits
+        //Get random number from 0-99, add one, then if it is is <= Accuracy, the effect triggers
         Random random = new Random();
 
         return (random.nextInt(ONE_HUNDRED) + 1 <= ACCURACY);

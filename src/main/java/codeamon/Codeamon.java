@@ -40,6 +40,16 @@ public abstract class Codeamon {
     }
 
     /**
+     * Applies stat stage changes to a Stat
+     *
+     * @param stat The Stat to apply the changes to
+     * @param stages The number of stages to be applied
+     */
+    public void applyStatStageChange(Stat stat, int stages) {
+        stats.applyStatStageChange(stat, stages);
+    }
+
+    /**
      * Gets this Codeamon's level.
      *
      * @return The level
