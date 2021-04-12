@@ -12,7 +12,7 @@ public class StatsFactory {
      *
      * @return The new stats of the Codeamon
      */
-    public static Stats getStats(Type type, int level) {
+    public static CodeamonStats getStats(Type type, int level) {
         if (type == Type.Fire) {
             return new FireStats(level);
         }

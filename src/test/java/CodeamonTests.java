@@ -1,7 +1,5 @@
 import codeamon.*;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -86,7 +84,7 @@ public class CodeamonTests {
 
         Type type = Type.Fire;
         int level = 10;
-        Stats stats = StatsFactory.getStats(type, level);
+        CodeamonStats stats = StatsFactory.getStats(type, level);
 
         System.out.println("Max Hit Points: " + stats.getMaxHitPoints());
         System.out.println("Current Hit Points: " + stats.getCurrentHitPoints());
@@ -112,7 +110,7 @@ public class CodeamonTests {
 
         Type type = Type.Fire;
         int level = 1;
-        Stats stats = StatsFactory.getStats(type, 0);
+        CodeamonStats stats = StatsFactory.getStats(type, 0);
 
         System.out.println("Max Hit Points: " + stats.getMaxHitPoints());
         System.out.println("Current Hit Points: " + stats.getCurrentHitPoints());

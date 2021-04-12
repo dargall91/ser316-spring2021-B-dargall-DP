@@ -6,7 +6,7 @@ package codeamon;
  * and applying gained EXP.
  */
 public abstract class Codeamon {
-    private Stats stats;
+    private CodeamonStats stats;
     private int level;
     private String nickname;
 
@@ -16,7 +16,7 @@ public abstract class Codeamon {
      * @param stats The Stats for the Codeamon
      * @param level The Codeamon's level. If this value is less than 1, it will be set to 1
      */
-    public Codeamon(Stats stats, int level) {
+    public Codeamon(CodeamonStats stats, int level) {
         if (level < 1) {
             level = 1;
         }
