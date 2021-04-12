@@ -1,10 +1,21 @@
 package codeamon;
 
+/**
+ * An abstract data structure that represents a Codeamon. Has the methods necessary for getting a
+ * Codeamon's stats,  * name, and level, inflicting damage, healing damage, getting its EXP yield,
+ * and applying gained EXP.
+ */
 public abstract class Codeamon {
     private Stats stats;
     private int level;
     private String nickname;
 
+    /**
+     * Constructs a Codeamon with the specified stats and level.
+     *
+     * @param stats The Stats for the Codeamon
+     * @param level The Codeamon's level. If this value is less than 1, it will be set to 1
+     */
     public Codeamon(Stats stats, int level) {
         if (level < 1) {
             level = 1;
@@ -16,7 +27,7 @@ public abstract class Codeamon {
     }
 
     /**
-     * Gets this Codeamon's name
+     * Gets this Codeamon's name.
      *
      * @return The name
      */
@@ -29,7 +40,7 @@ public abstract class Codeamon {
     }
 
     /**
-     * Gets this Codeamon's level
+     * Gets this Codeamon's level.
      *
      * @return The level
      */
@@ -38,7 +49,7 @@ public abstract class Codeamon {
     }
 
     /**
-     * Gets this Codeamon's Hit Point maximum
+     * Gets this Codeamon's Hit Point maximum.
      *
      * @return The Hit Point maximum
      */
@@ -47,7 +58,7 @@ public abstract class Codeamon {
     }
 
     /**
-     * Gets this Codeamon's current Hit Points
+     * Gets this Codeamon's current Hit Points.
      *
      * @return The Codeamon's current hit points
      */
@@ -56,14 +67,14 @@ public abstract class Codeamon {
     }
 
     /**
-     * This Codeamon rests and fully recovers all hit points
+     * This Codeamon rests and fully recovers all hit points.
      */
     public void rest() {
         stats.rest();
     }
 
     /**
-     * Heals the Codeamon by a specified amount
+     * Heals the Codeamon by a specified amount.
      *
      * @param heal The amount to heal
      */
@@ -72,7 +83,7 @@ public abstract class Codeamon {
     }
 
     /**
-     * Damages the codeamon by the specified amount
+     * Damages the codeamon by the specified amount.
      *
      * @param damage The amount of damage inflicted
      */
@@ -83,14 +94,15 @@ public abstract class Codeamon {
     /**
      * Sets a nickname for this Codeamon.
      *
-     * @param nickname The new nickname for the Codeamon. Passing null will reset it's name back to its species name
+     * @param nickname The new nickname for the Codeamon. Passing null will reset it's name back
+     *                 to its species name
      */
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
 
     /**
-     * Gets this Codeamon's attack stat
+     * Gets this Codeamon's attack stat.
      *
      * @return The Hit Point maximum
      */
@@ -99,7 +111,7 @@ public abstract class Codeamon {
     }
 
     /**
-     * Gets this Codeamon's defense stat
+     * Gets this Codeamon's defense stat.
      *
      * @return The Hit Point maximum
      */
@@ -108,14 +120,14 @@ public abstract class Codeamon {
     }
 
     /**
-     * Gets this Codeamon's species's name
+     * Gets this Codeamon's species's name.
      *
      * @return The type of this Codeamon Species
      */
     public abstract String getSpeciesName();
 
     /**
-     * Gets this Codeamon's species's type
+     * Gets this Codeamon's species's type.
      *
      * @return The type
      */
