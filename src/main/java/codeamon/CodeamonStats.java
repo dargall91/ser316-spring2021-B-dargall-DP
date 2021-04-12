@@ -100,12 +100,40 @@ public abstract class CodeamonStats {
     }
 
     /**
+     * Gets the Attack stat to be used when landing a critical hit (crits ignore negative
+     * attack changes).
+     *
+     * @return The attack for a crit
+     */
+    public int getAttackCritical() {
+        if (attackStage > 0) {
+            return attack;
+        } else {
+            return (int) (attack * getModifier(attackStage));
+        }
+    }
+
+    /**
      * Gets this Codeamon's defense stat.
      *
      * @return The Codeamon's Defense after modifiers
      */
     public int getDefense() {
         return (int) (defense * getModifier(defenseStage));
+    }
+
+    /**
+     * Gets the Defense stat to be used when receiving a critical hit (crits ignore positive
+     * defense changes).
+     *
+     * @return The defense for a crit
+     */
+    public int getDefenseCritical() {
+        if (defenseStage > 0) {
+            return defense;
+        } else {
+            return (int) (defense * getModifier(defenseStage));
+        }
     }
 
     /**

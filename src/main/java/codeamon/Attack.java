@@ -18,7 +18,8 @@ public class Attack {
     private final Type TYPE;
     private final int POWER;
     private final int ACCURACY;
-    private final int CHANCE;
+    private final int CRIT_CHANCE;
+    private final int EFFECT_CHANCE;
     private final double HEAL;
     private final Stat STAT;
     private final int STAGES;
@@ -41,7 +42,8 @@ public class Attack {
         //Default values
         private int power = 0;
         private int accuracy = 100;
-        private int chance = 0;
+        private int critChance = 12;
+        private int effectChance = 0;
         private double heal = 0.0;
         private Stat stat = null;
         private int stages = 0;
@@ -68,6 +70,13 @@ public class Attack {
          */
         public Builder power(int power) {
             this.power = power;
+
+            return this;
+        }
+
+        public Builder critChance(int critChance) {
+            this.critChance = critChance;
+
             return this;
         }
 
@@ -106,9 +115,9 @@ public class Attack {
          */
         public Builder statusEffect(int chance, Stat stat, int stages, boolean self) {
             if (chance < ONE) {
-                this.chance = ONE;
+                this.effectChance = ONE;
             } else {
-                this.chance = chance;
+                this.effectChance = chance;
             }
 
             this.stat = stat;
@@ -157,8 +166,9 @@ public class Attack {
         NAME = builder.NAME;
         TYPE = builder.TYPE;
         POWER = builder.power;
+        CRIT_CHANCE = builder.critChance;
         ACCURACY = builder.accuracy;
-        CHANCE = builder.chance;
+        EFFECT_CHANCE = builder.effectChance;
         HEAL = builder.heal;
         STAT = builder.stat;
         STAGES = builder.stages;
@@ -211,7 +221,7 @@ public class Attack {
             //apply stat changes for damaging moves
             if (SELF) {
                 applyEffect(user);
-            } else if (CHANCE > ONE) {
+            } else if (EFFECT_CHANCE > ONE) {
                 applyEffect(opponent);
             }
 
@@ -242,7 +252,6 @@ public class Attack {
         }
 
         target.applyStatStageChange(STAT, STAGES);
-
     }
 
     /**
@@ -263,13 +272,40 @@ public class Attack {
      * @param opponent The Codeamon being attacked
      */
     private void applyDamage(Codeamon user, Codeamon opponent) {
-        opponent.damage(POWER);
+        boolean isCrit = isCritical();
+        double crit;
+        double damage;
+
+        if (isCrit) {
+            damage = ((((2.0 * user.getLevel() / 5.0) + 2.0) * POWER * user.getAttackCritical() / opponent.getDefenseCritical()) / 50) + 2.0;
+            crit = 1.5;
+        } else {
+            damage = ((((2.0 * user.getLevel() / 5.0) + 2.0) * POWER * user.getAttack() / opponent.getDefense()) / 50) + 2.0;
+            crit = 1.0;
+        }
+
+        double stab = 1.0;
+
+        if (user.getType() == TYPE) {
+            stab = 1.5;
+        }
+
+        double effective = TypeEffectiveness.getEffectiveness(TYPE, opponent.getType());
+
+        //TODO: Weather and weather modifier
+        damage *= crit * stab * effective;
+
+        if (damage < ONE) {
+            damage = 1.0;
+        }
+
+        opponent.damage((int) damage);
     }
 
     /**
      * Accuracy check to see if the attack lands.
      *
-     * @return True if the check passes, false if it fails
+     * @return True if the Attack lands, false otherwise
      */
     private boolean isHit() {
         //Attacks with 100% accuracy always hit
@@ -277,23 +313,47 @@ public class Attack {
             return true;
         }
 
-        //Get random number from 0-99, add one, then if it is is <= Accuracy, the effect triggers
+        //Get random number from 0-99, add one, then if it is <= Accuracy, the effect triggers
         Random random = new Random();
 
         return (random.nextInt(ONE_HUNDRED) + 1 <= ACCURACY);
     }
 
+    /**
+     * Check to see if a non-damaging effect is applied.
+     *
+     * @return True if the effect triggers, false otherwise
+     */
     private boolean effectTriggered() {
         //An attack with a 100% effect chance always triggers and one with a 0% chance always fails
-        if (CHANCE == ONE_HUNDRED) {
+        if (EFFECT_CHANCE == ONE_HUNDRED) {
             return true;
-        } else if (CHANCE < ONE) {
+        } else if (EFFECT_CHANCE < ONE) {
             return false;
         }
 
-        //Get random number from 0-99, add one, then if it is is <= Accuracy, the attack hits
+        //Get random number from 0-99, add one, then if it is <= Effect Chance, the effect triggers
         Random random = new Random();
 
-        return (random.nextInt(ONE_HUNDRED) + 1 <= CHANCE);
+        return (random.nextInt(ONE_HUNDRED) + 1 <= EFFECT_CHANCE);
+    }
+
+    /**
+     * Check to see if the attack is a Critical Hit.
+     *
+     * @return True if the attack crits, false otherwise
+     */
+    private boolean isCritical() {
+        //An attack with a 100% crit chance always crits and one with a 0% chance never does
+        if (CRIT_CHANCE == ONE_HUNDRED) {
+            return true;
+        } else if (CRIT_CHANCE < ONE) {
+            return false;
+        }
+
+        //Get random number from 0-99, add one, then if it is <= Crit Chance, it crits
+        Random random = new Random();
+
+        return (random.nextInt(ONE_HUNDRED) + 1 <= CRIT_CHANCE);
     }
 }

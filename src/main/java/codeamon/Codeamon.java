@@ -50,6 +50,26 @@ public abstract class Codeamon {
     }
 
     /**
+     * Gets the Attack stat to be used when landing a critical hit (crits ignore negative
+     * attack changes).
+     *
+     * @return The attack for a crit
+     */
+    public int getAttackCritical() {
+        return getAttackCritical();
+    }
+
+    /**
+     * Gets the Defense stat to be used when receiving a critical hit (crits ignore positive
+     * defense changes).
+     *
+     * @return The defense for a crit
+     */
+    public int getDefenseCritical() {
+        return getDefenseCritical();
+    }
+
+    /**
      * Gets this Codeamon's level.
      *
      * @return The level
