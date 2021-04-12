@@ -13,7 +13,7 @@ public class FireCodeamon extends Codeamon {
      * @param level The level of the Codeamon
      */
     public FireCodeamon(int level) {
-        super(StatsFactory.getStats(Type.Fire, level), level);
+        super(CodeamonStatsFactory.getStats(Type.Fire, level), level);
     }
 
     /**

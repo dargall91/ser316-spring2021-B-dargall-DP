@@ -3,7 +3,7 @@ package codeamon;
 /**
  * A Factory Method class for getting the stats for a specific type of Codeamon.
  */
-public class StatsFactory {
+public class CodeamonStatsFactory {
     /**
      * Creates stats for a specified type and level of Codeamon.
      *

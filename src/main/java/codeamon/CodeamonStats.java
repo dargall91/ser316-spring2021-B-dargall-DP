@@ -83,7 +83,8 @@ public abstract class CodeamonStats {
     /**
      * Damages the codeamon by the specified amount.
      *
-     * @param damage The amount of damage inflicted. If this value is less than 1, the damage dealt will be 1
+     * @param damage The amount of damage inflicted. If this value is less than 1, the damage dealt
+     *               will be 1
      */
     public void damage(int damage) {
         if (damage < 1) {

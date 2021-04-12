@@ -9,9 +9,9 @@ import java.util.Random;
  * chance to buff or debuff either the user or the opponent, and heal the user. The only things
  * that every Attack must have is a name and attack type. Attack power, Accuracy and chance to
  * apply the buffs and debuffs are customizable, as it the self-healing amount. An attack that
- * deals damage must hit the opponent in order to apply any additional effects. A non-damaging
- * Attack that buffs, debuffs, or heals the user always succeeds. A non-damaging attack the targets
- * the opponent must hit the opponent in order to apply any additional effects.
+ * deals damage must hit the opponent in order to apply any additional effects or healing. A
+ * non-damaging Attack that buffs, debuffs, or heals the user always succeeds. A non-damaging
+ * attack the targets the opponent must hit the opponent in order to apply any additional effects.
  */
 public class Attack {
     private final String NAME;
@@ -42,7 +42,7 @@ public class Attack {
         //Default values
         private int power = 0;
         private int accuracy = 100;
-        private int critChance = 12;
+        private int critChance = 15;
         private int effectChance = 0;
         private double heal = 0.0;
         private Stat stat = null;
@@ -74,8 +74,21 @@ public class Attack {
             return this;
         }
 
+        /**
+         * Sets the chance for this attack to be a critical hit.
+         *
+         * @param critChance The percent chance for the attack to become a critical hit. If greater
+         *                   than 100, it will be 100. If less than 1, it will be 0.
+         * @return The Attack Builder
+         */
         public Builder critChance(int critChance) {
-            this.critChance = critChance;
+            if (critChance < ONE) {
+                this.critChance = 0;
+            } else if (critChance > ONE_HUNDRED) {
+                this.critChance = ONE_HUNDRED;
+            } else {
+                this.critChance = critChance;
+            }
 
             return this;
         }
@@ -104,20 +117,22 @@ public class Attack {
          * chance of applying a buff or debuff to a stat, which stat to apply it to, and how many
          * stages to buff or debuff the stat.
          *
-         * @param chance The percent chance of applying the buff or debuff. If less than 1 it will
-         *             be set to 1
+         * @param effectChance The percent chance of applying the buff or debuff. If less than 1 it
+         *                     will be set to 1
          * @param stat The stat to be buffed or debuffed
          * @param stages How many stages to buff or debuff. If greater than 6 or less than -6 this
-         *             value will be set to 6 or -6, respectively.
+         *               value will be set to 6 or -6, respectively.
          * @param self Flag that determines if the stat changes are to applied to the user or to
          *             to it's opponent. Set to true to target the user
          * @return The Attack Builder
          */
-        public Builder statusEffect(int chance, Stat stat, int stages, boolean self) {
-            if (chance < ONE) {
+        public Builder statusEffect(int effectChance, Stat stat, int stages, boolean self) {
+            if (effectChance < ONE) {
                 this.effectChance = ONE;
+            } else if (effectChance > ONE_HUNDRED) {
+                this.effectChance = ONE_HUNDRED;
             } else {
-                this.effectChance = chance;
+                this.effectChance = effectChance;
             }
 
             this.stat = stat;
@@ -138,15 +153,17 @@ public class Attack {
         /**
          * Using this method flags that this attack heals the user.
          *
-         * @param heal The fraction of the user's Hit Point maximum that will be healed after
-         *             using this attack. If less than 0.01, this will be set to 0.01
+         * @param heal The percentage of the user's Hit Point maximum that will be healed after
+         *             using this attack. If less than 1, this will be set to 1
          * @return The Attack Builder
          */
-        public Builder heal(double heal) {
-            if (heal < MIN_HEAL) {
-                this.heal = MIN_HEAL;
+        public Builder heal(int heal) {
+            if (heal < ONE) {
+                this.heal = ONE / 100.0;
+            } else if (heal > ONE_HUNDRED) {
+                this.heal = 1.0;
             } else {
-                this.heal = heal;
+                this.heal = heal / 100.0;
             }
 
             return this;
@@ -175,7 +192,6 @@ public class Attack {
         SELF = builder.self;
     }
 
-
     /**
      * Gets the name of this attack.
      *
@@ -203,41 +219,101 @@ public class Attack {
         return POWER;
     }
 
+    public int getCritChance() {
+        return CRIT_CHANCE;
+    }
+
+    /**
+     * Gets the accruacy of this attack.
+     *
+     * @return The percent chance of this attack hitting the target
+     */
+    public int getAccuracy() {
+        return ACCURACY;
+    }
+
+    /**
+     * Gets the chance of this attack applying an additional effect.
+     *
+     * @return The percent chance of applying an additional effect
+     */
+    public int getEffectChance() {
+        return EFFECT_CHANCE;
+    }
+
+    /**
+     * Gets the amount of hit points this attack heals the user.
+     *
+     * @return The percentage of hit points healed with this attack
+     */
+    public int getHeal() {
+        return (int) (HEAL * ONE_HUNDRED);
+    }
+
+    /**
+     * Gets the Stat buffed or debuffed by this attack.
+     *
+     * @return The buffed or debuffed Stat, or null if this attack does not affect stats
+     */
+    public Stat getStat() {
+        return STAT;
+    }
+
+    /**
+     * Gets the number of stat stage changes to be applied to the buffed or debuffed stat.
+     *
+     * @return The amount of stat stage changes to be applied by this attack, ranging from -6 to 6
+     * inclusively.
+     */
+    public int getStages() {
+        return STAGES;
+    }
+
+    /**
+     * Checks if this attack targets the user with any stat changes applied by this attack.
+     *
+     * @return True if the stat changes are applied to the user, false if not
+     */
+    public boolean getSelf() {
+        return SELF;
+    }
+
     /**
      * Applies the effects of the attack.
      *
      * @param user The Codeamon using the attack
      * @param opponent The Codeamon the user if battling
+     * @return False if the attack delas no damage, applies no healing, and applies no stat
+     *         changes, otherwise it returns true
      */
-    public void applyAttack(Codeamon user, Codeamon opponent) {
-        //Stat changes that are to be applied by damaging Attacks will not be applied if the
-        //Attack missed. Hit tracks if the target was hit by the attack so
-        boolean hit = isHit();
-
-        //If Attack hits and is a damaging attack, apply the damage
-        if (hit && POWER > ONE) {
+    public boolean applyAttack(Codeamon user, Codeamon opponent) {
+        //If Attack deals damage
+        if (POWER > ONE) {
             applyDamage(user, opponent);
 
             //apply stat changes for damaging moves
             if (SELF) {
                 applyEffect(user);
-            } else if (EFFECT_CHANCE > ONE) {
+            } else {
                 applyEffect(opponent);
             }
-
-            //apply healing for damaging moves
+        } else if (SELF) { //Attack is non-damaging and targets self
+            applyEffect(user);
             applyHeal(user);
-        } else if (POWER < ONE) { //Attack is non-damaging
-            //apply effects and healing self-targeting non-damaging moves
-            if (SELF) {
-                applyEffect(user);
-                applyHeal(user);
-            } else if (hit) {
-                //apply effects and healing for opponent targeting non-damaging moves if it hit
-                applyEffect(opponent);
-                applyHeal(user);
-            }
+        } else if (EFFECT_CHANCE >= ONE && isHit()) {
+            //This is a non-damaging move that targets the opponent and it hit
+            applyEffect(opponent);
+            applyHeal(user);
+        } else if (HEAL >= MIN_HEAL){
+            //This is a healing attack with no other effects
+            applyHeal(user);
+        } else {
+            //This attack does nothing
+            System.out.println("But nothing happened!");
+            return false;
         }
+
+        return true;
     }
 
     /**
@@ -272,6 +348,12 @@ public class Attack {
      * @param opponent The Codeamon being attacked
      */
     private void applyDamage(Codeamon user, Codeamon opponent) {
+        //Check if the attack hit or missed, and display a message if it missed
+        if (!isHit()) {
+            System.out.println("The attack missed!");
+            return;
+        }
+
         boolean isCrit = isCritical();
         double crit;
         double damage;
@@ -297,7 +379,11 @@ public class Attack {
         //TODO: Weather and weather modifier
         damage *= crit * stab * effective;
 
+        //apply the damage
         opponent.damage((int) damage);
+
+        //apply healing for damaging moves
+        applyHeal(user);
     }
 
     /**
