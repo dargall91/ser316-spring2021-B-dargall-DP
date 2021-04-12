@@ -297,10 +297,6 @@ public class Attack {
         //TODO: Weather and weather modifier
         damage *= crit * stab * effective;
 
-        if (damage < ONE) {
-            damage = 1.0;
-        }
-
         opponent.damage((int) damage);
     }
 

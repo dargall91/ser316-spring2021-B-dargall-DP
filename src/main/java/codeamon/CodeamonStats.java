@@ -35,7 +35,7 @@ public abstract class CodeamonStats {
         defense = calculateStat(getBaseDefense(), level);
         speed = calculateStat(getBaseSpeed(), level);
 
-        resetStages();
+        resetStatStages();
     }
 
     /**
@@ -59,9 +59,12 @@ public abstract class CodeamonStats {
     /**
      * Heals the Codeamon by a specified amount.
      *
-     * @param heal The amount to heal
+     * @param heal The amount to heal. If the amount is less than 0, it will be set as 1
      */
     public void heal(int heal) {
+        if (heal < 1) {
+            heal = 1;
+        }
         currentHitPoints += heal;
 
         if (currentHitPoints > maxHitPoints) {
@@ -74,15 +77,19 @@ public abstract class CodeamonStats {
      */
     public void rest() {
         currentHitPoints = maxHitPoints;
-        resetStages();
+        resetStatStages();
     }
 
     /**
      * Damages the codeamon by the specified amount.
      *
-     * @param damage The amount of damage inflicted
+     * @param damage The amount of damage inflicted. If this value is less than 1, the damage dealt will be 1
      */
     public void damage(int damage) {
+        if (damage < 1) {
+            damage = 1;
+        }
+
         currentHitPoints -= damage;
 
         if (currentHitPoints < 0) {
@@ -107,9 +114,9 @@ public abstract class CodeamonStats {
      */
     public int getAttackCritical() {
         if (attackStage > 0) {
-            return attack;
+            return getAttack();
         } else {
-            return (int) (attack * getModifier(attackStage));
+            return attack;
         }
     }
 
@@ -198,14 +205,15 @@ public abstract class CodeamonStats {
     /**
      * Resets the stages of this Codeamon's stats
      */
-    public void resetStages() {
+    public void resetStatStages() {
         attackStage = 0;
         defenseStage = 0;
         speedStage = 0;
     }
 
     /**
-     * Applies stat stage changes to a Stat
+     * Applies stat stage changes to a Stat. A stat's stage cannot go higher than 6 or less than
+     * -6.
      *
      * @param stat The Stat to apply the changes to
      * @param stages The number of stages to be applied
@@ -215,21 +223,27 @@ public abstract class CodeamonStats {
             attackStage += stages;
             if (attackStage > MAX_STAGE) {
                 attackStage = MAX_STAGE;
-            } else if (attackStage < MIN_STAGE) {
+            }
+
+            if (attackStage < MIN_STAGE) {
                 attackStage = MIN_STAGE;
             }
         } else if (stat == Stat.Defense) {
             defenseStage += stages;
             if (defenseStage > MAX_STAGE) {
                 defenseStage = MAX_STAGE;
-            } else if (defenseStage < MIN_STAGE) {
+            }
+
+            if (defenseStage < MIN_STAGE) {
                 defenseStage = MIN_STAGE;
             }
-        } else if (stat == Stat.Speed) {
+        } else {
             speedStage += stages;
             if (speedStage > MAX_STAGE) {
                 speedStage = MAX_STAGE;
-            } else if (speedStage < MIN_STAGE) {
+            }
+
+            if (speedStage < MIN_STAGE) {
                 speedStage = MIN_STAGE;
             }
         }

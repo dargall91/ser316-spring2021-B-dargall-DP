@@ -104,6 +104,13 @@ public abstract class Codeamon {
     }
 
     /**
+     * This Codeamon resets all stat changes.
+     */
+    public void resetStatStages() {
+        stats.resetStatStages();
+    }
+
+    /**
      * Heals the Codeamon by a specified amount.
      *
      * @param heal The amount to heal
