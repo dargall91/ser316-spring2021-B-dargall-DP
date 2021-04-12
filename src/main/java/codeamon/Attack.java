@@ -277,10 +277,12 @@ public class Attack {
         double damage;
 
         if (isCrit) {
-            damage = ((((2.0 * user.getLevel() / 5.0) + 2.0) * POWER * user.getAttackCritical() / opponent.getDefenseCritical()) / 50) + 2.0;
+            damage = (((2.0 * user.getLevel() / 5.0 + 2.0) * POWER * user.getAttackCritical()
+                    / opponent.getDefenseCritical()) / 50.0) + 2.0;
             crit = 1.5;
         } else {
-            damage = ((((2.0 * user.getLevel() / 5.0) + 2.0) * POWER * user.getAttack() / opponent.getDefense()) / 50) + 2.0;
+            damage = (((2.0 * user.getLevel() / 5.0 + 2.0) * POWER * user.getAttack()
+                    / opponent.getDefense()) / 50.0) + 2.0;
             crit = 1.0;
         }
 
@@ -290,7 +292,7 @@ public class Attack {
             stab = 1.5;
         }
 
-        double effective = TypeEffectiveness.getEffectiveness(TYPE, opponent.getType());
+        double effective = TypeMatchups.getEffectiveness(TYPE, opponent.getType());
 
         //TODO: Weather and weather modifier
         damage *= crit * stab * effective;

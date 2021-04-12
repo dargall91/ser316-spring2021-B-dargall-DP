@@ -18,8 +18,8 @@ public enum Type {
     Bug,
     Rock,
     Ghost,
-    Dark,
     Dragon,
+    Dark,
     Steel,
     Fairy
 }
