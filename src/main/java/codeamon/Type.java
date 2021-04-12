@@ -1,7 +1,7 @@
 package codeamon;
 
 /**
- * Enumeration of the 18 possible Codeamon species and Attack types
+ * Enumeration of the 18 possible Codeamon species and Attack types.
  */
 public enum Type {
     Normal,
