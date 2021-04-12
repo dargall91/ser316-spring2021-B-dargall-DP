@@ -54,7 +54,7 @@ public class TypeMatchups {
     private static final List<Type> iceWeak = Arrays.asList(Type.Fire, Type.Water, Type.Ice,
                                     Type.Steel);
     private static final List<Type> fightingWeak = Arrays.asList(Type.Poison, Type.Flying,
-                                    Type.Psychic, Type.Bug, Type.Fairy);
+                                    Type.Psychic, Type.Bug, Type.Ghost, Type.Fairy);
     private static final List<Type> poisonWeak = Arrays.asList(Type.Poison, Type.Ground, Type.Rock,
                                     Type.Ghost, Type.Steel);
     private static final List<Type> groundWeak = Arrays.asList(Type.Grass, Type.Flying, Type.Bug);
@@ -194,10 +194,12 @@ public class TypeMatchups {
             }
         }
 
+        message(multiplier);
+
         return multiplier;
     }
 
-    private void message(double multiplier) {
+    private static void message(double multiplier) {
         if (multiplier == 2.0) {
             System.out.println("It's super effective!");
         } else if (multiplier == 0.5) {

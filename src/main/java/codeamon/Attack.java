@@ -289,13 +289,13 @@ public class Attack {
     public boolean applyAttack(Codeamon user, Codeamon opponent) {
         //If Attack deals damage
         if (POWER > ONE) {
-            applyDamage(user, opponent);
-
-            //apply stat changes for damaging moves
-            if (SELF) {
-                applyEffect(user);
-            } else {
-                applyEffect(opponent);
+            if (applyDamage(user, opponent)) {
+                //apply stat changes for damaging moves
+                if (SELF) {
+                    applyEffect(user);
+                } else {
+                    applyEffect(opponent);
+                }
             }
         } else if (SELF) { //Attack is non-damaging and targets self
             applyEffect(user);
@@ -346,12 +346,13 @@ public class Attack {
      *
      * @param user The attacker
      * @param opponent The Codeamon being attacked
+     * @return True if the attack hit, otherwise false
      */
-    private void applyDamage(Codeamon user, Codeamon opponent) {
+    private boolean applyDamage(Codeamon user, Codeamon opponent) {
         //Check if the attack hit or missed, and display a message if it missed
         if (!isHit()) {
             System.out.println("The attack missed!");
-            return;
+            return false;
         }
 
         boolean isCrit = isCritical();
@@ -379,11 +380,19 @@ public class Attack {
         //TODO: Weather and weather modifier
         damage *= crit * stab * effective;
 
-        //apply the damage
-        opponent.damage((int) damage);
+        //Check if the attack did positive damage (If * 0 type damage modifiers are implemented it
+        //would result in 0 damage being dealt here)
+        if (damage > 0) {
+            //apply the damage
+            opponent.damage((int) damage);
 
-        //apply healing for damaging moves
-        applyHeal(user);
+            //apply healing for damaging moves
+            applyHeal(user);
+
+            return true;
+        }
+
+        return false;
     }
 
     /**

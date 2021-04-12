@@ -249,4 +249,62 @@ public class AttackTests {
 
         assertEquals(user.getMaxHitPoints(), user.getCurrentHitPoints());
     }
+
+    //Best way to test methods with random numbers TBD. Maybe they can be fully covered through an
+    //actual battle test once battles are implemented
+    /**
+     * Test critical hits
+     *
+     * @throws Exception
+     */
+    /*@Test
+    public void TestCritical() throws Exception {
+        System.out.println("TestCritical");
+        Codeamon user = CodeamonFactory.getCodeamon(Type.Fire, 1);
+        Codeamon opponent1 = CodeamonFactory.getCodeamon(Type.Fire, 10);
+        Codeamon opponent2 = CodeamonFactory.getCodeamon(Type.Fire, 10);
+        Codeamon opponent3 = CodeamonFactory.getCodeamon(Type.Fire, 10);
+
+        Attack crit = new Attack.Builder("Test Attack", Type.Normal).power(50).critChance(100)
+                .build();
+        Attack notCrit = new Attack.Builder("Test Attack", Type.Normal).power(50).critChance(0)
+                .build();
+        Attack mightCrit = new Attack.Builder("Test Attack", Type.Normal).power(50).critChance(50)
+                .build();
+
+        crit.applyAttack(user, opponent1);
+        notCrit.applyAttack(user, opponent2);
+        //This one is really just here for code coverage
+        mightCrit.applyAttack(user, opponent3);
+
+        assertAll(() -> assertTrue(opponent1.getCurrentHitPoints()
+                        < opponent2.getCurrentHitPoints()),
+                () -> assertTrue(opponent3.getCurrentHitPoints() == opponent1.getCurrentHitPoints()
+                || opponent3.getCurrentHitPoints() == opponent2.getCurrentHitPoints()));
+    }*/
+
+    /**
+     * Test effect chance
+     *
+     * @throws Exception
+     */
+    /*@Test
+    public void TestEffectChance() throws Exception {
+        System.out.println("TestEffectChance");
+        Codeamon user = CodeamonFactory.getCodeamon(Type.Fire, 1);
+        Codeamon opponent1 = CodeamonFactory.getCodeamon(Type.Fire, 10);
+        Codeamon opponent2 = CodeamonFactory.getCodeamon(Type.Fire, 10);
+        Codeamon opponent3 = CodeamonFactory.getCodeamon(Type.Fire, 10);
+
+        Attack effect = new Attack.Builder("Test Attack", Type.Normal).statusEffect(100, Stat.Attack, 1, false)
+                .build();
+        Attack noEffect = new Attack.Builder("Test Attack", Type.Normal).power(50).build();
+        Attack mightEffect = new Attack.Builder("Test Attack", Type.Normal).power(50).critChance(50)
+                .build();
+
+        assertAll(() -> assertTrue(opponent1.getCurrentHitPoints()
+                        < opponent2.getCurrentHitPoints()),
+                () -> assertTrue(opponent3.getCurrentHitPoints() == opponent1.getCurrentHitPoints()
+                        || opponent3.getCurrentHitPoints() == opponent2.getCurrentHitPoints()));
+    }*/
 }

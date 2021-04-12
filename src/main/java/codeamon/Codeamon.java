@@ -56,7 +56,7 @@ public abstract class Codeamon {
      * @return The attack for a crit
      */
     public int getAttackCritical() {
-        return getAttackCritical();
+        return stats.getAttackCritical();
     }
 
     /**
@@ -66,7 +66,7 @@ public abstract class Codeamon {
      * @return The defense for a crit
      */
     public int getDefenseCritical() {
-        return getDefenseCritical();
+        return stats.getDefenseCritical();
     }
 
     /**
