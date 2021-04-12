@@ -3,68 +3,90 @@ package codeamon;
 /**
  * Data structure for a Codeamon's attack. It stores the attack's name, type, and base power.
  */
-public abstract class Attack {
+public class Attack {
     private final String NAME;
     private final Type TYPE;
     private final int POWER;
     private final int ACCURACY;
-    private final boolean HAS_EFFECT;
-    private final int EFFECT_CHANCE;
+    private final int CHANCE;
+    private final double HEAL;
+    private final Stat STAT;
+    private final int STAGES;
+    private final boolean SELF;
 
-    /**
-     * Constructor for an attack with no additional effects.
-     *
-     * @param name The name of the attack
-     * @param type The type of damage this attack inflicts
-     * @param accuracy The percent chance of this attack hitting it's target. If this value is less
-     *                than 1, it will be set to 1. If it is greater than 100, it will be set to 100
-     * @param power The strength of the attack
-     */
-    public Attack(String name, Type type, int accuracy, int power) {
-        NAME = name;
-        TYPE = type;
-        ACCURACY = accuracy;
-        POWER = power;
-        HAS_EFFECT = false;
-        EFFECT_CHANCE = 0;
+    public static class Builder {
+        private final String NAME;
+        private final Type TYPE;
+
+        //Default values
+        private int power = 0;
+        private int accuracy = 100;
+        private int chance = 0;
+        private double heal = 0.0;
+        private Stat stat = null;
+        private int stages = 0;
+        private boolean self = false;
+
+        /**
+         * Entry point for an ATtack Builder that sets the required fields, type and name
+         */
+        public Builder(String name, Type type) {
+            this.NAME = name;
+            this.TYPE = type;
+        }
+
+        public Builder power(int power) {
+            this.power = power;
+            return this;
+        }
+
+        public Builder accuracy(int accuracy) {
+            this.accuracy = accuracy;
+            return this;
+        }
+
+        public Builder chance(int chance) {
+            this.chance = chance;
+            return this;
+        }
+
+        public Builder heal(double heal) {
+            this.heal = heal;
+            return this;
+        }
+
+        public Builder stat(Stat stat) {
+            this.stat = stat;
+            return this;
+        }
+
+        public Builder stages(int stages) {
+            this.stages = stages;
+            return this;
+        }
+
+        public Builder self(boolean self) {
+            this.self = self;
+            return this;
+        }
+
+        public Attack build() {
+            return new Attack(this);
+        }
     }
 
-    /**
-     * Constructor for an attack with additional effects.
-     *
-     * @param name The name of the attack
-     * @param type The type of damage this attack inflicts
-     *             @param accuracy The percent chance of this attack hitting it's target. If this value is less
-     *      *                than 1, it will be set to 1. If it is greater than 100, it will be set to 100
-     * @param power The strength of the attack
-     * @param chance The percent chance of an additional effect occurring. If this value is less
-     *               than 1, it will be set to 1. If it is greater than 100, it will be set to 100
-     */
-    public Attack(String name, Type type, int accuracy, int power, int chance) {
-        NAME = name;
-        TYPE = type;
-        ACCURACY = accuracy;
-        POWER = power;
-        HAS_EFFECT = true;
-        EFFECT_CHANCE = chance;
+    private Attack(Builder builder) {
+        NAME = builder.NAME;
+        TYPE = builder.TYPE;
+        POWER = builder.power;
+        ACCURACY = builder.accuracy;
+        CHANCE = builder.chance;
+        HEAL = builder.heal;
+        STAT = builder.stat;
+        STAGES = builder.stages;
+        SELF = builder.self;
     }
 
-    /**
-     * Constructor for a non-damaging attack
-     *
-     * @param name The name of the attack
-     * @param type The type of the attack
-     * @param chance The percent chance of this attack hitting it's target. If this value is less
-     *              than 1, it will be set to 1. If it is greater than 100, it will be set to 100
-     */
-    public Attack(String name, Type type, int chance) {
-        NAME = name;
-        TYPE = type;
-        ACCURACY = 100;
-        POWER = 0;
-        HAS_EFFECT = true;
-        EFFECT_CHANCE = chance;
-    }
 
     /**
      * Gets the name of this attack.
@@ -99,5 +121,6 @@ public abstract class Attack {
      * @param user The Codeamon using the attack
      * @param opponent The Codeamon the user if battling
      */
-    public abstract void applyAttack(Codeamon user, Codeamon opponent);
+    public void applyAttack(Codeamon user, Codeamon opponent) {
+    }
 }
