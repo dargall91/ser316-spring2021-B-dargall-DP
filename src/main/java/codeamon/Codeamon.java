@@ -6,7 +6,7 @@ package codeamon;
  * and applying gained EXP.
  */
 public abstract class Codeamon {
-    private Stats stats;
+    private CodeamonStats stats;
     private int level;
     private String nickname;
 
@@ -16,7 +16,7 @@ public abstract class Codeamon {
      * @param stats The Stats for the Codeamon
      * @param level The Codeamon's level. If this value is less than 1, it will be set to 1
      */
-    public Codeamon(Stats stats, int level) {
+    public Codeamon(CodeamonStats stats, int level) {
         if (level < 1) {
             level = 1;
         }
@@ -37,6 +37,36 @@ public abstract class Codeamon {
         }
 
         return getSpeciesName();
+    }
+
+    /**
+     * Applies stat stage changes to a Stat
+     *
+     * @param stat The Stat to apply the changes to
+     * @param stages The number of stages to be applied
+     */
+    public void applyStatStageChange(Stat stat, int stages) {
+        stats.applyStatStageChange(stat, stages);
+    }
+
+    /**
+     * Gets the Attack stat to be used when landing a critical hit (crits ignore negative
+     * attack changes).
+     *
+     * @return The attack for a crit
+     */
+    public int getAttackCritical() {
+        return stats.getAttackCritical();
+    }
+
+    /**
+     * Gets the Defense stat to be used when receiving a critical hit (crits ignore positive
+     * defense changes).
+     *
+     * @return The defense for a crit
+     */
+    public int getDefenseCritical() {
+        return stats.getDefenseCritical();
     }
 
     /**
@@ -74,6 +104,13 @@ public abstract class Codeamon {
     }
 
     /**
+     * This Codeamon resets all stat changes.
+     */
+    public void resetStatStages() {
+        stats.resetStatStages();
+    }
+
+    /**
      * Heals the Codeamon by a specified amount.
      *
      * @param heal The amount to heal
@@ -85,9 +122,16 @@ public abstract class Codeamon {
     /**
      * Damages the codeamon by the specified amount.
      *
-     * @param damage The amount of damage inflicted
+     * @param damage The amount of damage inflicted. If this value is less than 1, the damage dealt
+     *               will be 1
      */
     public void damage(int damage) {
+        if (damage < 1) {
+            damage = 1;
+        }
+
+        System.out.println(getName() + " took " + damage + " damagae!");
+
         stats.damage(damage);
     }
 
