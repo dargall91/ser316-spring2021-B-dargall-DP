@@ -2,7 +2,7 @@ package codeamon;
 
 /**
  * An abstract data structure that represents a Codeamon. Has the methods necessary for getting a
- * Codeamon's stats,  * name, and level, inflicting damage, healing damage, getting its EXP yield,
+ * Codeamon's stats, name, and level, inflicting damage, healing damage, getting its EXP yield,
  * and applying gained EXP.
  */
 public abstract class Codeamon {
@@ -111,11 +111,16 @@ public abstract class Codeamon {
     }
 
     /**
-     * Heals the Codeamon by a specified amount.
+     * Heals the Codeamon by a specified amount. If the amount of healing is 0 or less, the
+     * Codeamon will be healed for 1 hit point.
      *
-     * @param heal The amount to heal
+     * @param heal The amount of Hit Points to heal
      */
     public void heal(int heal) {
+        if (heal < 1) {
+            heal = 1;
+        }
+
         stats.heal(heal);
     }
 
@@ -133,6 +138,10 @@ public abstract class Codeamon {
         System.out.println(getName() + " took " + damage + " damagae!");
 
         stats.damage(damage);
+
+        if (isFainted()) {
+            System.out.println(getName() + " fainted!");
+        }
     }
 
     /**
@@ -176,4 +185,16 @@ public abstract class Codeamon {
      * @return The type
      */
     public abstract Type getType();
+
+    /**
+     * Checks if this Codeamon has fainted or not. A Codeamon is considered to have fainted when
+     * it's Hit Points drop to 0.
+     *
+     * @return True if it has fainted, false if it has not
+     */
+    public boolean isFainted() {
+        return getCurrentHitPoints() == 0;
+    }
+
+    //TODO: Implement EXP
 }

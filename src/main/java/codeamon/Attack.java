@@ -14,6 +14,7 @@ import java.util.Random;
  * attack the targets the opponent must hit the opponent in order to apply any additional effects.
  */
 public class Attack {
+    //TODO: is it really necessary for these to be final? No setters implicitly makes them final
     private final String name;
     private final Type type;
     private final int power;
@@ -31,11 +32,12 @@ public class Attack {
     private static final int ONE_HUNDRED = 100;
 
     /**
-     * A Builder Factory Method for constructing an Attack. Allows full customization of the Attack
-     * by provide methods to set the power, accuracy, the chance of applying stat effects, and any
-     * self healing.
+     * A Builder Method for constructing an Attack. Allows full customization of the Attack by
+     * providing methods to set the power, accuracy, the chance of applying stat effects, and any
+     * self healing. At a minimum, an Attack must have a name and a Type. If no other attributes
+     * are set, this Attack will do nothing.
      */
-    public static class Builder {
+    public static class AttackBuilder {
         private final String name;
         private final Type type;
 
@@ -50,13 +52,13 @@ public class Attack {
         private boolean self = false;
 
         /**
-         * Entry point for an Attack Builder that sets the required attributes for an attack,
+         * Entry point for an AttackBuilder that sets the required attributes for an attack,
          * the name and type.
          *
          * @param name The name of the attack
          * @param type The type of the attack
          */
-        public Builder(String name, Type type) {
+        public AttackBuilder(String name, Type type) {
             this.name = name;
             this.type = type;
         }
@@ -66,9 +68,9 @@ public class Attack {
          *
          * @param power The power of the attack. If set to 0 or less, the attack will be flagged as
          *          a non-damaging move.
-         * @return The Attack Builder
+         * @return The AttackBuilder
          */
-        public Builder power(int power) {
+        public AttackBuilder power(int power) {
             this.power = power;
 
             return this;
@@ -79,9 +81,9 @@ public class Attack {
          *
          * @param critChance The percent chance for the attack to become a critical hit. If greater
          *                   than 100, it will be 100. If less than 1, it will be 0.
-         * @return The Attack Builder
+         * @return The AttackBuilder
          */
-        public Builder critChance(int critChance) {
+        public AttackBuilder critChance(int critChance) {
             if (critChance < ONE) {
                 this.critChance = 0;
             } else if (critChance > ONE_HUNDRED) {
@@ -98,9 +100,9 @@ public class Attack {
          *
          * @param accuracy The accuracy of the attack. If greater than 100, it will be 100. If less
          *                 than 1, it will be 1.
-         * @return The Attack Builder
+         * @return The AttackBuilder
          */
-        public Builder accuracy(int accuracy) {
+        public AttackBuilder accuracy(int accuracy) {
             if (accuracy < ONE) {
                 this.accuracy = ONE;
             } else if (accuracy > ONE_HUNDRED) {
@@ -124,9 +126,9 @@ public class Attack {
          *               value will be set to 6 or -6, respectively.
          * @param self Flag that determines if the stat changes are to applied to the user or to
          *             to it's opponent. Set to true to target the user
-         * @return The Attack Builder
+         * @return The AttackBuilder
          */
-        public Builder statusEffect(int effectChance, Stat stat, int stages, boolean self) {
+        public AttackBuilder statusEffect(int effectChance, Stat stat, int stages, boolean self) {
             if (effectChance < ONE) {
                 this.effectChance = ONE;
             } else if (effectChance > ONE_HUNDRED) {
@@ -155,9 +157,9 @@ public class Attack {
          *
          * @param heal The percentage of the user's Hit Point maximum that will be healed after
          *             using this attack. If less than 1, this will be set to 1
-         * @return The Attack Builder
+         * @return The AttackBuilder
          */
-        public Builder heal(int heal) {
+        public AttackBuilder heal(int heal) {
             if (heal < ONE) {
                 this.heal = ONE / 100.0;
             } else if (heal > ONE_HUNDRED) {
@@ -170,7 +172,7 @@ public class Attack {
         }
 
         /**
-         * Gets the Attack build by this Builder.
+         * Gets the Attack built by the AttackBuilder.
          *
          * @return The Attack
          */
@@ -179,7 +181,7 @@ public class Attack {
         }
     }
 
-    private Attack(Builder builder) {
+    private Attack(AttackBuilder builder) {
         name = builder.name;
         type = builder.type;
         power = builder.power;
@@ -375,7 +377,7 @@ public class Attack {
             stab = 1.5;
         }
 
-        double effective = TypeMatchups.getEffectiveness(type, opponent.getType());
+        double effective = TypeMatchup.getEffectiveness(type, opponent.getType());
 
         //TODO: Weather and weather modifier
         damage *= crit * stab * effective;

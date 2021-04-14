@@ -7,7 +7,7 @@ import java.util.List;
  * TypeEffectiveness is a class that knows which types are super effective and not very effective
  * against all the other types.
  */
-public class TypeMatchups {
+public class TypeMatchup {
     /**
      * TODO: For now, type matchups that deal no damage are treated as not very effective. If there
      * is time to implement an "AI" that can determine effectiveness before selecting a move,
