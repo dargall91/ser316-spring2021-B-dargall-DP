@@ -1,11 +1,14 @@
 import codeamon.Type;
-import codeamon.TypeMatchups;
+import codeamon.TypeMatchup;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Unit Tests for TypeMatchup
+ */
 public class TypeMatchupTests {
     @AfterEach
     public void afterEach() throws Exception {
@@ -24,24 +27,24 @@ public class TypeMatchupTests {
 
         double target = 1.0;
         
-        double normal = TypeMatchups.getEffectiveness(Type.Normal, Type.Normal);
-        double fire = TypeMatchups.getEffectiveness(Type.Fire, Type.Normal);
-        double water = TypeMatchups.getEffectiveness(Type.Water, Type.Normal);
-        double grass = TypeMatchups.getEffectiveness(Type.Grass, Type.Normal);
-        double electric = TypeMatchups.getEffectiveness(Type.Electric, Type.Normal);
-        double ice = TypeMatchups.getEffectiveness(Type.Ice, Type.Normal);
-        double fighting = TypeMatchups.getEffectiveness(Type.Fighting, Type.Fighting);
-        double poison = TypeMatchups.getEffectiveness(Type.Poison, Type.Normal);
-        double ground = TypeMatchups.getEffectiveness(Type.Ground, Type.Normal);
-        double flying = TypeMatchups.getEffectiveness(Type.Flying, Type.Normal);
-        double psychic = TypeMatchups.getEffectiveness(Type.Psychic, Type.Normal);
-        double bug = TypeMatchups.getEffectiveness(Type.Bug, Type.Normal);
-        double rock = TypeMatchups.getEffectiveness(Type.Rock, Type.Normal);
-        double ghost = TypeMatchups.getEffectiveness(Type.Ghost, Type.Fighting);
-        double dragon = TypeMatchups.getEffectiveness(Type.Dragon, Type.Normal);
-        double dark = TypeMatchups.getEffectiveness(Type.Dark, Type.Normal);
-        double steel = TypeMatchups.getEffectiveness(Type.Steel, Type.Normal);
-        double fairy = TypeMatchups.getEffectiveness(Type.Fairy, Type.Normal);
+        double normal = TypeMatchup.getEffectiveness(Type.Normal, Type.Normal);
+        double fire = TypeMatchup.getEffectiveness(Type.Fire, Type.Normal);
+        double water = TypeMatchup.getEffectiveness(Type.Water, Type.Normal);
+        double grass = TypeMatchup.getEffectiveness(Type.Grass, Type.Normal);
+        double electric = TypeMatchup.getEffectiveness(Type.Electric, Type.Normal);
+        double ice = TypeMatchup.getEffectiveness(Type.Ice, Type.Normal);
+        double fighting = TypeMatchup.getEffectiveness(Type.Fighting, Type.Fighting);
+        double poison = TypeMatchup.getEffectiveness(Type.Poison, Type.Normal);
+        double ground = TypeMatchup.getEffectiveness(Type.Ground, Type.Normal);
+        double flying = TypeMatchup.getEffectiveness(Type.Flying, Type.Normal);
+        double psychic = TypeMatchup.getEffectiveness(Type.Psychic, Type.Normal);
+        double bug = TypeMatchup.getEffectiveness(Type.Bug, Type.Normal);
+        double rock = TypeMatchup.getEffectiveness(Type.Rock, Type.Normal);
+        double ghost = TypeMatchup.getEffectiveness(Type.Ghost, Type.Fighting);
+        double dragon = TypeMatchup.getEffectiveness(Type.Dragon, Type.Normal);
+        double dark = TypeMatchup.getEffectiveness(Type.Dark, Type.Normal);
+        double steel = TypeMatchup.getEffectiveness(Type.Steel, Type.Normal);
+        double fairy = TypeMatchup.getEffectiveness(Type.Fairy, Type.Normal);
 
         assertAll(() -> assertEquals(target, normal), () ->assertEquals(target, fire),
                 () -> assertEquals(target, water), () ->assertEquals(target, grass),
@@ -67,23 +70,23 @@ public class TypeMatchupTests {
 
         double target = 2.0;
 
-        double fire = TypeMatchups.getEffectiveness(Type.Fire, Type.Grass);
-        double water = TypeMatchups.getEffectiveness(Type.Water, Type.Fire);
-        double grass = TypeMatchups.getEffectiveness(Type.Grass, Type.Water);
-        double electric = TypeMatchups.getEffectiveness(Type.Electric, Type.Water);
-        double ice = TypeMatchups.getEffectiveness(Type.Ice, Type.Grass);
-        double fighting = TypeMatchups.getEffectiveness(Type.Fighting, Type.Normal);
-        double poison = TypeMatchups.getEffectiveness(Type.Poison, Type.Grass);
-        double ground = TypeMatchups.getEffectiveness(Type.Ground, Type.Fire);
-        double flying = TypeMatchups.getEffectiveness(Type.Flying, Type.Grass);
-        double psychic = TypeMatchups.getEffectiveness(Type.Psychic, Type.Poison);
-        double bug = TypeMatchups.getEffectiveness(Type.Bug, Type.Dark);
-        double rock = TypeMatchups.getEffectiveness(Type.Rock, Type.Ice);
-        double ghost = TypeMatchups.getEffectiveness(Type.Ghost, Type.Ghost);
-        double dragon = TypeMatchups.getEffectiveness(Type.Dragon, Type.Dragon);
-        double dark = TypeMatchups.getEffectiveness(Type.Dark, Type.Psychic);
-        double steel = TypeMatchups.getEffectiveness(Type.Steel, Type.Fairy);
-        double fairy = TypeMatchups.getEffectiveness(Type.Fairy, Type.Dragon);
+        double fire = TypeMatchup.getEffectiveness(Type.Fire, Type.Grass);
+        double water = TypeMatchup.getEffectiveness(Type.Water, Type.Fire);
+        double grass = TypeMatchup.getEffectiveness(Type.Grass, Type.Water);
+        double electric = TypeMatchup.getEffectiveness(Type.Electric, Type.Water);
+        double ice = TypeMatchup.getEffectiveness(Type.Ice, Type.Grass);
+        double fighting = TypeMatchup.getEffectiveness(Type.Fighting, Type.Normal);
+        double poison = TypeMatchup.getEffectiveness(Type.Poison, Type.Grass);
+        double ground = TypeMatchup.getEffectiveness(Type.Ground, Type.Fire);
+        double flying = TypeMatchup.getEffectiveness(Type.Flying, Type.Grass);
+        double psychic = TypeMatchup.getEffectiveness(Type.Psychic, Type.Poison);
+        double bug = TypeMatchup.getEffectiveness(Type.Bug, Type.Dark);
+        double rock = TypeMatchup.getEffectiveness(Type.Rock, Type.Ice);
+        double ghost = TypeMatchup.getEffectiveness(Type.Ghost, Type.Ghost);
+        double dragon = TypeMatchup.getEffectiveness(Type.Dragon, Type.Dragon);
+        double dark = TypeMatchup.getEffectiveness(Type.Dark, Type.Psychic);
+        double steel = TypeMatchup.getEffectiveness(Type.Steel, Type.Fairy);
+        double fairy = TypeMatchup.getEffectiveness(Type.Fairy, Type.Dragon);
 
         assertAll(() ->assertEquals(target, fire), () -> assertEquals(target, water),
                 () ->assertEquals(target, grass),   () -> assertEquals(target, electric),
@@ -109,24 +112,24 @@ public class TypeMatchupTests {
 
         double target = 0.5;
 
-        double normal = TypeMatchups.getEffectiveness(Type.Normal, Type.Steel);
-        double fire = TypeMatchups.getEffectiveness(Type.Fire, Type.Water);
-        double water = TypeMatchups.getEffectiveness(Type.Water, Type.Grass);
-        double grass = TypeMatchups.getEffectiveness(Type.Grass, Type.Fire);
-        double electric = TypeMatchups.getEffectiveness(Type.Electric, Type.Grass);
-        double ice = TypeMatchups.getEffectiveness(Type.Ice, Type.Fire);
-        double fighting = TypeMatchups.getEffectiveness(Type.Fighting, Type.Flying);
-        double poison = TypeMatchups.getEffectiveness(Type.Poison, Type.Poison);
-        double ground = TypeMatchups.getEffectiveness(Type.Ground, Type.Grass);
-        double flying = TypeMatchups.getEffectiveness(Type.Flying, Type.Rock);
-        double psychic = TypeMatchups.getEffectiveness(Type.Psychic, Type.Psychic);
-        double bug = TypeMatchups.getEffectiveness(Type.Bug, Type.Fire);
-        double rock = TypeMatchups.getEffectiveness(Type.Rock, Type.Fighting);
-        double ghost = TypeMatchups.getEffectiveness(Type.Ghost, Type.Dark);
-        double dragon = TypeMatchups.getEffectiveness(Type.Dragon, Type.Steel);
-        double dark = TypeMatchups.getEffectiveness(Type.Dark, Type.Dark);
-        double steel = TypeMatchups.getEffectiveness(Type.Steel, Type.Fire);
-        double fairy = TypeMatchups.getEffectiveness(Type.Fairy, Type.Steel);
+        double normal = TypeMatchup.getEffectiveness(Type.Normal, Type.Steel);
+        double fire = TypeMatchup.getEffectiveness(Type.Fire, Type.Water);
+        double water = TypeMatchup.getEffectiveness(Type.Water, Type.Grass);
+        double grass = TypeMatchup.getEffectiveness(Type.Grass, Type.Fire);
+        double electric = TypeMatchup.getEffectiveness(Type.Electric, Type.Grass);
+        double ice = TypeMatchup.getEffectiveness(Type.Ice, Type.Fire);
+        double fighting = TypeMatchup.getEffectiveness(Type.Fighting, Type.Flying);
+        double poison = TypeMatchup.getEffectiveness(Type.Poison, Type.Poison);
+        double ground = TypeMatchup.getEffectiveness(Type.Ground, Type.Grass);
+        double flying = TypeMatchup.getEffectiveness(Type.Flying, Type.Rock);
+        double psychic = TypeMatchup.getEffectiveness(Type.Psychic, Type.Psychic);
+        double bug = TypeMatchup.getEffectiveness(Type.Bug, Type.Fire);
+        double rock = TypeMatchup.getEffectiveness(Type.Rock, Type.Fighting);
+        double ghost = TypeMatchup.getEffectiveness(Type.Ghost, Type.Dark);
+        double dragon = TypeMatchup.getEffectiveness(Type.Dragon, Type.Steel);
+        double dark = TypeMatchup.getEffectiveness(Type.Dark, Type.Dark);
+        double steel = TypeMatchup.getEffectiveness(Type.Steel, Type.Fire);
+        double fairy = TypeMatchup.getEffectiveness(Type.Fairy, Type.Steel);
 
         assertAll(() -> assertEquals(target, normal), () ->assertEquals(target, fire),
                 () -> assertEquals(target, water), () ->assertEquals(target, grass),

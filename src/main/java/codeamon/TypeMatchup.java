@@ -1,6 +1,5 @@
 package codeamon;
 
-import java.util.List;
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,7 +7,7 @@ import java.util.List;
  * TypeEffectiveness is a class that knows which types are super effective and not very effective
  * against all the other types.
  */
-public class TypeMatchups {
+public class TypeMatchup {
     /**
      * TODO: For now, type matchups that deal no damage are treated as not very effective. If there
      * is time to implement an "AI" that can determine effectiveness before selecting a move,
@@ -78,10 +77,10 @@ public class TypeMatchups {
      * Checks the attacking move's type against the target's Codeamon's type returns an appropriate
      * damage multiplier based on the effectiveness.
      *
-     * @param user     The attack type
+     * @param user The attack type
      * @param opponent The target's type
      * @return 2.0 if the attack is super-effective, 0.5 if the attack is not very effective,
-     * or 1.0 otherwise
+     *         or 1.0 otherwise
      */
     public static double getEffectiveness(Type user, Type opponent) {
         double multiplier = 1.0;

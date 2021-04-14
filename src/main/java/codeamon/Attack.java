@@ -14,30 +14,32 @@ import java.util.Random;
  * attack the targets the opponent must hit the opponent in order to apply any additional effects.
  */
 public class Attack {
-    private final String NAME;
-    private final Type TYPE;
-    private final int POWER;
-    private final int ACCURACY;
-    private final int CRIT_CHANCE;
-    private final int EFFECT_CHANCE;
-    private final double HEAL;
-    private final Stat STAT;
-    private final int STAGES;
-    private final boolean SELF;
+    //TODO: is it really necessary for these to be final? No setters implicitly makes them final
+    private final String name;
+    private final Type type;
+    private final int power;
+    private final int accuracy;
+    private final int critChance;
+    private final int effectChance;
+    private final double heal;
+    private final Stat stat;
+    private final int stages;
+    private final boolean self;
     private static final int ONE = 1;
-    private static final double MIN_HEAL = 0.01;
+    private static final double MIN_heal = 0.01;
     private static final int MAX_STAGE = 6;
     private static final int MIN_STAGE = -6;
     private static final int ONE_HUNDRED = 100;
 
     /**
-     * A Builder Factory Method for constructing an Attack. Allows full customization of the Attack
-     * by provide methods to set the power, accuracy, the chance of applying stat effects, and any
-     * self healing.
+     * A Builder Method for constructing an Attack. Allows full customization of the Attack by
+     * providing methods to set the power, accuracy, the chance of applying stat effects, and any
+     * self healing. At a minimum, an Attack must have a name and a Type. If no other attributes
+     * are set, this Attack will do nothing.
      */
-    public static class Builder {
-        private final String NAME;
-        private final Type TYPE;
+    public static class AttackBuilder {
+        private final String name;
+        private final Type type;
 
         //Default values
         private int power = 0;
@@ -50,15 +52,15 @@ public class Attack {
         private boolean self = false;
 
         /**
-         * Entry point for an Attack Builder that sets the required attributes for an attack,
+         * Entry point for an AttackBuilder that sets the required attributes for an attack,
          * the name and type.
          *
          * @param name The name of the attack
          * @param type The type of the attack
          */
-        public Builder(String name, Type type) {
-            this.NAME = name;
-            this.TYPE = type;
+        public AttackBuilder(String name, Type type) {
+            this.name = name;
+            this.type = type;
         }
 
         /**
@@ -66,9 +68,9 @@ public class Attack {
          *
          * @param power The power of the attack. If set to 0 or less, the attack will be flagged as
          *          a non-damaging move.
-         * @return The Attack Builder
+         * @return The AttackBuilder
          */
-        public Builder power(int power) {
+        public AttackBuilder power(int power) {
             this.power = power;
 
             return this;
@@ -79,9 +81,9 @@ public class Attack {
          *
          * @param critChance The percent chance for the attack to become a critical hit. If greater
          *                   than 100, it will be 100. If less than 1, it will be 0.
-         * @return The Attack Builder
+         * @return The AttackBuilder
          */
-        public Builder critChance(int critChance) {
+        public AttackBuilder critChance(int critChance) {
             if (critChance < ONE) {
                 this.critChance = 0;
             } else if (critChance > ONE_HUNDRED) {
@@ -98,9 +100,9 @@ public class Attack {
          *
          * @param accuracy The accuracy of the attack. If greater than 100, it will be 100. If less
          *                 than 1, it will be 1.
-         * @return The Attack Builder
+         * @return The AttackBuilder
          */
-        public Builder accuracy(int accuracy) {
+        public AttackBuilder accuracy(int accuracy) {
             if (accuracy < ONE) {
                 this.accuracy = ONE;
             } else if (accuracy > ONE_HUNDRED) {
@@ -124,9 +126,9 @@ public class Attack {
          *               value will be set to 6 or -6, respectively.
          * @param self Flag that determines if the stat changes are to applied to the user or to
          *             to it's opponent. Set to true to target the user
-         * @return The Attack Builder
+         * @return The AttackBuilder
          */
-        public Builder statusEffect(int effectChance, Stat stat, int stages, boolean self) {
+        public AttackBuilder statusEffect(int effectChance, Stat stat, int stages, boolean self) {
             if (effectChance < ONE) {
                 this.effectChance = ONE;
             } else if (effectChance > ONE_HUNDRED) {
@@ -155,9 +157,9 @@ public class Attack {
          *
          * @param heal The percentage of the user's Hit Point maximum that will be healed after
          *             using this attack. If less than 1, this will be set to 1
-         * @return The Attack Builder
+         * @return The AttackBuilder
          */
-        public Builder heal(int heal) {
+        public AttackBuilder heal(int heal) {
             if (heal < ONE) {
                 this.heal = ONE / 100.0;
             } else if (heal > ONE_HUNDRED) {
@@ -170,7 +172,7 @@ public class Attack {
         }
 
         /**
-         * Gets the Attack build by this Builder
+         * Gets the Attack built by the AttackBuilder.
          *
          * @return The Attack
          */
@@ -179,17 +181,17 @@ public class Attack {
         }
     }
 
-    private Attack(Builder builder) {
-        NAME = builder.NAME;
-        TYPE = builder.TYPE;
-        POWER = builder.power;
-        CRIT_CHANCE = builder.critChance;
-        ACCURACY = builder.accuracy;
-        EFFECT_CHANCE = builder.effectChance;
-        HEAL = builder.heal;
-        STAT = builder.stat;
-        STAGES = builder.stages;
-        SELF = builder.self;
+    private Attack(AttackBuilder builder) {
+        name = builder.name;
+        type = builder.type;
+        power = builder.power;
+        critChance = builder.critChance;
+        accuracy = builder.accuracy;
+        effectChance = builder.effectChance;
+        heal = builder.heal;
+        stat = builder.stat;
+        stages = builder.stages;
+        self = builder.self;
     }
 
     /**
@@ -198,7 +200,7 @@ public class Attack {
      * @return The name
      */
     public String getName() {
-        return NAME;
+        return name;
     }
 
     /**
@@ -207,7 +209,7 @@ public class Attack {
      * @return The type
      */
     public Type getType() {
-        return TYPE;
+        return type;
     }
 
     /**
@@ -216,11 +218,11 @@ public class Attack {
      * @return The power
      */
     public int getPower() {
-        return POWER;
+        return power;
     }
 
     public int getCritChance() {
-        return CRIT_CHANCE;
+        return critChance;
     }
 
     /**
@@ -229,7 +231,7 @@ public class Attack {
      * @return The percent chance of this attack hitting the target
      */
     public int getAccuracy() {
-        return ACCURACY;
+        return accuracy;
     }
 
     /**
@@ -238,7 +240,7 @@ public class Attack {
      * @return The percent chance of applying an additional effect
      */
     public int getEffectChance() {
-        return EFFECT_CHANCE;
+        return effectChance;
     }
 
     /**
@@ -247,7 +249,7 @@ public class Attack {
      * @return The percentage of hit points healed with this attack
      */
     public int getHeal() {
-        return (int) (HEAL * ONE_HUNDRED);
+        return (int) (heal * ONE_HUNDRED);
     }
 
     /**
@@ -256,17 +258,17 @@ public class Attack {
      * @return The buffed or debuffed Stat, or null if this attack does not affect stats
      */
     public Stat getStat() {
-        return STAT;
+        return stat;
     }
 
     /**
      * Gets the number of stat stage changes to be applied to the buffed or debuffed stat.
      *
      * @return The amount of stat stage changes to be applied by this attack, ranging from -6 to 6
-     * inclusively.
+     *         inclusively.
      */
     public int getStages() {
-        return STAGES;
+        return stages;
     }
 
     /**
@@ -275,7 +277,7 @@ public class Attack {
      * @return True if the stat changes are applied to the user, false if not
      */
     public boolean getSelf() {
-        return SELF;
+        return self;
     }
 
     /**
@@ -288,23 +290,23 @@ public class Attack {
      */
     public boolean applyAttack(Codeamon user, Codeamon opponent) {
         //If Attack deals damage
-        if (POWER > ONE) {
+        if (power > ONE) {
             if (applyDamage(user, opponent)) {
                 //apply stat changes for damaging moves
-                if (SELF) {
+                if (self) {
                     applyEffect(user);
                 } else {
                     applyEffect(opponent);
                 }
             }
-        } else if (SELF) { //Attack is non-damaging and targets self
+        } else if (self) { //Attack is non-damaging and targets self
             applyEffect(user);
             applyHeal(user);
-        } else if (EFFECT_CHANCE >= ONE && isHit()) {
+        } else if (effectChance >= ONE && isHit()) {
             //This is a non-damaging move that targets the opponent and it hit
             applyEffect(opponent);
             applyHeal(user);
-        } else if (HEAL >= MIN_HEAL){
+        } else if (heal >= MIN_heal) {
             //This is a healing attack with no other effects
             applyHeal(user);
         } else {
@@ -327,7 +329,7 @@ public class Attack {
             return;
         }
 
-        target.applyStatStageChange(STAT, STAGES);
+        target.applyStatStageChange(stat, stages);
     }
 
     /**
@@ -336,8 +338,8 @@ public class Attack {
      * @param user The user of the attack
      */
     private void applyHeal(Codeamon user) {
-        if (HEAL >= MIN_HEAL) {
-            user.heal((int) (user.getMaxHitPoints() * HEAL));
+        if (heal >= MIN_heal) {
+            user.heal((int) (user.getMaxHitPoints() * heal));
         }
     }
 
@@ -360,22 +362,22 @@ public class Attack {
         double damage;
 
         if (isCrit) {
-            damage = (((2.0 * user.getLevel() / 5.0 + 2.0) * POWER * user.getAttackCritical()
+            damage = (((2.0 * user.getLevel() / 5.0 + 2.0) * power * user.getAttackCritical()
                     / opponent.getDefenseCritical()) / 50.0) + 2.0;
             crit = 1.5;
         } else {
-            damage = (((2.0 * user.getLevel() / 5.0 + 2.0) * POWER * user.getAttack()
+            damage = (((2.0 * user.getLevel() / 5.0 + 2.0) * power * user.getAttack()
                     / opponent.getDefense()) / 50.0) + 2.0;
             crit = 1.0;
         }
 
         double stab = 1.0;
 
-        if (user.getType() == TYPE) {
+        if (user.getType() == type) {
             stab = 1.5;
         }
 
-        double effective = TypeMatchups.getEffectiveness(TYPE, opponent.getType());
+        double effective = TypeMatchup.getEffectiveness(type, opponent.getType());
 
         //TODO: Weather and weather modifier
         damage *= crit * stab * effective;
@@ -402,14 +404,14 @@ public class Attack {
      */
     private boolean isHit() {
         //Attacks with 100% accuracy always hit
-        if (ACCURACY == ONE_HUNDRED) {
+        if (accuracy == ONE_HUNDRED) {
             return true;
         }
 
         //Get random number from 0-99, add one, then if it is <= Accuracy, the effect triggers
         Random random = new Random();
 
-        return (random.nextInt(ONE_HUNDRED) + 1 <= ACCURACY);
+        return (random.nextInt(ONE_HUNDRED) + 1 <= accuracy);
     }
 
     /**
@@ -419,16 +421,16 @@ public class Attack {
      */
     private boolean effectTriggered() {
         //An attack with a 100% effect chance always triggers and one with a 0% chance always fails
-        if (EFFECT_CHANCE == ONE_HUNDRED) {
+        if (effectChance == ONE_HUNDRED) {
             return true;
-        } else if (EFFECT_CHANCE < ONE) {
+        } else if (effectChance < ONE) {
             return false;
         }
 
         //Get random number from 0-99, add one, then if it is <= Effect Chance, the effect triggers
         Random random = new Random();
 
-        return (random.nextInt(ONE_HUNDRED) + 1 <= EFFECT_CHANCE);
+        return (random.nextInt(ONE_HUNDRED) + 1 <= effectChance);
     }
 
     /**
@@ -438,15 +440,15 @@ public class Attack {
      */
     private boolean isCritical() {
         //An attack with a 100% crit chance always crits and one with a 0% chance never does
-        if (CRIT_CHANCE == ONE_HUNDRED) {
+        if (critChance == ONE_HUNDRED) {
             return true;
-        } else if (CRIT_CHANCE < ONE) {
+        } else if (critChance < ONE) {
             return false;
         }
 
         //Get random number from 0-99, add one, then if it is <= Crit Chance, it crits
         Random random = new Random();
 
-        return (random.nextInt(ONE_HUNDRED) + 1 <= CRIT_CHANCE);
+        return (random.nextInt(ONE_HUNDRED) + 1 <= critChance);
     }
 }

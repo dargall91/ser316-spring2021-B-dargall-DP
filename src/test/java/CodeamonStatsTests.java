@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Unit Tests for CodeamonStats
+ */
 public class CodeamonStatsTests {
     @AfterEach
     public void afterEach() throws Exception {

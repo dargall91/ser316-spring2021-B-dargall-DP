@@ -57,14 +57,16 @@ public abstract class CodeamonStats {
     }
 
     /**
-     * Heals the Codeamon by a specified amount.
+     * Heals the Codeamon by a specified amount. If the amount of healing is 0 or less, the
+     * Codeamon will be healed for 1 hit point.
      *
-     * @param heal The amount to heal. If the amount is less than 0, it will be set as 1
+     * @param heal The amount of Hit Points to heal
      */
     public void heal(int heal) {
         if (heal < 1) {
             heal = 1;
         }
+
         currentHitPoints += heal;
 
         if (currentHitPoints > maxHitPoints) {
@@ -204,7 +206,7 @@ public abstract class CodeamonStats {
     public abstract int getBaseSpeed();
 
     /**
-     * Resets the stages of this Codeamon's stats
+     * Resets the stages of this Codeamon's stats.
      */
     public void resetStatStages() {
         attackStage = 0;

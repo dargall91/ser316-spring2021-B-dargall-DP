@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit Tests for Codeamon
+ */
 public class CodeamonTests {
     @AfterEach
     public void afterEach() throws Exception {
@@ -71,4 +74,9 @@ public class CodeamonTests {
 
         assertEquals(nickname, mon.getName());
     }
+
+    //TODO: test isFainted() method
+    //TODO: heal updated to prevent 0 or negative healing
+    //TODO: Most tests for CodeamonStats could really just be run through here since they have the
+    //many same method names and this will result in better code coverage without additional tests
 }
