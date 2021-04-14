@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class Trainer {
     private String name;
-    private int money;
+    private int codeaDollars;
     private ArrayList<Codeamon> party;
     private static final int MAX_PARTY = 6;
 
@@ -26,7 +26,7 @@ public class Trainer {
         private ArrayList<Codeamon> party;
 
         //Default values
-        private int money = 3000;
+        private int codeaDollars = 3000;
 
         /**
          * Entry point for a TrainerBuilder that sets the Trainer's name.
@@ -45,7 +45,7 @@ public class Trainer {
          * @param codeamon The Codeamon to add to the party
          * @return The TrainerBuilder
          */
-        public TrainerBuilder addCodeamon(Codeamon codeamon) {
+        public TrainerBuilder codeamon(Codeamon codeamon) {
             if (codeamon == null) {
                 System.out.println("Cannot add a null Codeamon to a Trainer's party.");
                 return this;
@@ -61,11 +61,11 @@ public class Trainer {
         /**
          * Sets the Trainer's starting amount of ¢ (CodeaDollars).
          *
-         * @param money The starting amount of ¢ (CodeaDollars).
+         * @param codeaDollars The starting amount of ¢ (CodeaDollars).
          * @return The TrainerBuilder
          */
-        public TrainerBuilder money(int money) {
-            this.money = money;
+        public TrainerBuilder codeaDollars(int codeaDollars) {
+            this.codeaDollars = codeaDollars;
             return this;
         }
 
@@ -82,7 +82,7 @@ public class Trainer {
     private Trainer(TrainerBuilder builder) {
         name = builder.name;
         party = builder.party;
-        money = builder.money;
+        codeaDollars = builder.codeaDollars;
     }
 
     /**
@@ -95,13 +95,22 @@ public class Trainer {
     }
 
     /**
+     * Gets the amount of CodeaDollars this trainer has.
+     *
+     * @return The amount of CodeaDollars
+     */
+    public int getCodeaDollars() {
+        return codeaDollars;
+    }
+
+    /**
      * Gets the amount of money this trainer has as a String with the CodeaDollar symbol appended
      * to the front.
      *
      * @return The amount of CodeaDollars
      */
-    public String getMoneyString() {
-        return "¢" + money;
+    public String getCodeaDollarsAsString() {
+        return "¢" + codeaDollars;
     }
 
     /**
@@ -111,16 +120,15 @@ public class Trainer {
      *               is positive, it will be added to the total. If this is negative, the it will
      *               be subtracted from the total. If the amount to subtract is greater than the
      *               total money this trainer has, it will not be subtracted.
-     * @return True if the amount was successfully added or subtracted from the Trainer's total.
-     *         False if it was not.
+     * @return False if the Trainer doesn't have enough money to be subctracted, otherwise true
      */
-    public boolean adjustMoney(int amount) {
-        if (amount > money) {
+    public boolean adjustCodeaDollars(int amount) {
+        if (amount > codeaDollars) {
             System.out.println(getName() + " doesn't have ¢" + amount + " to spend!");
             return false;
         }
 
-        money += amount;
+        codeaDollars += amount;
 
         return true;
     }
@@ -157,9 +165,9 @@ public class Trainer {
      * @param winner The winning Trainer whom to payout
      */
     public void payout(Trainer winner) {
-        System.out.println(name + " paid " + money / 2 + " to " + winner.getName() + " !");
-        winner.adjustMoney(money / 2);
-        money /= 2;
+        System.out.println(name + " paid " + codeaDollars / 2 + " to " + winner.getName() + " !");
+        winner.adjustCodeaDollars(codeaDollars / 2);
+        codeaDollars /= 2;
     }
 
     /**
