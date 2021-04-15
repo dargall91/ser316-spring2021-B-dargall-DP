@@ -13,6 +13,7 @@ public class Trainer {
     private int codeaDollars;
     private ArrayList<Codeamon> party;
     private static final int MAX_PARTY = 6;
+
     //TODO: track wins/loses for tournament
 
     /**
@@ -198,5 +199,33 @@ public class Trainer {
         for (Codeamon i : party) {
             i.rest();
         }
+    }
+
+    /**
+     * Selects the next Codeamon this trainer will send into battle. A Trainer will always
+     * selected their lowest level Codeamon first.
+     *
+     * @return The selected Codeamon. If the trainer has no remaining Codeamon it will return null
+     */
+    public Codeamon getNextCodeamon() {
+        if (getRemainingPartySize() == 0) {
+            return null;
+        }
+
+        //If there is only Codeamon in the party, select it
+        if (party.size() == 1) {
+            return party.get(0);
+        }
+
+        //Selected lowest level Codeamon
+        Codeamon selected = party.get(0);
+
+        for (Codeamon c : party) {
+            if (!c.isFainted() && c.getLevel() < selected.getLevel()) {
+                selected = c;
+            }
+        }
+
+        return selected;
     }
 }

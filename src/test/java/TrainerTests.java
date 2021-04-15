@@ -282,5 +282,6 @@ public class TrainerTests {
         System.out.println("Party Size After: " + trainer.getPartySize());
     }
 
+    //TODO: test getNextCodeamon
 
 }

@@ -22,16 +22,15 @@ both the user and its opponent.
 ### State Pattern
 The State Pattern will be used in the Day and Night Cycle. It will be used to determine what events happen during each
 of these times. During the Day, battles can occur. A counter will be used to track the number of Wild Codeamon that have
-been battled. Once the counter reaches the target (5), it will switch to running Trainer Battles for the tournament
-instead. After each Trainer has completed their daytime event,  the state will switch to night. During the night,
-Trainer's Codeamon will simply rest, then the state will switch back to day.
+been battled. Once the counter reaches a specified target, it will switch to running Trainer Battles for the tournament
+instead. After each Trainer has completed their Daytime event, the state will switch to Night. During the Night,
+Trainer's Codeamon will simply rest and recover Hit Points, then the state will switch back to Day.
 
 ## Factory Method
 The Factory Method will also be used for the creation of a Codeamon. There are 18 different types of Codeamon, and there
 is one species of Codeamon of each type. All Codeamon of the same species have the same base stats. The Codeamon Factory
 will be used to determine the species to create based on a Type input, and then a Stats Factory will be used to get the
 base stats for a Codeamon of a specific type.
-
 
 ## Other Design Patterns
 While the above three design patterns will be the ones I focus on, if there is time I may use some others. One idea for

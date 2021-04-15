@@ -157,7 +157,7 @@ public abstract class Codeamon {
     /**
      * Gets this Codeamon's attack stat.
      *
-     * @return The Hit Point maximum
+     * @return The Attack stat (after any modifiers)
      */
     public int getAttack() {
         return stats.getAttack();
@@ -166,10 +166,19 @@ public abstract class Codeamon {
     /**
      * Gets this Codeamon's defense stat.
      *
-     * @return The Hit Point maximum
+     * @return The Defense stat (after any modifiers)
      */
     public int getDefense() {
         return stats.getDefense();
+    }
+
+    /**
+     * Gets this Codeamon's speed stat.
+     *
+     * @return The Speed Stat (after any modifiers)
+     */
+    public int getSpeed() {
+        return stats.getSpeed();
     }
 
     /**
