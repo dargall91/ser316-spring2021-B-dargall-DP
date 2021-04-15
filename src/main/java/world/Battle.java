@@ -19,9 +19,13 @@ public class Battle {
      *
      * @param trainer The Codeamon Trainer
      * @param wildCodeamon The Wild Codeamon
+     * @return True if the Trainer won the battle, otherwise false
      */
-    public static void battle(Trainer trainer, Codeamon wildCodeamon) {
+    public static boolean battle(Trainer trainer, Codeamon wildCodeamon) {
         Codeamon trainerCodeamon = trainer.getNextCodeamon();
+
+        System.out.println("A wild " + wildCodeamon.getName() + " appeared!");
+        System.out.println(trainer.getName() + " sent out " + trainerCodeamon.getName() + " !");
 
         while (trainer.getRemainingPartySize() > 0 && !wildCodeamon.isFainted()) {
             if (trainerCodeamon.getSpeed() > wildCodeamon.getSpeed()) {
@@ -41,7 +45,29 @@ public class Battle {
                     fight(wildCodeamon, trainerCodeamon);
                 }
             }
+
+            //if trainer's Codeamon faints and they have more Codeamon, bring in the next one
+            if (trainerCodeamon.isFainted() && trainer.getRemainingPartySize() > 0) {
+                trainerCodeamon = trainer.getNextCodeamon();
+                System.out.println(trainer.getName() + " sent out " + trainerCodeamon.getName() + " !");
+            }
         }
+        //TODO: implement EXP
+        if (trainer.getRemainingPartySize() > 0) {
+            if (trainer.getPartySize() < 6) {
+                System.out.println("The Wild " + wildCodeamon.getName() + " joined "
+                        + trainer.getName() + "'s party!");
+                trainer.addCodeamon(wildCodeamon);
+            }
+
+            return true;
+        }
+
+        System.out.println(trainer.getName() + " is out of usable Codeamon!");
+        System.out.println(trainer.getName() + " fled from the Wild " + wildCodeamon.getName()
+                + "!");
+
+        return false;
     }
 
     /**
@@ -56,6 +82,12 @@ public class Battle {
     public static Trainer battle(Trainer trainerOne, Trainer trainerTwo) {
         Codeamon tOneMon = trainerOne.getNextCodeamon();
         Codeamon tTwoMon = trainerTwo.getNextCodeamon();
+
+        System.out.println("The Battle Between " + trainerOne.getName() + " and "
+                + trainerTwo.getName() + " is now underway!");
+
+        System.out.println(trainerOne.getName() + " sent out " + tOneMon.getName() + " !");
+        System.out.println(trainerTwo.getName() + " sent out " + tTwoMon.getName() + " !");
 
         while (trainerOne.getRemainingPartySize() > 0 && trainerTwo.getRemainingPartySize() > 0) {
             if (tOneMon.getSpeed() > tTwoMon.getSpeed()) {
@@ -79,13 +111,17 @@ public class Battle {
 
         //Get the winner
         if (trainerOne.getRemainingPartySize() == 0) {
+            System.out.println(trainerTwo.getName() + " defeated " + trainerOne.getName() + "!");
+            trainerOne.payout(trainerTwo);
+
             return trainerTwo;
         } else {
+            System.out.println(trainerOne.getName() + " defeated " + trainerTwo.getName() + "!");
+            trainerTwo.payout(trainerOne);
+
             return trainerOne;
         }
     }
-
-
 
     /**
      * Handles the logic for two Codeamon battling each other.
@@ -94,10 +130,15 @@ public class Battle {
      * @param second The second Codeamon to act in this round
      */
     private static void fight(Codeamon first, Codeamon second) {
+        //first attacks
+        first.attack(second);
+
         if (first.isFainted()) {
             System.out.println(first.getName() + " fainted!");
             return;
         }
+
+        //second attacks
 
         if (second.isFainted()) {
             System.out.println(first.getName() + " fainted!");;

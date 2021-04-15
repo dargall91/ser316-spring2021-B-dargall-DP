@@ -55,6 +55,11 @@ public class Attack {
          * Entry point for an AttackBuilder that sets the required attributes for an attack,
          * the name and type.
          *
+         * Default values:
+         * Power: 0
+         * Accruacy: 100%
+         * Critical Hit Chance: 15%
+         *
          * @param name The name of the attack
          * @param type The type of the attack
          */

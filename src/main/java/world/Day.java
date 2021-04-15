@@ -1,5 +1,7 @@
 package world;
 
+import codeamon.CodeamonFactory;
+import codeamon.Type;
 import trainer.Trainer;
 
 import java.util.ArrayList;
@@ -25,7 +27,8 @@ public class Day implements TimeCycle {
         if (context.getWildBattleCount() < context.getWildBattleLimit()) {
             //do wild battles
             for (Trainer t : trainers) {
-                //fight a random codeamon
+                //get a random wild codeamon
+                Battle.battle(t, CodeamonFactory.getCodeamon(Type.Fire, 1));
             }
 
             context.incrementBattleCount();

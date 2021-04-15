@@ -1,5 +1,7 @@
 package codeamon;
 
+import java.util.ArrayList;
+
 /**
  * An abstract data structure that represents a Codeamon. Has the methods necessary for getting a
  * Codeamon's stats, name, and level, inflicting damage, healing damage, getting its EXP yield,
@@ -9,6 +11,7 @@ public abstract class Codeamon {
     private CodeamonStats stats;
     private int level;
     private String nickname;
+    private ArrayList<Attack> attacks;
 
     /**
      * Constructs a Codeamon with the specified stats and level.
@@ -20,6 +23,8 @@ public abstract class Codeamon {
         if (level < 1) {
             level = 1;
         }
+
+        attacks = getAttacks();
 
         this.stats = stats;
         this.level = level;
@@ -204,6 +209,16 @@ public abstract class Codeamon {
     public boolean isFainted() {
         return getCurrentHitPoints() == 0;
     }
+
+    /**
+     * This Codeamon attacks another Codeamon. The attack to be used will be chosen at random.
+     *
+     * @param opponent This Codeamon's opponent
+     */
+    public void attack(Codeamon opponent) {
+    }
+
+    public abstract ArrayList<Attack> getAttacks();
 
     //TODO: Implement EXP
 }
