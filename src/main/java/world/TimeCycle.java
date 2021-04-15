@@ -10,5 +10,4 @@ import java.util.ArrayList;
  */
 public interface TimeCycle {
     void runEvents(TimeCycleContext timeCycleContext, ArrayList<Trainer> trainers);
-    //void
 }

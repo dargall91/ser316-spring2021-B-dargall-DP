@@ -13,11 +13,15 @@ public class Night implements TimeCycle {
      * Runs the Nighttime events of the Codeamon World. Each night a Trainer's Codeamon will rest
      * and recover all lost Hit Points, after which it will become Day.
      *
-     * @param timeCycleContext The context that controls switching between states
+     * @param context The context that controls switching between states
      * @param trainers The trainers participating in the simulation
      */
     @Override
-    public void runEvents(TimeCycleContext timeCycleContext, ArrayList<Trainer> trainers) {
+    public void runEvents(TimeCycleContext context, ArrayList<Trainer> trainers) {
+        for (Trainer t : trainers) {
+            t.restParty();
+        }
 
+        context.setState(new Day());
     }
 }
