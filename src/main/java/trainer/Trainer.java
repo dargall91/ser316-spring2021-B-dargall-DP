@@ -13,6 +13,7 @@ public class Trainer {
     private int codeaDollars;
     private ArrayList<Codeamon> party;
     private static final int MAX_PARTY = 6;
+    //TODO: track wins/loses for tournament
 
     /**
      * A Builder Method for constructing at attack. Contains methods for adding Codeamon to the
