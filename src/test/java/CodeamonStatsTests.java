@@ -241,9 +241,9 @@ public class CodeamonStatsTests {
         System.out.println("Defense: " + stats.getDefenseStat());
         System.out.println("Speed: " + stats.getSpeedStat());
 
-        stats.applyStatStageChange(Stat.Attack, -7);
-        stats.applyStatStageChange(Stat.Defense, -7);
-        stats.applyStatStageChange(Stat.Speed, -7);
+        stats.applyStatStageChange("Codeamon", Stat.Attack, -7);
+        stats.applyStatStageChange("Codeamon", Stat.Defense, -7);
+        stats.applyStatStageChange("Codeamon", Stat.Speed, -7);
 
         System.out.println("\nAfter Changes:");
         System.out.println("Attack: " + stats.getAttackStat());
@@ -276,9 +276,9 @@ public class CodeamonStatsTests {
         System.out.println("Defense: " + stats.getDefenseStat());
         System.out.println("Speed: " + stats.getSpeedStat());
 
-        stats.applyStatStageChange(Stat.Attack, 7);
-        stats.applyStatStageChange(Stat.Defense, 7);
-        stats.applyStatStageChange(Stat.Speed, 7);
+        stats.applyStatStageChange("Codeamon", Stat.Attack, 7);
+        stats.applyStatStageChange("Codeamon", Stat.Defense, 7);
+        stats.applyStatStageChange("Codeamon", Stat.Speed, 7);
 
         System.out.println("\nAfter Changes:");
         System.out.println("Attack: " + stats.getAttackStat());
@@ -311,9 +311,9 @@ public class CodeamonStatsTests {
         System.out.println("Defense: " + stats.getDefenseStat());
         System.out.println("Speed: " + stats.getSpeedStat());
 
-        stats.applyStatStageChange(Stat.Attack, 7);
-        stats.applyStatStageChange(Stat.Defense, 7);
-        stats.applyStatStageChange(Stat.Speed, 7);
+        stats.applyStatStageChange("Codeamon", Stat.Attack, 7);
+        stats.applyStatStageChange("Codeamon", Stat.Defense, 7);
+        stats.applyStatStageChange("Codeamon", Stat.Speed, 7);
 
         System.out.println("\nAfter Changes:");
         System.out.println("Attack: " + stats.getAttackStat());
@@ -351,8 +351,8 @@ public class CodeamonStatsTests {
         System.out.println("Attack: " + stats.getAttackStat());
         System.out.println("Defense: " + stats.getDefenseStat());
 
-        stats.applyStatStageChange(Stat.Attack, 2);
-        stats.applyStatStageChange(Stat.Defense, 2);
+        stats.applyStatStageChange("Codeamon", Stat.Attack, 2);
+        stats.applyStatStageChange("Codeamon", Stat.Defense, 2);
 
         int attack = stats.getAttackStat();
 
@@ -387,8 +387,8 @@ public class CodeamonStatsTests {
         System.out.println("Attack: " + stats.getAttackStat());
         System.out.println("Defense: " + stats.getDefenseStat());
 
-        stats.applyStatStageChange(Stat.Attack, -2);
-        stats.applyStatStageChange(Stat.Defense, -2);
+        stats.applyStatStageChange("Codeamon", Stat.Attack, -2);
+        stats.applyStatStageChange("Codeamon", Stat.Defense, -2);
 
         int defense = stats.getDefenseStat();
 

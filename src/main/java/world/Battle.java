@@ -25,7 +25,7 @@ public class Battle {
         Codeamon trainerCodeamon = trainer.getNextCodeamon();
 
         System.out.println("A wild " + wildCodeamon.getName() + " appeared!");
-        System.out.println(trainer.getName() + " sent out " + trainerCodeamon.getName() + " !");
+        System.out.println(trainer.getName() + " sent out " + trainerCodeamon.getName() + "!");
 
         while (trainer.getRemainingPartySize() > 0 && !wildCodeamon.isFainted()) {
             fight(trainerCodeamon, wildCodeamon);
@@ -33,12 +33,13 @@ public class Battle {
             //if trainer's Codeamon faints and they have more Codeamon, bring in the next one
             if (trainerCodeamon.isFainted() && trainer.getRemainingPartySize() > 0) {
                 trainerCodeamon = trainer.getNextCodeamon();
-                System.out.println(trainer.getName() + " sent out " + trainerCodeamon.getName() + " !");
+                System.out.println(trainer.getName() + " sent out " + trainerCodeamon.getName() + "!");
             }
         }
-        //TODO: implement EXP
+
         if (trainer.getRemainingPartySize() > 0) {
             wildCodeamon.giveExperience(trainer.getParty());
+
             if (trainer.getPartySize() < 6) {
                 System.out.println("The Wild " + wildCodeamon.getName() + " joined "
                         + trainer.getName() + "'s party!");
@@ -108,9 +109,9 @@ public class Battle {
      */
     private static void fight(Codeamon monOne, Codeamon monTwo) {
         if (monOne.getSpeedStat() > monTwo.getSpeedStat()) {
-            fight(monOne, monTwo);
+            attack(monOne, monTwo);
         } else if (monOne.getSpeedStat() < monTwo.getSpeedStat()) {
-            fight(monTwo, monOne);
+            attack(monTwo, monOne);
         } else {
             //For speed ties, select a Codeamon at random
             //If 0, monOne goes first, if 1 monTwo goes first
@@ -119,9 +120,9 @@ public class Battle {
             int turn = rand.nextInt(2);
 
             if (turn == 0) {
-                fight(monOne, monTwo);
+                attack(monOne, monTwo);
             } else {
-                fight(monTwo, monOne);
+                attack(monTwo, monOne);
             }
         }
     }
@@ -137,14 +138,12 @@ public class Battle {
         first.attack(second);
 
         if (second.isFainted()) {
-            System.out.println(second.getName() + " fainted!");
             return;
         }
 
         second.attack(first);
 
         if (first.isFainted()) {
-            System.out.println(first.getName() + " fainted!");;
         }
     }
 }

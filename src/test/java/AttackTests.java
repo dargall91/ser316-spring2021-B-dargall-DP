@@ -19,7 +19,7 @@ public class AttackTests {
      * @throws Exception
      */
     @Test
-    public void TestAttackBuilder() throws Exception{
+    public void TestAttackBuilder() throws Exception {
         System.out.println("TestAttackBuilder");
 
         int num = 50;

@@ -2,7 +2,7 @@ package codeamon;
 
 /**
  * A Factory Method class for creating a Codeamon. The minimum level a Codeamon can be is 1 and the
- * maximum level a COdeamon can be is 100.
+ * maximum level a Codeamon can be is 100.
  */
 public class CodeamonFactory {
     /**

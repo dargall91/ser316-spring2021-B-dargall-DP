@@ -294,6 +294,8 @@ public class Attack {
      *         changes, otherwise it returns true
      */
     public boolean applyAttack(Codeamon user, Codeamon opponent) {
+        System.out.println(user.getName() + " used " + name + "!");
+
         //If Attack deals damage
         if (power > ONE) {
             if (applyDamage(user, opponent)) {
@@ -446,6 +448,7 @@ public class Attack {
     private boolean isCritical() {
         //An attack with a 100% crit chance always crits and one with a 0% chance never does
         if (critChance == ONE_HUNDRED) {
+            System.out.println("Critical hit!");
             return true;
         } else if (critChance < ONE) {
             return false;

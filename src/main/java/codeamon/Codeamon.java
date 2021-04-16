@@ -26,9 +26,14 @@ public abstract class Codeamon {
         }
 
         //starting experience points is equals to the minimum number of EXP required to reach
-        //the current level, which is level^3.
+        //the current level, which is level^3. The exception is level 1 Codeamon, which have 0 EXP.
         //based on this formula: https://bulbapedia.bulbagarden.net/wiki/Experience#Medium_Fast
-        exp = level ^ 3;
+
+        if (level == 1) {
+            exp = 0;
+        } else {
+            exp = level ^ 3;
+        }
 
         this.stats = stats;
         this.level = level;
@@ -55,7 +60,7 @@ public abstract class Codeamon {
      * @param stages The number of stages to be applied
      */
     public void applyStatStageChange(Stat stat, int stages) {
-        stats.applyStatStageChange(stat, stages);
+        stats.applyStatStageChange(getName(), stat, stages);
     }
 
     /**
@@ -250,7 +255,7 @@ public abstract class Codeamon {
 
         for (Codeamon c : party) {
             if (!c.isFainted()) {
-                c.gainExperience(exp);
+                c.gainExperience(givenExp);
             }
         }
     }
@@ -273,9 +278,19 @@ public abstract class Codeamon {
 
         if (((level + 1) ^ 3) < exp) {
             level++;
+            stats.levelUp(level);
             System.out.println(getName() + " leveled up!");
             System.out.println(getName() + " is now level " + level + "!");
         }
+    }
+
+    /**
+     * Gets the total amount of EXP this Codeamon has.
+     *
+     * @return The total experience points
+     */
+    public int getExperiencePoints() {
+        return exp;
     }
 
     //TODO: Implement EXP

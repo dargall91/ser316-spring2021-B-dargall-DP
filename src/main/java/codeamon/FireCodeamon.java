@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Data structure for a Fire type species of Codeamon.
  */
 public class FireCodeamon extends Codeamon {
-    private static final String NAME = "Fire Name";
+    private static final String NAME = "Flameonmon";
     private static final Type TYPE = Type.Fire;
     private Attack[] attacks;
     private int MAX_ATTACKS = 4;
