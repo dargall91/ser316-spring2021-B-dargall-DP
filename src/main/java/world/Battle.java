@@ -21,7 +21,7 @@ public class Battle {
      * @param wildCodeamon The Wild Codeamon
      * @return True if the Trainer won the battle, otherwise false
      */
-    public static boolean battle(Trainer trainer, Codeamon wildCodeamon) {
+    public static boolean wildBattle(Trainer trainer, Codeamon wildCodeamon) {
         Codeamon trainerCodeamon = trainer.getNextCodeamon();
 
         System.out.println("A wild " + wildCodeamon.getName() + " appeared!");
@@ -65,12 +65,25 @@ public class Battle {
      * @param trainerTwo The second Trainer in the battle
      * @return The Trainer who won the battle
      */
-    public static Trainer battle(Trainer trainerOne, Trainer trainerTwo) {
+    public static Trainer trainerBattle(Trainer trainerOne, Trainer trainerTwo) {
         Codeamon tOneMon = trainerOne.getNextCodeamon();
         Codeamon tTwoMon = trainerTwo.getNextCodeamon();
 
         System.out.println("The Battle Between " + trainerOne.getName() + " and "
                 + trainerTwo.getName() + " is now underway!");
+
+        System.out.print(trainerOne.getName() + ": ");
+
+        for (Codeamon c : trainerOne.getParty()) {
+            System.out.print("O");
+        }
+
+        System.out.println();
+        System.out.print(trainerTwo.getName() + ": ");
+
+        for (Codeamon c : trainerTwo.getParty()) {
+            System.out.print("O");
+        }
 
         System.out.println(trainerOne.getName() + " sent out " + tOneMon.getName() + " !");
         System.out.println(trainerTwo.getName() + " sent out " + tTwoMon.getName() + " !");

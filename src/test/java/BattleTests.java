@@ -36,7 +36,7 @@ public class BattleTests {
 
         int initialExp = trainerMon.getExperiencePoints();
 
-        assertAll(() -> assertTrue(Battle.battle(trainer, wildCodeamon)),
+        assertAll(() -> assertTrue(Battle.wildBattle(trainer, wildCodeamon)),
                 () -> assertTrue(trainerMon.getExperiencePoints() > initialExp),
                 () -> assertEquals(2, trainer.getPartySize()),
                 () -> assertEquals(0, wildCodeamon.getExperiencePoints()));
@@ -64,7 +64,7 @@ public class BattleTests {
 
         int initialExp = trainerMon.getExperiencePoints();
 
-        assertAll(() -> assertFalse(Battle.battle(trainer, wildCodeamon)),
+        assertAll(() -> assertFalse(Battle.wildBattle(trainer, wildCodeamon)),
                 () -> assertTrue(trainerMon.getExperiencePoints() == initialExp),
                 () -> assertEquals(1, trainer.getPartySize()));
     }
