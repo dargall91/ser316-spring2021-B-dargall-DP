@@ -8,8 +8,7 @@ import java.util.ArrayList;
 public class FireCodeamon extends Codeamon {
     private static final String NAME = "Fire Name";
     private static final Type TYPE = Type.Fire;
-    //private Attack[] attacks;
-    private ArrayList<Attack> attacks;
+    private Attack[] attacks;
     private int MAX_ATTACKS = 4;
 
     /**
@@ -17,23 +16,35 @@ public class FireCodeamon extends Codeamon {
      *
      * @param level The level of the Codeamon
      */
-    public FireCodeamon(int level/*, ArrayList<Attack> attacks*/) {
+    public FireCodeamon(int level) {
         super(CodeamonStatsFactory.getStats(Type.Fire, level), level);
-        /*
-        attacks = new Attack[4];
-        attacks[0] = new Attack.AttackBuilder("Ember", Type.Fire).power(40)
-                .statusEffect(10, Stat.Attack, 1, false).build();
-        attacks[1] = new Attack.AttackBuilder("Scratch", Type.Normal).power(40).build();*/
-
-        /*
-        if (attacks.size() > MAX_ATTACKS) {
-            System.out.println("Error: A Codeamon can have at most 4 Attacks. Some attacks will not be added");
-
-        attacks = new ArrayList<>();
-        for (int i = 0; i < MAX_ATTACKS; i++) {
-            attacks.add(a);
+        //Codeamon have different attacks depending on their initial level
+        attacks = new Attack[MAX_ATTACKS];
+        if (level <= 15) {
+            attacks[0] = new Attack.AttackBuilder("Ember", Type.Fire).power(40)
+                    .statusEffect(10, Stat.Attack, 1, false).build();
+            attacks[1] = new Attack.AttackBuilder("Scratch", Type.Normal).power(40).build();
+            attacks[2] = new Attack.AttackBuilder("Howl", Type.Normal)
+                    .statusEffect(100, Stat.Attack, 1, true).build();
+            attacks[3] = new Attack.AttackBuilder("Bite", Type.Dark).power(60).build();
+        } else if (level <= 30) {
+            attacks[0] = new Attack.AttackBuilder("Flame Wheel", Type.Fire).power(65)
+                    .statusEffect(10, Stat.Attack, 1, false).build();
+            attacks[1] = new Attack.AttackBuilder("Cut", Type.Normal).power(50)
+                    .accuracy(95).build();
+            attacks[2] = new Attack.AttackBuilder("Howl", Type.Normal)
+                    .statusEffect(100, Stat.Attack, 1, true).build();
+            attacks[3] = new Attack.AttackBuilder("Bite", Type.Dark).power(60).build();
+        } else {
+            attacks[0] = new Attack.AttackBuilder("Flamethrower", Type.Fire).power(70)
+                    .statusEffect(15, Stat.Attack, 1, false).build();
+            attacks[1] = new Attack.AttackBuilder("Slash", Type.Normal).power(70)
+                    .critChance(50).build();
+            attacks[2] = new Attack.AttackBuilder("Howl", Type.Normal)
+                    .statusEffect(100, Stat.Attack, 1, true).build();
+            attacks[3] = new Attack.AttackBuilder("Crunch", Type.Dark).power(80)
+                    .statusEffect(20, Stat.Defense, 1, false).build();
         }
-        */
     }
 
     /**
@@ -54,8 +65,12 @@ public class FireCodeamon extends Codeamon {
         return TYPE;
     }
 
-    //TODO: Best way to get attacks? Should be defined in this class, but extended class needs access
-    public ArrayList<Attack> getAttacks() {
+    /**
+     * Gets the list of this Codeamon's attacks
+     *
+     * @return An array of this Codeamon's attacks
+     */
+    public Attack[] getAttacks() {
         return attacks;
     }
 }

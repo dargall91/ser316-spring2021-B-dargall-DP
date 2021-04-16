@@ -26,7 +26,7 @@ public class Attack {
     private final int stages;
     private final boolean self;
     private static final int ONE = 1;
-    private static final double MIN_heal = 0.01;
+    private static final double MIN_HEAL = 0.01;
     private static final int MAX_STAGE = 6;
     private static final int MIN_STAGE = -6;
     private static final int ONE_HUNDRED = 100;
@@ -311,7 +311,7 @@ public class Attack {
             //This is a non-damaging move that targets the opponent and it hit
             applyEffect(opponent);
             applyHeal(user);
-        } else if (heal >= MIN_heal) {
+        } else if (heal >= MIN_HEAL) {
             //This is a healing attack with no other effects
             applyHeal(user);
         } else {
@@ -343,7 +343,7 @@ public class Attack {
      * @param user The user of the attack
      */
     private void applyHeal(Codeamon user) {
-        if (heal >= MIN_heal) {
+        if (heal >= MIN_HEAL) {
             user.heal((int) (user.getMaxHitPoints() * heal));
         }
     }
@@ -371,8 +371,8 @@ public class Attack {
                     / opponent.getDefenseCritical()) / 50.0) + 2.0;
             crit = 1.5;
         } else {
-            damage = (((2.0 * user.getLevel() / 5.0 + 2.0) * power * user.getAttack()
-                    / opponent.getDefense()) / 50.0) + 2.0;
+            damage = (((2.0 * user.getLevel() / 5.0 + 2.0) * power * user.getAttackStat()
+                    / opponent.getDefenseStat()) / 50.0) + 2.0;
             crit = 1.0;
         }
 

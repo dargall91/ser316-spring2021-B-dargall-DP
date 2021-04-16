@@ -25,7 +25,7 @@ public class CodeamonTests {
 
         Type type = Type.Fire;
         int level = 10;
-        Codeamon mon = CodeamonFactory.getCodeamon(type, level);
+        Codeamon mon = CodeamonFactory.createCodeamon(type, level);
 
         System.out.println("Name: " + mon.getName());
         System.out.println("Level: " + mon.getLevel());
@@ -47,7 +47,7 @@ public class CodeamonTests {
 
         Type type = Type.Fire;
         int level = 1;
-        Codeamon mon = CodeamonFactory.getCodeamon(type, 0);
+        Codeamon mon = CodeamonFactory.createCodeamon(type, 0);
 
         System.out.println("Level: " + mon.getLevel());
 
@@ -67,7 +67,7 @@ public class CodeamonTests {
         int level = 10;
         String nickname = "Billy Bob Jones";
 
-        Codeamon mon = CodeamonFactory.getCodeamon(type, level);
+        Codeamon mon = CodeamonFactory.createCodeamon(type, level);
         mon.setNickname(nickname);
 
         System.out.println("Name: " + mon.getName());

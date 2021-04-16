@@ -105,7 +105,7 @@ public abstract class CodeamonStats {
      *
      * @return The Codeamon's Attack after modifiers
      */
-    public int getAttack() {
+    public int getAttackStat() {
         return (int) (attack * getModifier(attackStage));
     }
 
@@ -117,7 +117,7 @@ public abstract class CodeamonStats {
      */
     public int getAttackCritical() {
         if (attackStage > 0) {
-            return getAttack();
+            return getAttackStat();
         } else {
             return attack;
         }
@@ -128,7 +128,7 @@ public abstract class CodeamonStats {
      *
      * @return The Codeamon's Defense after modifiers
      */
-    public int getDefense() {
+    public int getDefenseStat() {
         return (int) (defense * getModifier(defenseStage));
     }
 
@@ -151,7 +151,7 @@ public abstract class CodeamonStats {
      *
      * @return The Codeamon's Speed after modifiers
      */
-    public int getSpeed() {
+    public int getSpeedStat() {
         return (int) (speed * getModifier(speedStage));
     }
 

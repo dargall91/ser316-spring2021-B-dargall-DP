@@ -228,4 +228,13 @@ public class Trainer {
 
         return selected;
     }
+
+    /**
+     * Gets this Trainer's Codeamon party.
+     *
+     * @return THe Codeamon party
+     */
+    public ArrayList<Codeamon> getParty() {
+        return party;
+    }
 }

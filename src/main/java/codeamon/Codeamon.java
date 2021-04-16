@@ -1,6 +1,7 @@
 package codeamon;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * An abstract data structure that represents a Codeamon. Has the methods necessary for getting a
@@ -11,7 +12,7 @@ public abstract class Codeamon {
     private CodeamonStats stats;
     private int level;
     private String nickname;
-    private ArrayList<Attack> attacks;
+    int exp;
 
     /**
      * Constructs a Codeamon with the specified stats and level.
@@ -24,7 +25,10 @@ public abstract class Codeamon {
             level = 1;
         }
 
-        attacks = getAttacks();
+        //starting experience points is equals to the minimum number of EXP required to reach
+        //the current level, which is level^3.
+        //based on this formula: https://bulbapedia.bulbagarden.net/wiki/Experience#Medium_Fast
+        exp = level ^ 3;
 
         this.stats = stats;
         this.level = level;
@@ -164,8 +168,8 @@ public abstract class Codeamon {
      *
      * @return The Attack stat (after any modifiers)
      */
-    public int getAttack() {
-        return stats.getAttack();
+    public int getAttackStat() {
+        return stats.getAttackStat();
     }
 
     /**
@@ -173,8 +177,8 @@ public abstract class Codeamon {
      *
      * @return The Defense stat (after any modifiers)
      */
-    public int getDefense() {
-        return stats.getDefense();
+    public int getDefenseStat() {
+        return stats.getDefenseStat();
     }
 
     /**
@@ -182,8 +186,8 @@ public abstract class Codeamon {
      *
      * @return The Speed Stat (after any modifiers)
      */
-    public int getSpeed() {
-        return stats.getSpeed();
+    public int getSpeedStat() {
+        return stats.getSpeedStat();
     }
 
     /**
@@ -216,9 +220,63 @@ public abstract class Codeamon {
      * @param opponent This Codeamon's opponent
      */
     public void attack(Codeamon opponent) {
+        Attack[] attackArr = getAttacks();
+
+        //Get a random attack an apply it's effect
+        Random rand = new Random();
+        Attack attack = attackArr[rand.nextInt(attackArr.length)];
+
+        attack.applyAttack(this, opponent);
     }
 
-    public abstract ArrayList<Attack> getAttacks();
+    /**
+     * Gets the list of this Codeamon's attacks
+     *
+     * @return An array of this Codeamon's attacks
+     */
+    public abstract Attack[] getAttacks();
+
+    /**
+     * Gives experience to the Codeamon in the party of the Trainer that defeated it. Only
+     * non-fainted Codeamon can gain experience.
+     *
+     * @param party The Codeamon party of the Trainer who defeated this Codeamon
+     */
+    public void giveExperience(ArrayList<Codeamon> party) {
+        //loosely based on the equation here:
+        //https://bulbapedia.bulbagarden.net/wiki/Experience#Gain_formula
+        //All modifiers in that formula are set to 1, and base EXP Yield being used is 150
+        int givenExp = 150 * level / 7;
+
+        for (Codeamon c : party) {
+            if (!c.isFainted()) {
+                c.gainExperience(exp);
+            }
+        }
+    }
+
+    /**
+     * Gives this Codeamon experience points then checks if it leveled up. The experience points
+     * required to reach a given level is that level to the power of 3. Level 100 Codeamon cannot
+     * gain levels.
+     *
+     * @param exp The amount of EXP to be gained.
+     */
+    public void gainExperience(int exp) {
+        if (level == 100) {
+            return;
+        }
+
+        System.out.println(getName() + " gained " + exp + " EXP Points!");
+
+        this.exp += exp;
+
+        if (((level + 1) ^ 3) < exp) {
+            level++;
+            System.out.println(getName() + " leveled up!");
+            System.out.println(getName() + " is now level " + level + "!");
+        }
+    }
 
     //TODO: Implement EXP
 }

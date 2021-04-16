@@ -28,23 +28,7 @@ public class Battle {
         System.out.println(trainer.getName() + " sent out " + trainerCodeamon.getName() + " !");
 
         while (trainer.getRemainingPartySize() > 0 && !wildCodeamon.isFainted()) {
-            if (trainerCodeamon.getSpeed() > wildCodeamon.getSpeed()) {
-                fight(trainerCodeamon, wildCodeamon);
-            } else if (trainerCodeamon.getSpeed() < wildCodeamon.getSpeed()) {
-                fight(wildCodeamon, trainerCodeamon);
-            } else {
-                //For speed ties, select a Codeamon at random
-                //If 0, trainer goes first, if 1 wild goes first
-                Random rand = new Random();
-
-                int first = rand.nextInt(1);
-
-                if (first == 0) {
-                    fight(trainerCodeamon, wildCodeamon);
-                } else {
-                    fight(wildCodeamon, trainerCodeamon);
-                }
-            }
+            fight(trainerCodeamon, wildCodeamon);
 
             //if trainer's Codeamon faints and they have more Codeamon, bring in the next one
             if (trainerCodeamon.isFainted() && trainer.getRemainingPartySize() > 0) {
@@ -54,6 +38,7 @@ public class Battle {
         }
         //TODO: implement EXP
         if (trainer.getRemainingPartySize() > 0) {
+            wildCodeamon.giveExperience(trainer.getParty());
             if (trainer.getPartySize() < 6) {
                 System.out.println("The Wild " + wildCodeamon.getName() + " joined "
                         + trainer.getName() + "'s party!");
@@ -90,22 +75,13 @@ public class Battle {
         System.out.println(trainerTwo.getName() + " sent out " + tTwoMon.getName() + " !");
 
         while (trainerOne.getRemainingPartySize() > 0 && trainerTwo.getRemainingPartySize() > 0) {
-            if (tOneMon.getSpeed() > tTwoMon.getSpeed()) {
-                fight(tOneMon, tTwoMon);
-            } else if (tOneMon.getSpeed() < tTwoMon.getSpeed()) {
-                fight(tTwoMon, tOneMon);
-            } else {
-                //For speed ties, select a Codeamon at random
-                //If 0, trainerOne goes first, if 1 trainerTwo goes first
-                Random rand = new Random();
+            fight(tOneMon, tTwoMon);
 
-                int first = rand.nextInt(1);
-
-                if (first == 0) {
-                    fight(tOneMon, tTwoMon);
-                } else {
-                    fight(tTwoMon, tOneMon);
-                }
+            //check if either Codeamon has fainted, then give out EXP
+            if (tOneMon.isFainted()) {
+                tOneMon.giveExperience(trainerTwo.getParty());
+            } else if (tTwoMon.isFainted()) {
+                tTwoMon.giveExperience(trainerOne.getParty());
             }
         }
 
@@ -124,23 +100,50 @@ public class Battle {
     }
 
     /**
-     * Handles the logic for two Codeamon battling each other.
+     * Handles the logic for two Codeamon battling each other. First determines the turn order
+     * for the round, then the two Codeamon use their attacks.
+     *
+     * @param monOne The first Codeamon in the battle
+     * @param monTwo The second Codeamon in the battle
+     */
+    private static void fight(Codeamon monOne, Codeamon monTwo) {
+        if (monOne.getSpeedStat() > monTwo.getSpeedStat()) {
+            fight(monOne, monTwo);
+        } else if (monOne.getSpeedStat() < monTwo.getSpeedStat()) {
+            fight(monTwo, monOne);
+        } else {
+            //For speed ties, select a Codeamon at random
+            //If 0, monOne goes first, if 1 monTwo goes first
+            Random rand = new Random();
+
+            int turn = rand.nextInt(2);
+
+            if (turn == 0) {
+                fight(monOne, monTwo);
+            } else {
+                fight(monTwo, monOne);
+            }
+        }
+    }
+
+    /**
+     * The two Codeamon in the battle exchange attacks in turn order.
      *
      * @param first The first Codeamon to act in this round
      * @param second The second Codeamon to act in this round
      */
-    private static void fight(Codeamon first, Codeamon second) {
+    private static void attack(Codeamon first, Codeamon second) {
         //first attacks
         first.attack(second);
 
-        if (first.isFainted()) {
-            System.out.println(first.getName() + " fainted!");
+        if (second.isFainted()) {
+            System.out.println(second.getName() + " fainted!");
             return;
         }
 
-        //second attacks
+        second.attack(first);
 
-        if (second.isFainted()) {
+        if (first.isFainted()) {
             System.out.println(first.getName() + " fainted!");;
         }
     }

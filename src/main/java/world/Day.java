@@ -28,7 +28,7 @@ public class Day implements TimeCycle {
             //do wild battles
             for (Trainer t : trainers) {
                 //get a random wild codeamon
-                Battle.battle(t, CodeamonFactory.getCodeamon(Type.Fire, 1));
+                Battle.battle(t, CodeamonFactory.createCodeamon(Type.Fire, 1));
             }
 
             context.incrementBattleCount();

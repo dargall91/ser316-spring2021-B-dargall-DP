@@ -110,8 +110,8 @@ public class AttackTests {
     public void TestEmptyAttack() throws Exception{
         System.out.println("TestEmptyAttack");
 
-        Codeamon user = CodeamonFactory.getCodeamon(Type.Fire, 10);
-        Codeamon opponent = CodeamonFactory.getCodeamon(Type.Fire, 10);
+        Codeamon user = CodeamonFactory.createCodeamon(Type.Fire, 10);
+        Codeamon opponent = CodeamonFactory.createCodeamon(Type.Fire, 10);
 
         Attack attack = new Attack.AttackBuilder("Test Attack", Type.Normal).build();
 
@@ -130,8 +130,8 @@ public class AttackTests {
     public void TestDamagingAttack() throws Exception{
         System.out.println("TestDamagingAttack");
 
-        Codeamon user = CodeamonFactory.getCodeamon(Type.Fire, 10);
-        Codeamon opponent = CodeamonFactory.getCodeamon(Type.Fire, 10);
+        Codeamon user = CodeamonFactory.createCodeamon(Type.Fire, 10);
+        Codeamon opponent = CodeamonFactory.createCodeamon(Type.Fire, 10);
 
         //Set crit chance to 0 to ensure that the attack does a set amount of damage every time
         Attack attack = new Attack.AttackBuilder("Test Attack", Type.Normal).power(50).critChance(0).build();
@@ -150,9 +150,9 @@ public class AttackTests {
     public void TestDamagingAttackSelf() throws Exception{
         System.out.println("TestDamagingAttackSelf");
 
-        Codeamon user = CodeamonFactory.getCodeamon(Type.Fire, 10);
-        Codeamon opponent = CodeamonFactory.getCodeamon(Type.Fire, 10);
-        int attackStat = user.getAttack();
+        Codeamon user = CodeamonFactory.createCodeamon(Type.Fire, 10);
+        Codeamon opponent = CodeamonFactory.createCodeamon(Type.Fire, 10);
+        int attackStat = user.getAttackStat();
 
         //Set crit chance to 0 to ensure that the attack does a set amount of damage every time
         Attack attack = new Attack.AttackBuilder("Test Attack", Type.Normal).power(50).critChance(0)
@@ -160,7 +160,7 @@ public class AttackTests {
 
         attack.applyAttack(user, opponent);
 
-        assertTrue(user.getAttack() > attackStat);
+        assertTrue(user.getAttackStat() > attackStat);
     }
 
     /**
@@ -172,9 +172,9 @@ public class AttackTests {
     public void TestDamagingAttackOpponent() throws Exception{
         System.out.println("TestDamagingAttackOpponent");
 
-        Codeamon user = CodeamonFactory.getCodeamon(Type.Fire, 10);
-        Codeamon opponent = CodeamonFactory.getCodeamon(Type.Fire, 10);
-        int attackStat = opponent.getAttack();
+        Codeamon user = CodeamonFactory.createCodeamon(Type.Fire, 10);
+        Codeamon opponent = CodeamonFactory.createCodeamon(Type.Fire, 10);
+        int attackStat = opponent.getAttackStat();
 
         //Set crit chance to 0 to ensure that the attack does a set amount of damage every time
         Attack attack = new Attack.AttackBuilder("Test Attack", Type.Normal).power(50).critChance(0)
@@ -182,7 +182,7 @@ public class AttackTests {
 
         attack.applyAttack(user, opponent);
 
-        assertTrue(opponent.getAttack() > attackStat);
+        assertTrue(opponent.getAttackStat() > attackStat);
     }
 
     /**
@@ -195,9 +195,9 @@ public class AttackTests {
     public void TestNonDamagingAttackSelf() throws Exception{
         System.out.println("TestNonDamagingAttackSelf");
 
-        Codeamon user = CodeamonFactory.getCodeamon(Type.Fire, 10);
-        Codeamon opponent = CodeamonFactory.getCodeamon(Type.Fire, 10);
-        int attackStat = user.getAttack();
+        Codeamon user = CodeamonFactory.createCodeamon(Type.Fire, 10);
+        Codeamon opponent = CodeamonFactory.createCodeamon(Type.Fire, 10);
+        int attackStat = user.getAttackStat();
 
         //Set crit chance to 0 to ensure that the attack does a set amount of damage every time
         Attack attack = new Attack.AttackBuilder("Test Attack", Type.Normal).statusEffect(100,
@@ -205,7 +205,7 @@ public class AttackTests {
 
         attack.applyAttack(user, opponent);
 
-        assertTrue(user.getAttack() > attackStat);
+        assertTrue(user.getAttackStat() > attackStat);
     }
 
     /**
@@ -218,9 +218,9 @@ public class AttackTests {
     public void TestNonDamagingAttackOpponent() throws Exception{
         System.out.println("TestNonDamagingAttackOpponent");
 
-        Codeamon user = CodeamonFactory.getCodeamon(Type.Fire, 10);
-        Codeamon opponent = CodeamonFactory.getCodeamon(Type.Fire, 10);
-        int attackStat = opponent.getAttack();
+        Codeamon user = CodeamonFactory.createCodeamon(Type.Fire, 10);
+        Codeamon opponent = CodeamonFactory.createCodeamon(Type.Fire, 10);
+        int attackStat = opponent.getAttackStat();
 
         //Set crit chance to 0 to ensure that the attack does a set amount of damage every time
         Attack attack = new Attack.AttackBuilder("Test Attack", Type.Normal).statusEffect(100,
@@ -228,7 +228,7 @@ public class AttackTests {
 
         attack.applyAttack(user, opponent);
 
-        assertEquals((int) (attackStat * 3.0 / 2.0), opponent.getAttack());
+        assertEquals((int) (attackStat * 3.0 / 2.0), opponent.getAttackStat());
     }
 
     /**
@@ -240,8 +240,8 @@ public class AttackTests {
     public void TestHealingAttack() throws Exception{
         System.out.println("TestHealingAttack");
 
-        Codeamon user = CodeamonFactory.getCodeamon(Type.Fire, 10);
-        Codeamon opponent = CodeamonFactory.getCodeamon(Type.Fire, 10);
+        Codeamon user = CodeamonFactory.createCodeamon(Type.Fire, 10);
+        Codeamon opponent = CodeamonFactory.createCodeamon(Type.Fire, 10);
 
         //Set crit chance to 0 to ensure that the attack does a set amount of damage every time
         Attack attack = new Attack.AttackBuilder("Test Attack", Type.Normal).heal(100).build();
