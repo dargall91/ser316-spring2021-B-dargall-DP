@@ -1,8 +1,7 @@
 package world;
 
-import trainer.Trainer;
-
 import java.util.ArrayList;
+import trainer.Trainer;
 
 /**
  * TimeCycleContext keeps track of the current state of TimeCycle, determines which state's
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 public class TimeCycleContext {
     private TimeCycle state;
     private int battleCount = 0;
-    private final int WILD_BATTLES;
+    private final int wildBattles;
 
     /**
      * Constructor that sets the initial state as Day and determines the number of Wild Codeamon
@@ -21,7 +20,7 @@ public class TimeCycleContext {
      * @param wildCount The number of wild Codeamon battles to occur before the tournament begins
      */
     public TimeCycleContext(int wildCount) {
-        WILD_BATTLES = wildCount;
+        wildBattles = wildCount;
         setState(new Day());
     }
 
@@ -51,7 +50,7 @@ public class TimeCycleContext {
      * @return The number of Wild Codeamon battles to be completed by each Trainer
      */
     public int getWildBattleLimit() {
-        return WILD_BATTLES;
+        return wildBattles;
     }
 
     /**

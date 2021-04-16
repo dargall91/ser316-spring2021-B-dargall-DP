@@ -9,7 +9,7 @@ public class FireCodeamon extends Codeamon {
     private static final String NAME = "Flameonmon";
     private static final Type TYPE = Type.Fire;
     private Attack[] attacks;
-    private int MAX_ATTACKS = 4;
+    private static int MAX_ATTACKS = 4;
 
     /**
      * Constructs a Fire Species of Codemon initializing its stats based on its level.
@@ -66,11 +66,12 @@ public class FireCodeamon extends Codeamon {
     }
 
     /**
-     * Gets the list of this Codeamon's attacks
+     * Gets the list of this Codeamon's attacks.
      *
      * @return An array of this Codeamon's attacks
      */
     public Attack[] getAttacks() {
-        return attacks;
+        Attack[] copy = attacks;
+        return copy;
     }
 }

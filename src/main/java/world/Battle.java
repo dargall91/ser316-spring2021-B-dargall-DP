@@ -1,9 +1,8 @@
 package world;
 
 import codeamon.Codeamon;
-import trainer.Trainer;
-
 import java.util.Random;
+import trainer.Trainer;
 
 /**
  * The Battle class is for conducting Codeamon Battles, either between two Trainers or between a
@@ -35,7 +34,8 @@ public class Battle {
             if (trainerCodeamon.isFainted() && trainer.getRemainingPartySize() > 0) {
                 printTrainerParty(trainer);
                 trainerCodeamon = trainer.getNextCodeamon();
-                System.out.println(trainer.getName() + " sent out " + trainerCodeamon.getName() + "!");
+                System.out.println(trainer.getName() + " sent out "
+                        + trainerCodeamon.getName() + "!");
             }
         }
 
@@ -69,41 +69,43 @@ public class Battle {
      * @return The Trainer who won the battle
      */
     public static Trainer trainerBattle(Trainer trainerOne, Trainer trainerTwo) {
-        Codeamon tOneMon = trainerOne.getNextCodeamon();
-        Codeamon tTwoMon = trainerTwo.getNextCodeamon();
-
         System.out.println("The Battle Between " + trainerOne.getName() + " and "
                 + trainerTwo.getName() + " is now underway!");
 
         printTrainerParty(trainerOne);
         printTrainerParty(trainerTwo);
 
-        System.out.println(trainerOne.getName() + " sent out " + tOneMon.getName() + "!");
-        System.out.println(trainerTwo.getName() + " sent out " + tTwoMon.getName() + "!");
+        Codeamon codeamonOne = trainerOne.getNextCodeamon();
+        Codeamon codeamonTwo = trainerTwo.getNextCodeamon();
+
+        System.out.println(trainerOne.getName() + " sent out " + codeamonOne.getName() + "!");
+        System.out.println(trainerTwo.getName() + " sent out " + codeamonTwo.getName() + "!");
 
         while (trainerOne.getRemainingPartySize() > 0 && trainerTwo.getRemainingPartySize() > 0) {
-            fight(tOneMon, tTwoMon);
+            fight(codeamonOne, codeamonTwo);
 
             //check if either Codeamon has fainted, then give out EXP and swap to next Codeamon
-            if (tOneMon.isFainted()) {
-                tOneMon.giveExperience(trainerTwo.getCodeamonParty());
+            if (codeamonOne.isFainted()) {
+                codeamonOne.giveExperience(trainerTwo.getCodeamonParty());
 
                 printTrainerParty(trainerOne);
                 printTrainerParty(trainerTwo);
 
                 if (trainerOne.getRemainingPartySize() > 0) {
-                    tOneMon = trainerOne.getNextCodeamon();
-                    System.out.println(trainerOne.getName() + " sent out " + tOneMon.getName() + "!");
+                    codeamonOne = trainerOne.getNextCodeamon();
+                    System.out.println(trainerOne.getName() + " sent out "
+                            + codeamonOne.getName() + "!");
                 }
-            } else if (tTwoMon.isFainted()) {
-                tTwoMon.giveExperience(trainerOne.getCodeamonParty());
+            } else if (codeamonTwo.isFainted()) {
+                codeamonTwo.giveExperience(trainerOne.getCodeamonParty());
 
                 printTrainerParty(trainerOne);
                 printTrainerParty(trainerTwo);
 
                 if (trainerTwo.getRemainingPartySize() > 0) {
-                    tTwoMon = trainerTwo.getNextCodeamon();
-                    System.out.println(trainerTwo.getName() + " sent out " + tTwoMon.getName() + "!");
+                    codeamonTwo = trainerTwo.getNextCodeamon();
+                    System.out.println(trainerTwo.getName() + " sent out "
+                            + codeamonTwo.getName() + "!");
                 }
             }
         }

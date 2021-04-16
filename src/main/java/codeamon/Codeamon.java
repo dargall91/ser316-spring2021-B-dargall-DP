@@ -235,7 +235,7 @@ public abstract class Codeamon implements Comparable<Codeamon> {
     }
 
     /**
-     * Gets the list of this Codeamon's attacks
+     * Gets the list of this Codeamon's attacks.
      *
      * @return An array of this Codeamon's attacks
      */

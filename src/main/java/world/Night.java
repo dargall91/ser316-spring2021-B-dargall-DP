@@ -1,8 +1,7 @@
 package world;
 
-import trainer.Trainer;
-
 import java.util.ArrayList;
+import trainer.Trainer;
 
 /**
  * Night is a state of the TimeCycle in the Codeamon world. During the night, Trainers and their

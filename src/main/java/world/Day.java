@@ -2,9 +2,8 @@ package world;
 
 import codeamon.CodeamonFactory;
 import codeamon.Type;
-import trainer.Trainer;
-
 import java.util.ArrayList;
+import trainer.Trainer;
 
 /**
  * Day is a state of the TimeCycle in the Codeamon world. During the day, Trainers can wither
@@ -32,7 +31,8 @@ public class Day implements TimeCycle {
                 //The level of the wild Codeamon is the level of the trainer's first Codeamom in
                 //their party - 2 + the number of days that have passed. The first wild Codeamon
                 //will therefore be 2 levels below the Trainer's first Codeamon
-                int wildLevel = t.getCodeamonParty().get(0).getLevel() - 2 + context.getWildBattleCount();
+                int wildLevel = t.getCodeamonParty().get(0).getLevel() - 2
+                        + context.getWildBattleCount();
                 Battle.wildBattle(t, CodeamonFactory.createCodeamon(Type.Fire, wildLevel));
             }
 

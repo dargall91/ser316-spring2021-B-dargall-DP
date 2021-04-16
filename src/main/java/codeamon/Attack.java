@@ -54,12 +54,18 @@ public class Attack {
         /**
          * Entry point for an AttackBuilder that sets the required attributes for an attack,
          * the name and type.
-         *
-         * Default values:
-         * Power: 0
-         * Accruacy: 100%
-         * Critical Hit Chance: 15%
-         *
+         * <p>
+         *     Default values if no other Builder methods are used:
+         *     <li>Power: 0</li>
+         *     <li>Accruacy: 100%</li>
+         *     <li>Critical Hit Chance: 15%</li>
+         *     <li>Effect Chance: 0%</li>
+         *     <li>Self Healing: 0%</li>
+         *     <li>Stats Changed: None</li>
+         *     <li>Stat Levels Applied: 0</li>
+         *     <li>Effect Targets Self: false</li>
+         * </p>
+
          * @param name The name of the attack
          * @param type The type of the attack
          */
@@ -416,7 +422,7 @@ public class Attack {
             return true;
         }
 
-        //Get random number from 0-99, add one, then if it is <= Accuracy, the effect triggers
+        //Get random number from 0-99, add one, then if it is <= Accuracy, the attack hits
         Random random = new Random();
 
         return (random.nextInt(ONE_HUNDRED) + 1 <= accuracy);
