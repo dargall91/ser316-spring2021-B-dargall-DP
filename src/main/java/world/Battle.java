@@ -25,6 +25,7 @@ public class Battle {
         Codeamon trainerCodeamon = trainer.getNextCodeamon();
 
         System.out.println("A wild " + wildCodeamon.getName() + " appeared!");
+        printTrainerParty(trainer);
         System.out.println(trainer.getName() + " sent out " + trainerCodeamon.getName() + "!");
 
         while (trainer.getRemainingPartySize() > 0 && !wildCodeamon.isFainted()) {
@@ -32,13 +33,14 @@ public class Battle {
 
             //if trainer's Codeamon faints and they have more Codeamon, bring in the next one
             if (trainerCodeamon.isFainted() && trainer.getRemainingPartySize() > 0) {
+                printTrainerParty(trainer);
                 trainerCodeamon = trainer.getNextCodeamon();
                 System.out.println(trainer.getName() + " sent out " + trainerCodeamon.getName() + "!");
             }
         }
 
         if (trainer.getRemainingPartySize() > 0) {
-            wildCodeamon.giveExperience(trainer.getParty());
+            wildCodeamon.giveExperience(trainer.getCodeamonParty());
 
             if (trainer.getPartySize() < 6) {
                 System.out.println("The Wild " + wildCodeamon.getName() + " joined "
@@ -49,6 +51,7 @@ public class Battle {
             return true;
         }
 
+        printTrainerParty(trainer);
         System.out.println(trainer.getName() + " is out of usable Codeamon!");
         System.out.println(trainer.getName() + " fled from the Wild " + wildCodeamon.getName()
                 + "!");
@@ -72,30 +75,36 @@ public class Battle {
         System.out.println("The Battle Between " + trainerOne.getName() + " and "
                 + trainerTwo.getName() + " is now underway!");
 
-        System.out.print(trainerOne.getName() + ": ");
+        printTrainerParty(trainerOne);
+        printTrainerParty(trainerTwo);
 
-        for (Codeamon c : trainerOne.getParty()) {
-            System.out.print("O");
-        }
-
-        System.out.println();
-        System.out.print(trainerTwo.getName() + ": ");
-
-        for (Codeamon c : trainerTwo.getParty()) {
-            System.out.print("O");
-        }
-
-        System.out.println(trainerOne.getName() + " sent out " + tOneMon.getName() + " !");
-        System.out.println(trainerTwo.getName() + " sent out " + tTwoMon.getName() + " !");
+        System.out.println(trainerOne.getName() + " sent out " + tOneMon.getName() + "!");
+        System.out.println(trainerTwo.getName() + " sent out " + tTwoMon.getName() + "!");
 
         while (trainerOne.getRemainingPartySize() > 0 && trainerTwo.getRemainingPartySize() > 0) {
             fight(tOneMon, tTwoMon);
 
-            //check if either Codeamon has fainted, then give out EXP
+            //check if either Codeamon has fainted, then give out EXP and swap to next Codeamon
             if (tOneMon.isFainted()) {
-                tOneMon.giveExperience(trainerTwo.getParty());
+                tOneMon.giveExperience(trainerTwo.getCodeamonParty());
+
+                printTrainerParty(trainerOne);
+                printTrainerParty(trainerTwo);
+
+                if (trainerOne.getRemainingPartySize() > 0) {
+                    tOneMon = trainerOne.getNextCodeamon();
+                    System.out.println(trainerOne.getName() + " sent out " + tOneMon.getName() + "!");
+                }
             } else if (tTwoMon.isFainted()) {
-                tTwoMon.giveExperience(trainerOne.getParty());
+                tTwoMon.giveExperience(trainerOne.getCodeamonParty());
+
+                printTrainerParty(trainerOne);
+                printTrainerParty(trainerTwo);
+
+                if (trainerTwo.getRemainingPartySize() > 0) {
+                    tTwoMon = trainerTwo.getNextCodeamon();
+                    System.out.println(trainerTwo.getName() + " sent out " + tTwoMon.getName() + "!");
+                }
             }
         }
 
@@ -155,8 +164,25 @@ public class Battle {
         }
 
         second.attack(first);
+    }
 
-        if (first.isFainted()) {
+    /**
+     * Prints a representation of how many Codeamon a trainer has remaining. "O" represents a
+     * non-fainted Codeamon and "X" represents a fainted Codeamon.
+     *
+     * @param trainer The Trainer to display
+     */
+    private static void printTrainerParty(Trainer trainer) {
+        System.out.print(trainer.getName() + ": ");
+
+        for (Codeamon c : trainer.getCodeamonParty()) {
+            if (c.isFainted()) {
+                System.out.print("X");
+            } else {
+                System.out.print("O");
+            }
         }
+
+        System.out.println();
     }
 }

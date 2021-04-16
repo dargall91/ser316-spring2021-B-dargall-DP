@@ -43,7 +43,7 @@ public class FireCodeamon extends Codeamon {
             attacks[2] = new Attack.AttackBuilder("Howl", Type.Normal)
                     .statusEffect(100, Stat.Attack, 1, true).build();
             attacks[3] = new Attack.AttackBuilder("Crunch", Type.Dark).power(80)
-                    .statusEffect(20, Stat.Defense, 1, false).build();
+                    .statusEffect(20, Stat.Defense, -1, false).build();
         }
     }
 

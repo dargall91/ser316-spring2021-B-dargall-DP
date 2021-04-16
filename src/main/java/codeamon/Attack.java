@@ -302,14 +302,15 @@ public class Attack {
                 //apply stat changes for damaging moves
                 if (self) {
                     applyEffect(user);
-                } else {
+                } else if (!opponent.isFainted()) {
+                    //If the oppoennt didn't faint from the damage, apply any effects to them
                     applyEffect(opponent);
                 }
             }
         } else if (self) { //Attack is non-damaging and targets self
             applyEffect(user);
             applyHeal(user);
-        } else if (effectChance >= ONE && isHit()) {
+        } else if (effectChance >= ONE && isHit() && !opponent.isFainted()) {
             //This is a non-damaging move that targets the opponent and it hit
             applyEffect(opponent);
             applyHeal(user);

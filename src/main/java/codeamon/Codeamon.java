@@ -8,7 +8,7 @@ import java.util.Random;
  * Codeamon's stats, name, and level, inflicting damage, healing damage, getting its EXP yield,
  * and applying gained EXP.
  */
-public abstract class Codeamon {
+public abstract class Codeamon implements Comparable<Codeamon> {
     private CodeamonStats stats;
     private int level;
     private String nickname;
@@ -32,7 +32,7 @@ public abstract class Codeamon {
         if (level == 1) {
             exp = 0;
         } else {
-            exp = level ^ 3;
+            exp = (int) Math.pow(level, 3);
         }
 
         this.stats = stats;
@@ -276,7 +276,7 @@ public abstract class Codeamon {
 
         this.exp += exp;
 
-        if (((level + 1) ^ 3) < exp) {
+        if (Math.pow(level + 1, 3) <= this.exp) {
             level++;
             stats.levelUp(level);
             System.out.println(getName() + " leveled up!");
@@ -291,6 +291,34 @@ public abstract class Codeamon {
      */
     public int getExperiencePoints() {
         return exp;
+    }
+
+    @Override
+    public int compareTo(Codeamon codeamon) {
+        //this Codeamon is not fainted and other Codeamon is
+        if (!isFainted() && codeamon.isFainted()) {
+            return -1;
+        }
+        //this Codeamon is fainted and other Codeamon is not
+        if (isFainted() && !codeamon.isFainted()) {
+            return 1;
+        }
+        //bot Codeamon are fainted they considered to be equal for the purpose of sorting
+        if (isFainted() && codeamon.isFainted()) {
+            return 0;
+        }
+
+        //neither Codeamon are fainted
+        if (level < codeamon.getLevel()) {
+            return -1;
+        }
+
+        if (level > codeamon.getLevel()) {
+            return 1;
+        }
+
+        return 0;
+
     }
 
     //TODO: Implement EXP

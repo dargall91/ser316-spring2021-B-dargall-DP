@@ -7,13 +7,6 @@ plugins {
 
 mainClassName = 'Main'
 
-// Custom Task that generates all test results and reports when executed
-tasks.register('reports') {
-	dependsOn spotbugsMain
-	dependsOn test
-	dependsOn checkstyleMain
-}
-
 // In this section you declare where to find the dependencies of your project
 repositories {
 	jcenter()
