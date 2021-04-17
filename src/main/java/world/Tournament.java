@@ -20,13 +20,13 @@ public class Tournament {
     public Tournament(ArrayList<Trainer> trainers) {
         bracket = trainers;
         currentRound = 1;
-        rounds = (int) Math.ceil(Math.log(trainers.size()) / Math.log(2));
+        rounds = (int) Math.ceil(Math.log(bracket.size()) / Math.log(2));
     }
 
     /**
      * Runs the next round of the tournament.
      */
-    public void runRound() {
+    public void executeNextRound() {
         int byes = 0;
 
         /*
@@ -44,10 +44,10 @@ public class Tournament {
         the number of players that need byes in the first round. Using the distributive property,
         the formula can be simplified into P - (2 * P - 2 ^ N)
 
-        Wow, I just realized this can greatly simplified. P - 2 ^ 9 = byes. I feel dumb now
+        Wow, I just realized this can greatly simplified. -1 * (P - 2 ^ N) = byes. I feel dumb now
          */
         if (currentRound == 1) {
-            byes = (int) (bracket.size() - Math.pow(2, rounds));
+            byes = -1 * (int) (bracket.size() - Math.pow(2, rounds));
         }
 
         if (currentRound < rounds) {
@@ -59,28 +59,46 @@ public class Tournament {
         //track the winners
         ArrayList<Trainer> winners = new ArrayList<>();
 
+        //Byes are considered to have won
+        for (int i = 0; i < byes; i++) {
+            System.out.println(bracket.get(bracket.size() - 1 + i).getName()
+                    +" get a Bye and advances straight to the next round!");
+            winners.add(bracket.get(bracket.size() - 1 + i));
+        }
+
         /*
         Trainers are paired up by their placement in the list. The first Trainer battles the last
         Trainer, the second Trainer battles the second to last Trainer, and so on until all
         Trainers have battled. If there are byes, the byes go to the last X Trainers in the list,
         where X is the number of byes.
          */
-        for (int i = 0; i < bracket.size() - byes / 2; i++) {
+        for (int i = 0; i < (bracket.size() - byes) / 2; i++) {
+            System.out.println();
             Trainer trainerOne = bracket.get(i);
             Trainer trainerTwo = bracket.get(bracket.size() - 1 - byes - i);
             Trainer winner = Battle.trainerBattle(trainerOne,
                     trainerTwo);
 
             if (winner == trainerOne) {
-                System.out.println(trainerTwo + " was eliminated from the Tournament!");
+                System.out.println(trainerTwo.getName() + " was eliminated from the Tournament!");
                 winners.add(trainerOne);
             } else {
-                System.out.println(trainerOne + " was eliminated from the Tournament!");
+                System.out.println(trainerOne.getName() + " was eliminated from the Tournament!");
                 winners.add(trainerTwo);
             }
         }
 
         bracket = winners;
+
+        System.out.println();
+
+        if (currentRound < rounds) {
+            System.out.println("Round " + currentRound + " of the Tournament is now complete!");
+        } else {
+            System.out.println("The final round of the Tournament is now complete!");
+        }
+
+        currentRound++;
     }
 
     /**
@@ -109,5 +127,14 @@ public class Tournament {
         }
 
         return null;
+    }
+
+    /**
+     * Gets the list of Trainers who have not yet been eliminated from the bracket
+     *
+     * @return The list of Trainers
+     */
+    public ArrayList<Trainer> getBracket() {
+        return bracket;
     }
 }

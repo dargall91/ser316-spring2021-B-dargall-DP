@@ -300,7 +300,7 @@ public class Attack {
      *         changes, otherwise it returns true
      */
     public boolean applyAttack(Codeamon user, Codeamon opponent) {
-        System.out.println(user.getName() + " used " + name + "!");
+        System.out.println(user.getName() + " used " + name + ".");
 
         //If Attack deals damage
         if (power > ONE) {

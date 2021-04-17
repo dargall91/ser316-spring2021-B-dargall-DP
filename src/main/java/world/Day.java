@@ -41,7 +41,7 @@ public class Day implements TimeCycle {
         } else {
             Tournament tournament = context.getTournament();
 
-            tournament.runRound();
+            tournament.executeNextRound();
 
             if (!tournament.isConcluded()) {
                 context.setState(new Night());
