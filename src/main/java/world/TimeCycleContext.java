@@ -12,15 +12,19 @@ public class TimeCycleContext {
     private TimeCycle state;
     private int battleCount = 0;
     private final int wildBattles;
+    private Tournament tournament;
 
     /**
-     * Constructor that sets the initial state as Day and determines the number of Wild Codeamon
-     * each Trainer will battle during the Day before starting the tournament.
+     * Constructor that sets the initial state as Day, determines the number of Wild Codeamon
+     * each Trainer will battle during the Day before starting the tournament, and sets the list of
+     * trainers who will compete in the tournament.
      *
      * @param wildCount The number of wild Codeamon battles to occur before the tournament begins
+     * @param trainers The list of Trainers who will compete in the tournament
      */
-    public TimeCycleContext(int wildCount) {
+    public TimeCycleContext(int wildCount, ArrayList<Trainer> trainers) {
         wildBattles = wildCount;
+        tournament = new Tournament(trainers);
         setState(new Day());
     }
 
@@ -68,5 +72,14 @@ public class TimeCycleContext {
      */
     public void incrementBattleCount() {
         battleCount++;
+    }
+
+    /**
+     * Gets the tournament the Trainers are competing in.
+     *
+     * @return The tournament
+     */
+    public Tournament getTournament() {
+        return tournament;
     }
 }

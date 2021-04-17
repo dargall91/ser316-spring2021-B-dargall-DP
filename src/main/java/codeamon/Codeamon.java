@@ -285,6 +285,13 @@ public abstract class Codeamon implements Comparable<Codeamon> {
     }
 
     /**
+     * Prints this Codeamon's name, current hit points, and max hit points. For example,
+     */
+    public void printBattleStatus() {
+        System.out.println(getName() + ": " + getCurrentHitPoints() + "/" + getMaxHitPoints() + " HP");
+    }
+
+    /**
      * Gets the total amount of EXP this Codeamon has.
      *
      * @return The total experience points
@@ -320,6 +327,4 @@ public abstract class Codeamon implements Comparable<Codeamon> {
         return 0;
 
     }
-
-    //TODO: Implement EXP
 }

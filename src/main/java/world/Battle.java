@@ -22,17 +22,20 @@ public class Battle {
      */
     public static boolean wildBattle(Trainer trainer, Codeamon wildCodeamon) {
         Codeamon trainerCodeamon = trainer.getNextCodeamon();
-
+        //TODO: display mon names and hit points after each round
         System.out.println("A wild " + wildCodeamon.getName() + " appeared!");
-        printTrainerParty(trainer);
+        trainer.printPartyStatus();
         System.out.println(trainer.getName() + " sent out " + trainerCodeamon.getName() + "!");
 
         while (trainer.getRemainingPartySize() > 0 && !wildCodeamon.isFainted()) {
+            trainerCodeamon.printBattleStatus();
+            wildCodeamon.printBattleStatus();
+
             fight(trainerCodeamon, wildCodeamon);
 
             //if trainer's Codeamon faints and they have more Codeamon, bring in the next one
             if (trainerCodeamon.isFainted() && trainer.getRemainingPartySize() > 0) {
-                printTrainerParty(trainer);
+                trainer.printPartyStatus();
                 trainerCodeamon = trainer.getNextCodeamon();
                 System.out.println(trainer.getName() + " sent out "
                         + trainerCodeamon.getName() + "!");
@@ -51,7 +54,7 @@ public class Battle {
             return true;
         }
 
-        printTrainerParty(trainer);
+        trainer.printPartyStatus();
         System.out.println(trainer.getName() + " is out of usable Codeamon!");
         System.out.println(trainer.getName() + " fled from the Wild " + wildCodeamon.getName()
                 + "!");
@@ -71,9 +74,9 @@ public class Battle {
     public static Trainer trainerBattle(Trainer trainerOne, Trainer trainerTwo) {
         System.out.println("The Battle Between " + trainerOne.getName() + " and "
                 + trainerTwo.getName() + " is now underway!");
-
-        printTrainerParty(trainerOne);
-        printTrainerParty(trainerTwo);
+        //TODO: display mon & trainer names and hit points after each round
+        trainerOne.printPartyStatus();
+        trainerTwo.printPartyStatus();
 
         Codeamon codeamonOne = trainerOne.getNextCodeamon();
         Codeamon codeamonTwo = trainerTwo.getNextCodeamon();
@@ -82,14 +85,17 @@ public class Battle {
         System.out.println(trainerTwo.getName() + " sent out " + codeamonTwo.getName() + "!");
 
         while (trainerOne.getRemainingPartySize() > 0 && trainerTwo.getRemainingPartySize() > 0) {
+            codeamonOne.printBattleStatus();
+            codeamonTwo.printBattleStatus();
+
             fight(codeamonOne, codeamonTwo);
 
             //check if either Codeamon has fainted, then give out EXP and swap to next Codeamon
             if (codeamonOne.isFainted()) {
                 codeamonOne.giveExperience(trainerTwo.getCodeamonParty());
 
-                printTrainerParty(trainerOne);
-                printTrainerParty(trainerTwo);
+                trainerOne.printPartyStatus();
+                trainerTwo.printPartyStatus();
 
                 if (trainerOne.getRemainingPartySize() > 0) {
                     codeamonOne = trainerOne.getNextCodeamon();
@@ -99,8 +105,8 @@ public class Battle {
             } else if (codeamonTwo.isFainted()) {
                 codeamonTwo.giveExperience(trainerOne.getCodeamonParty());
 
-                printTrainerParty(trainerOne);
-                printTrainerParty(trainerTwo);
+                trainerOne.printPartyStatus();
+                trainerTwo.printPartyStatus();
 
                 if (trainerTwo.getRemainingPartySize() > 0) {
                     codeamonTwo = trainerTwo.getNextCodeamon();
@@ -166,25 +172,5 @@ public class Battle {
         }
 
         second.attack(first);
-    }
-
-    /**
-     * Prints a representation of how many Codeamon a trainer has remaining. "O" represents a
-     * non-fainted Codeamon and "X" represents a fainted Codeamon.
-     *
-     * @param trainer The Trainer to display
-     */
-    private static void printTrainerParty(Trainer trainer) {
-        System.out.print(trainer.getName() + ": ");
-
-        for (Codeamon c : trainer.getCodeamonParty()) {
-            if (c.isFainted()) {
-                System.out.print("X");
-            } else {
-                System.out.print("O");
-            }
-        }
-
-        System.out.println();
     }
 }

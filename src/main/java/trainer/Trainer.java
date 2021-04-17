@@ -171,7 +171,7 @@ public class Trainer {
      * @param winner The winning Trainer whom to payout
      */
     public void payout(Trainer winner) {
-        System.out.println(name + " paid ¢" + codeaDollars / 2 + " to " + winner.getName() + "!");
+        System.out.println(name + " paid ¢" + codeaDollars / 2 + " to " + winner.getName() + ".");
         winner.adjustCodeaDollars(codeaDollars / 2);
         codeaDollars /= 2;
     }
@@ -234,5 +234,25 @@ public class Trainer {
      */
     public ArrayList<Codeamon> getCodeamonParty() {
         return codeamonParty;
+    }
+
+    /**
+     * Prints the Trainer's name and a representation of how many Codeamon they have remaining. "O"
+     * represents a non-fainted Codeamon and "X" represents a fainted Codeamon. For example, a
+     * Trainer "Derek"with two fainted and three non-fainted Codeamon would be displayed as
+     * "Derek: XXOOO".
+     */
+    public void printPartyStatus() {
+        System.out.print(getName() + ": ");
+
+        for (Codeamon c : codeamonParty) {
+            if (c.isFainted()) {
+                System.out.print("X");
+            } else {
+                System.out.print("O");
+            }
+        }
+
+        System.out.println();
     }
 }
