@@ -26,7 +26,7 @@ public class Attack {
     private final int stages;
     private final boolean self;
     private static final int ONE = 1;
-    private static final double MIN_heal = 0.01;
+    private static final double MIN_HEAL = 0.01;
     private static final int MAX_STAGE = 6;
     private static final int MIN_STAGE = -6;
     private static final int ONE_HUNDRED = 100;
@@ -54,7 +54,18 @@ public class Attack {
         /**
          * Entry point for an AttackBuilder that sets the required attributes for an attack,
          * the name and type.
-         *
+         * <p>
+         *     Default values if no other Builder methods are used:
+         *     <li>Power: 0</li>
+         *     <li>Accruacy: 100%</li>
+         *     <li>Critical Hit Chance: 15%</li>
+         *     <li>Effect Chance: 0%</li>
+         *     <li>Self Healing: 0%</li>
+         *     <li>Stats Changed: None</li>
+         *     <li>Stat Levels Applied: 0</li>
+         *     <li>Effect Targets Self: false</li>
+         * </p>
+
          * @param name The name of the attack
          * @param type The type of the attack
          */
@@ -289,24 +300,27 @@ public class Attack {
      *         changes, otherwise it returns true
      */
     public boolean applyAttack(Codeamon user, Codeamon opponent) {
+        System.out.println(user.getName() + " used " + name + "!");
+
         //If Attack deals damage
         if (power > ONE) {
             if (applyDamage(user, opponent)) {
                 //apply stat changes for damaging moves
                 if (self) {
                     applyEffect(user);
-                } else {
+                } else if (!opponent.isFainted()) {
+                    //If the oppoennt didn't faint from the damage, apply any effects to them
                     applyEffect(opponent);
                 }
             }
         } else if (self) { //Attack is non-damaging and targets self
             applyEffect(user);
             applyHeal(user);
-        } else if (effectChance >= ONE && isHit()) {
+        } else if (effectChance >= ONE && isHit() && !opponent.isFainted()) {
             //This is a non-damaging move that targets the opponent and it hit
             applyEffect(opponent);
             applyHeal(user);
-        } else if (heal >= MIN_heal) {
+        } else if (heal >= MIN_HEAL) {
             //This is a healing attack with no other effects
             applyHeal(user);
         } else {
@@ -338,7 +352,7 @@ public class Attack {
      * @param user The user of the attack
      */
     private void applyHeal(Codeamon user) {
-        if (heal >= MIN_heal) {
+        if (heal >= MIN_HEAL) {
             user.heal((int) (user.getMaxHitPoints() * heal));
         }
     }
@@ -366,8 +380,8 @@ public class Attack {
                     / opponent.getDefenseCritical()) / 50.0) + 2.0;
             crit = 1.5;
         } else {
-            damage = (((2.0 * user.getLevel() / 5.0 + 2.0) * power * user.getAttack()
-                    / opponent.getDefense()) / 50.0) + 2.0;
+            damage = (((2.0 * user.getLevel() / 5.0 + 2.0) * power * user.getAttackStat()
+                    / opponent.getDefenseStat()) / 50.0) + 2.0;
             crit = 1.0;
         }
 
@@ -408,7 +422,7 @@ public class Attack {
             return true;
         }
 
-        //Get random number from 0-99, add one, then if it is <= Accuracy, the effect triggers
+        //Get random number from 0-99, add one, then if it is <= Accuracy, the attack hits
         Random random = new Random();
 
         return (random.nextInt(ONE_HUNDRED) + 1 <= accuracy);
@@ -441,6 +455,7 @@ public class Attack {
     private boolean isCritical() {
         //An attack with a 100% crit chance always crits and one with a 0% chance never does
         if (critChance == ONE_HUNDRED) {
+            System.out.println("Critical hit!");
             return true;
         } else if (critChance < ONE) {
             return false;

@@ -45,7 +45,7 @@ public class TrainerTests {
     public void TestTrainerBuilderMethods() throws Exception {
         System.out.println("TestTrainerBuilderMethods");
 
-        Codeamon mon = CodeamonFactory.getCodeamon(Type.Fire, 1);
+        Codeamon mon = CodeamonFactory.createCodeamon(Type.Fire, 1);
         Trainer trainer = new Trainer.TrainerBuilder("Derek").codeamon(mon).codeaDollars(500).build();
 
         System.out.println("CodeaDollars: " + trainer.getCodeaDollarsAsString());
@@ -81,7 +81,7 @@ public class TrainerTests {
     public void TestTrainerBuilderFullParty() throws Exception {
         System.out.println("TestTrainerBuilderFullParty");
 
-        Codeamon mon = CodeamonFactory.getCodeamon(Type.Fire, 1);
+        Codeamon mon = CodeamonFactory.createCodeamon(Type.Fire, 1);
         Trainer trainer = new Trainer.TrainerBuilder("Derek").codeamon(mon).codeamon(mon)
                 .codeamon(mon).codeamon(mon).codeamon(mon).codeamon(mon).codeamon(mon).build();
 
@@ -169,8 +169,8 @@ public class TrainerTests {
     public void TestReamingPartySize() throws Exception {
         System.out.println("TestReamingPartySize");
 
-        Codeamon living = CodeamonFactory.getCodeamon(Type.Fire, 1);
-        Codeamon fainted = CodeamonFactory.getCodeamon(Type.Fire, 1);
+        Codeamon living = CodeamonFactory.createCodeamon(Type.Fire, 1);
+        Codeamon fainted = CodeamonFactory.createCodeamon(Type.Fire, 1);
         fainted.damage(1000);
 
         Trainer all = new Trainer.TrainerBuilder("6/6 Remaining").codeamon(living)
@@ -201,8 +201,8 @@ public class TrainerTests {
     public void TestRestParty() throws Exception {
         System.out.println("TestRestParty");
 
-        Codeamon mon1 = CodeamonFactory.getCodeamon(Type.Fire, 1);
-        Codeamon mon2 = CodeamonFactory.getCodeamon(Type.Fire, 1);
+        Codeamon mon1 = CodeamonFactory.createCodeamon(Type.Fire, 1);
+        Codeamon mon2 = CodeamonFactory.createCodeamon(Type.Fire, 1);
         mon1.damage(1000);
 
         Trainer trainer = new Trainer.TrainerBuilder("Derek").codeamon(mon1)
@@ -228,7 +228,7 @@ public class TrainerTests {
     public void TestAddCodeamon() throws Exception {
         System.out.println("TestAddCodeamon");
 
-        Codeamon mon = CodeamonFactory.getCodeamon(Type.Fire, 1);
+        Codeamon mon = CodeamonFactory.createCodeamon(Type.Fire, 1);
         Trainer trainer = new Trainer.TrainerBuilder("Derek").build();
 
         System.out.println("Party Size Before: " + trainer.getPartySize());
@@ -267,7 +267,7 @@ public class TrainerTests {
     public void TestAddCodeamonPartyFull() throws Exception {
         System.out.println("TestAddNullCodeamon");
 
-        Codeamon mon = CodeamonFactory.getCodeamon(Type.Fire, 1);
+        Codeamon mon = CodeamonFactory.createCodeamon(Type.Fire, 1);
         Trainer trainer = new Trainer.TrainerBuilder("Derek").build();
 
         for (int i = 0; i < 6; i++) {
@@ -282,5 +282,6 @@ public class TrainerTests {
         System.out.println("Party Size After: " + trainer.getPartySize());
     }
 
+    //TODO: test getNextCodeamon
 
 }

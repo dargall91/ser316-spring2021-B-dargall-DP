@@ -2,6 +2,7 @@ package trainer;
 
 import codeamon.Codeamon;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * A Trainer is someone who captures and tames Codeamon. A trainer is created using a Builder
@@ -9,10 +10,14 @@ import java.util.ArrayList;
  * participate in battles against either other trainers or Wild Codeamon.
  */
 public class Trainer {
-    private String name;
+    private final String name;
     private int codeaDollars;
-    private ArrayList<Codeamon> party;
+    private ArrayList<Codeamon> codeamonParty;
     private static final int MAX_PARTY = 6;
+    //A party that is sorted must be kept separate from the original list to avoid messing
+    //with the levels of random Wild Codeamon in Day
+    private ArrayList<Codeamon> sortedParty;
+
     //TODO: track wins/loses for tournament
 
     /**
@@ -82,7 +87,7 @@ public class Trainer {
 
     private Trainer(TrainerBuilder builder) {
         name = builder.name;
-        party = builder.party;
+        codeamonParty = builder.party;
         codeaDollars = builder.codeaDollars;
     }
 
@@ -140,7 +145,7 @@ public class Trainer {
      * @return The party size
      */
     public int getPartySize() {
-        return party.size();
+        return codeamonParty.size();
     }
 
     /**
@@ -151,7 +156,7 @@ public class Trainer {
     public int getRemainingPartySize() {
         int remaining = 0;
 
-        for (Codeamon i : party) {
+        for (Codeamon i : codeamonParty) {
             if (!i.isFainted()) {
                 remaining++;
             }
@@ -166,7 +171,7 @@ public class Trainer {
      * @param winner The winning Trainer whom to payout
      */
     public void payout(Trainer winner) {
-        System.out.println(name + " paid " + codeaDollars / 2 + " to " + winner.getName() + " !");
+        System.out.println(name + " paid ¢" + codeaDollars / 2 + " to " + winner.getName() + "!");
         winner.adjustCodeaDollars(codeaDollars / 2);
         codeaDollars /= 2;
     }
@@ -182,12 +187,12 @@ public class Trainer {
         if (codeamon == null) {
             System.out.println("Cannot add a null Codeamon to a Trainer's party.");
             return false;
-        } else if (party.size() == MAX_PARTY) {
+        } else if (codeamonParty.size() == MAX_PARTY) {
             System.out.println(codeamon.getName() + " not added. Party is full.");
             return false;
         }
 
-        party.add(codeamon);
+        codeamonParty.add(codeamon);
         return true;
     }
 
@@ -195,8 +200,39 @@ public class Trainer {
      * All the Codeamon in this trainer's party rest and fully recover any lost Hit Points.
      */
     public void restParty() {
-        for (Codeamon i : party) {
+        for (Codeamon i : codeamonParty) {
             i.rest();
         }
+    }
+
+    /**
+     * Selects the next Codeamon this trainer will send into battle. A Trainer will always
+     * selected their lowest level Codeamon first.
+     *
+     * @return The selected Codeamon. If the trainer has no remaining Codeamon it will return null
+     */
+    public Codeamon getNextCodeamon() {
+        if (getRemainingPartySize() == 0) {
+            return null;
+        }
+
+        //If there is only Codeamon in the party, select it
+        if (codeamonParty.size() == 1) {
+            return codeamonParty.get(0);
+        }
+
+        sortedParty = codeamonParty;
+        Collections.sort(sortedParty);
+
+        return sortedParty.get(0);
+    }
+
+    /**
+     * Gets this Trainer's Codeamon party.
+     *
+     * @return THe Codeamon party
+     */
+    public ArrayList<Codeamon> getCodeamonParty() {
+        return codeamonParty;
     }
 }
