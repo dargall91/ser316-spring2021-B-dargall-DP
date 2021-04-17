@@ -75,20 +75,11 @@ public class TimeCycleContext {
     }
 
     /**
-     * Gets the tournament the Trainers are competing in
+     * Gets the tournament the Trainers are competing in.
      *
      * @return The tournament
      */
     public Tournament getTournament() {
         return tournament;
-    }
-
-    /**
-     * Checks if the tournament in this context has concluded.
-     *
-     * @return True if it has concluded, false if it has not
-     */
-    public boolean tournamentConcluded() {
-        return tournament.isConcluded();
     }
 }

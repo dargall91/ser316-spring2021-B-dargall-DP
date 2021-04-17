@@ -3,19 +3,28 @@ package world;
 import java.util.ArrayList;
 import trainer.Trainer;
 
+/**
+ * A Single Elimination Tournament for Codeamon Trainers to compete in. Byes are given out only in
+ * the first round.
+ */
 public class Tournament {
     private ArrayList<Trainer> bracket;
     private int currentRound;
     private final int rounds;
 
+    /**
+     * Constructor for a Tournament that sets the list of competing Codeamon Trainers.
+     *
+     * @param trainers The list of competing Codeamon Trainers
+     */
     public Tournament(ArrayList<Trainer> trainers) {
         bracket = trainers;
         currentRound = 1;
-        rounds = (int) Math.ceil(Math.log(trainers.size())/Math.log(2));
+        rounds = (int) Math.ceil(Math.log(trainers.size()) / Math.log(2));
     }
 
     /**
-     * Runs the next round of the tournament
+     * Runs the next round of the tournament.
      */
     public void runRound() {
         int byes = 0;
@@ -86,5 +95,19 @@ public class Tournament {
         }
 
         return false;
+    }
+
+    /**
+     * Gets the Winner of this Tournament. This method should not be called until the Tournament
+     * has concluded, which can be checked with the isConcluded() method.
+     *
+     * @return The winning Trainer, or null if the Tournament has not yet concluded
+     */
+    public Trainer getWinner() {
+        if (isConcluded()) {
+            return bracket.get(0);
+        }
+
+        return null;
     }
 }
