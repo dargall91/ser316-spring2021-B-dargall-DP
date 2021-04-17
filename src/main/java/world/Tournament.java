@@ -34,11 +34,11 @@ public class Tournament {
         get the number of remaining players there should be in that round. P - that number is
         the number of players that need byes in the first round. Using the distributive property,
         the formula can be simplified into P - (2 * P - 2 ^ N)
+
+        Wow, I just realized this can greatly simplified. P - 2 ^ 9 = byes. I feel dumb now
          */
         if (currentRound == 1) {
-            int p = bracket.size();
-            int rounds = (int) Math.ceil(Math.log(p)/Math.log(2));
-            byes = (int) (p - (2 * p - Math.pow(2, rounds)));
+            byes = (int) (bracket.size() - Math.pow(2, rounds));
         }
 
         if (currentRound < rounds) {
