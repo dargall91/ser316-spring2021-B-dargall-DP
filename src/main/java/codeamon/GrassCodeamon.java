@@ -58,6 +58,7 @@ public class GrassCodeamon extends Codeamon {
             attacks[1] = new Attack.AttackBuilder("Cross Poison", Type.Poison)
                     .power(70)
                     .critChance(50)
+                    .statusEffect(10, Stat.Defense, -1, false)
                     .build();
             attacks[2] = new Attack.AttackBuilder("Growth", Type.Grass)
                     .statusEffect(100, Stat.Defense, 1, true)

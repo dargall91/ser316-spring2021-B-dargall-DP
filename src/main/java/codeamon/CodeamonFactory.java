@@ -23,6 +23,8 @@ public class CodeamonFactory {
             level = 100;
         }
 
+        //TODO: ifs for all types
+
         if (type == Type.Fire) {
             return new FireCodeamon(level);
         }

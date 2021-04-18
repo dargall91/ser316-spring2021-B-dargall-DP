@@ -3,13 +3,13 @@ package codeamon;
 /**
  * Contains the Base Stats for a Fire type species of Codeamon.
  */
-public class FireStats extends CodeamonStats {
-    private static final int BASE_HP = 75;
-    private static final int BASE_ATTACK = 85;
-    private static final int BASE_DEFENSE = 85;
-    private static final int BASE_SPEED = 105;
+public class BugStats extends CodeamonStats {
+    private static final int BASE_HP = 70;
+    private static final int BASE_ATTACK = 80;
+    private static final int BASE_DEFENSE = 110;
+    private static final int BASE_SPEED = 90;
 
-    public FireStats(int level) {
+    public BugStats(int level) {
         super(level);
     }
 
