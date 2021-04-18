@@ -57,7 +57,8 @@ public class TypeMatchup {
     private static final List<Type> poisonWeak = Arrays.asList(Type.Poison, Type.Ground, Type.Rock,
                                     Type.Ghost, Type.Steel);
     private static final List<Type> groundWeak = Arrays.asList(Type.Grass, Type.Flying, Type.Bug);
-    private static final List<Type> flyingWeak = Arrays.asList(Type.Electric, Type.Rock, Type.Steel);
+    private static final List<Type> flyingWeak = Arrays.asList(Type.Electric, Type.Rock,
+                                    Type.Steel);
     private static final List<Type> psychicWeak = Arrays.asList(Type.Psychic, Type.Dark,
                                     Type.Steel);
     private static final List<Type> bugWeak = Arrays.asList(Type.Fire, Type.Fighting, Type.Poison,

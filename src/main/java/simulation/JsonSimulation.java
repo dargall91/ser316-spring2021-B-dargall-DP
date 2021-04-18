@@ -1,16 +1,15 @@
 package simulation;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.ArrayList;
-
 import codeamon.CodeamonFactory;
 import codeamon.Type;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import trainer.Trainer;
-
 import org.json.simple.parser.JSONParser;
+import trainer.Trainer;
 
 /**
  * Contains the Data for a Codeamon Simulation that is read from a .json file.
@@ -30,9 +29,10 @@ public class JsonSimulation implements Simulation {
         trainers = new ArrayList<>();
         wildBattles = 0;
         wildLevel = 0;
+        FileReader reader = null;
 
         try {
-            FileReader reader = new FileReader(file);
+            reader = new FileReader(file, Charset.forName("UTF-8"));
             JSONParser parser = new JSONParser();
             JSONObject obj = (JSONObject) parser.parse(reader);
 
@@ -45,7 +45,8 @@ public class JsonSimulation implements Simulation {
                 JSONObject jsonTrainer = (JSONObject) arr.get(i);
 
                 JSONArray monArr = (JSONArray) jsonTrainer.get("codeamon");
-                Trainer trainer = new Trainer.TrainerBuilder((String) jsonTrainer.get("name")).build();
+                Trainer trainer = new Trainer.TrainerBuilder((String) jsonTrainer.get("name"))
+                        .build();
 
                 for (int j = 0; j < monArr.size(); j++) {
                     JSONObject mon = (JSONObject) monArr.get(j);
@@ -58,6 +59,14 @@ public class JsonSimulation implements Simulation {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

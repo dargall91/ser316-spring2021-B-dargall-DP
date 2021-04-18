@@ -15,7 +15,8 @@ public class Main {
 
         Simulation sim;
 
-        //If there are no command line arguments, use the sample data. Otherwise, read from the JsonFile
+        //If there are command line arguments, use them for the simulation.
+        //Otherwise, use the Sample Simulation
         if (args.length > 0) {
             System.out.println("Loading " + args[0] + "Simulation.");
             sim = new JsonSimulation(args[0]);
