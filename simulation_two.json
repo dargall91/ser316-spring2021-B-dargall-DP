@@ -1,0 +1,173 @@
+{
+	"trainers": [{
+		"name": "Derek",
+		"codeamon": [{
+			"type": "Grass",
+			"level": 100
+		}, {
+			"type": "Electric",
+			"level": 100
+		}, {
+			"type": "Normal",
+			"level": 100
+		}, {
+			"type": "Dragon",
+			"level": 100
+		}, {
+			"type": "Flying",
+			"level": 100
+		}, {
+			"type": "Dark",
+			"level": 100
+		}]
+	}, {
+		"name": "Ben",
+		"codeamon":[{
+			"type": "Water",
+			"level": 100
+		}, {
+			"type": "Poison",
+			"level": 100
+		}, {
+			"type": "Fire",
+			"level": 100
+		}, {
+			"type": "Dark",
+			"level": 100
+		}, {
+			"type": "Steel",
+			"level": 100
+		}, {
+			"type": "Psychic",
+			"level": 100
+		}]
+	}, {
+		"name": "Chris",
+		"codeamon": [{
+			"type": "Psychic",
+			"level": 100
+		}, {
+			"type": "Fighting",
+			"level": 100
+		}, {
+			"type": "Ice",
+			"level": 100
+		}, {
+			"type": "Ground",
+			"level": 100
+		}, {
+			"type": "Ghost",
+			"level": 100
+		}, {
+			"type": "Rock",
+			"level": 100
+		}]
+	}, {
+		"name": "Burgundy",
+		"codeamon": [[{
+			"type": "Normal",
+			"level": 100
+		}, {
+			"type": "Bug",
+			"level": 100
+		}, {
+			"type": "Flying",
+			"level": 100
+		}, {
+			"type": "Ice",
+			"level": 100
+		}, {
+			"type": "Steel",
+			"level": 100
+		}, {
+			"type": "Fairy",
+			"level": 100
+		}]]
+	}, {
+		"name": "Billy Bob Jones",
+		"codeamon": [[{
+			"type": "Dark",
+			"level": 100
+		}, {
+			"type": "Ice",
+			"level": 100
+		}, {
+			"type": "Grass",
+			"level": 100
+		}, {
+			"type": "Rock",
+			"level": 100
+		}, {
+			"type": "Steel",
+			"level": 100
+		}, {
+			"type": "Water",
+			"level": 100
+		}]]
+	}, {
+		"name": "Joe-Anne Fabrics",
+		"codeamon": [[{
+			"type": "Bug",
+			"level": 100
+		}, {
+			"type": "Flying",
+			"level": 100
+		}, {
+			"type": "Fighting",
+			"level": 100
+		}, {
+			"type": "Electric",
+			"level": 100
+		}, {
+			"type": "Fire",
+			"level": 100
+		}, {
+			"type": "Poison",
+			"level": 100
+		}]]
+	}, {
+		"name": "Warrick Oul",
+		"codeamon": [[{
+			"type": "Psychic",
+			"level": 100
+		}, {
+			"type": "Fairy",
+			"level": 100
+		}, {
+			"type": "Bug",
+			"level": 100
+		}, {
+			"type": "Normal",
+			"level": 100
+		}, {
+			"type": "Ice",
+			"level": 100
+		}, {
+			"type": "Ghost",
+			"level": 100
+		}]]
+	}, {
+		"name": "Grug Smith",
+		"codeamon": [[{
+			"type": "Ground",
+			"level": 100
+		}, {
+			"type": "Dragon",
+			"level": 100
+		}, {
+			"type": "Fighting",
+			"level": 100
+		}, {
+			"type": "Normal",
+			"level": 100
+		}, {
+			"type": "Rock",
+			"level": 100
+		}, {
+			"type": "Fairy",
+			"level": 100
+		}]]
+	}],
+	"wildBattles": 0,
+	"wildLevel": 0
+}

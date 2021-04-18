@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit Tests for Attack
+ */
 public class AttackTests {
     @AfterEach
     public void afterEach() throws Exception {
@@ -11,17 +14,17 @@ public class AttackTests {
     }
 
     /**
-     * Test that the Attack Builder properly builds attacks.
+     * Test that the AttackBuilder properly builds attacks.
      *
      * @throws Exception
      */
     @Test
-    public void TestAttackBuilder() throws Exception{
+    public void TestAttackBuilder() throws Exception {
         System.out.println("TestAttackBuilder");
 
         int num = 50;
 
-        Attack attack = new Attack.Builder("Test Attack", Type.Normal).power(num)
+        Attack attack = new Attack.AttackBuilder("Test Attack", Type.Normal).power(num)
                 .critChance(num).accuracy(num).statusEffect(num, Stat.Attack, 1, true)
                 .heal(num).build();
 
@@ -57,7 +60,7 @@ public class AttackTests {
     public void TestAttackBuilderLowValues() throws Exception{
         System.out.println("TestAttackBuilderLowValues");
 
-        Attack attack = new Attack.Builder("Test Attack", Type.Normal).accuracy(0).critChance(0)
+        Attack attack = new Attack.AttackBuilder("Test Attack", Type.Normal).accuracy(0).critChance(0)
                 .statusEffect(0, Stat.Attack, -7, true).heal(0).build();
 
         System.out.println("Crit Chance: " + attack.getCritChance());
@@ -82,7 +85,7 @@ public class AttackTests {
     public void TestAttackBuilderHighValues() throws Exception{
         System.out.println("TestAttackBuilderHighValues");
 
-        Attack attack = new Attack.Builder("Test Attack", Type.Normal).accuracy(200)
+        Attack attack = new Attack.AttackBuilder("Test Attack", Type.Normal).accuracy(200)
                 .critChance(200).statusEffect(200, Stat.Attack, 7, true).heal(200).build();
 
         System.out.println("Crit Chance: " + attack.getCritChance());
@@ -107,10 +110,10 @@ public class AttackTests {
     public void TestEmptyAttack() throws Exception{
         System.out.println("TestEmptyAttack");
 
-        Codeamon user = CodeamonFactory.getCodeamon(Type.Fire, 10);
-        Codeamon opponent = CodeamonFactory.getCodeamon(Type.Fire, 10);
+        Codeamon user = CodeamonFactory.createCodeamon(Type.Fire, 10);
+        Codeamon opponent = CodeamonFactory.createCodeamon(Type.Fire, 10);
 
-        Attack attack = new Attack.Builder("Test Attack", Type.Normal).build();
+        Attack attack = new Attack.AttackBuilder("Test Attack", Type.Normal).build();
 
         System.out.println("Name: " + attack.getName());
         System.out.println("Type: " + attack.getType());
@@ -119,7 +122,8 @@ public class AttackTests {
     }
 
     /**
-     * Test that a damaging attack deals the proper amount of damage.
+     * Test that a damaging attack deals the proper amount of damage. Under the current Damage
+     * formula, the attack should deal 8 damage.
      *
      * @throws Exception
      */
@@ -127,11 +131,11 @@ public class AttackTests {
     public void TestDamagingAttack() throws Exception{
         System.out.println("TestDamagingAttack");
 
-        Codeamon user = CodeamonFactory.getCodeamon(Type.Fire, 10);
-        Codeamon opponent = CodeamonFactory.getCodeamon(Type.Fire, 10);
+        Codeamon user = CodeamonFactory.createCodeamon(Type.Fighting, 10);
+        Codeamon opponent = CodeamonFactory.createCodeamon(Type.Electric, 10);
 
         //Set crit chance to 0 to ensure that the attack does a set amount of damage every time
-        Attack attack = new Attack.Builder("Test Attack", Type.Normal).power(50).critChance(0).build();
+        Attack attack = new Attack.AttackBuilder("Test Attack", Type.Normal).power(50).critChance(0).build();
 
         attack.applyAttack(user, opponent);
 
@@ -139,7 +143,8 @@ public class AttackTests {
     }
 
     /**
-     * Test that a damaging attack that applies stat changes to the user applies the changes.
+     * Test that a damaging attack that applies stat changes to the user applies the changes. The
+     * user's attack stats should have increased by 50% after using the attack.
      *
      * @throws Exception
      */
@@ -147,21 +152,22 @@ public class AttackTests {
     public void TestDamagingAttackSelf() throws Exception{
         System.out.println("TestDamagingAttackSelf");
 
-        Codeamon user = CodeamonFactory.getCodeamon(Type.Fire, 10);
-        Codeamon opponent = CodeamonFactory.getCodeamon(Type.Fire, 10);
-        int attackStat = user.getAttack();
+        Codeamon user = CodeamonFactory.createCodeamon(Type.Ice, 10);
+        Codeamon opponent = CodeamonFactory.createCodeamon(Type.Dragon, 10);
+        int attackStat = user.getAttackStat();
 
         //Set crit chance to 0 to ensure that the attack does a set amount of damage every time
-        Attack attack = new Attack.Builder("Test Attack", Type.Normal).power(50).critChance(0)
+        Attack attack = new Attack.AttackBuilder("Test Attack", Type.Normal).power(50).critChance(0)
                 .statusEffect(100, Stat.Attack, 1, true).build();
 
         attack.applyAttack(user, opponent);
 
-        assertTrue(user.getAttack() > attackStat);
+        assertEquals((int) (attackStat * 1.5), user.getAttackStat());
     }
 
     /**
      * Test that a damaging attack that applies stat changes to the opponent applies the changes.
+     * The opponent's Attack stat should have decreased by 33% after being attacked.
      *
      * @throws Exception
      */
@@ -169,63 +175,17 @@ public class AttackTests {
     public void TestDamagingAttackOpponent() throws Exception{
         System.out.println("TestDamagingAttackOpponent");
 
-        Codeamon user = CodeamonFactory.getCodeamon(Type.Fire, 10);
-        Codeamon opponent = CodeamonFactory.getCodeamon(Type.Fire, 10);
-        int attackStat = opponent.getAttack();
+        Codeamon user = CodeamonFactory.createCodeamon(Type.Flying, 10);
+        Codeamon opponent = CodeamonFactory.createCodeamon(Type.Psychic, 10);
+        int attackStat = opponent.getAttackStat();
 
         //Set crit chance to 0 to ensure that the attack does a set amount of damage every time
-        Attack attack = new Attack.Builder("Test Attack", Type.Normal).power(50).critChance(0)
-                .statusEffect(100, Stat.Attack, 1, false).build();
+        Attack attack = new Attack.AttackBuilder("Test Attack", Type.Normal).power(50).critChance(0)
+                .statusEffect(100, Stat.Attack, -1, false).build();
 
         attack.applyAttack(user, opponent);
 
-        assertTrue(opponent.getAttack() > attackStat);
-    }
-
-    /**
-     * Test that an non-damaging attack that targets the user has stat stage changes applies the
-     * changes.
-     *
-     * @throws Exception
-     */
-    @Test
-    public void TestNonDamagingAttackSelf() throws Exception{
-        System.out.println("TestNonDamagingAttackSelf");
-
-        Codeamon user = CodeamonFactory.getCodeamon(Type.Fire, 10);
-        Codeamon opponent = CodeamonFactory.getCodeamon(Type.Fire, 10);
-        int attackStat = user.getAttack();
-
-        //Set crit chance to 0 to ensure that the attack does a set amount of damage every time
-        Attack attack = new Attack.Builder("Test Attack", Type.Normal).statusEffect(100,
-                Stat.Attack, 1, true).build();
-
-        attack.applyAttack(user, opponent);
-
-        assertTrue(user.getAttack() > attackStat);
-    }
-
-    /**
-     * Test that an non-damaging attack that targets the opponent has stat stage changes applies
-     * the changes.
-     *
-     * @throws Exception
-     */
-    @Test
-    public void TestNonDamagingAttackOpponent() throws Exception{
-        System.out.println("TestNonDamagingAttackOpponent");
-
-        Codeamon user = CodeamonFactory.getCodeamon(Type.Fire, 10);
-        Codeamon opponent = CodeamonFactory.getCodeamon(Type.Fire, 10);
-        int attackStat = opponent.getAttack();
-
-        //Set crit chance to 0 to ensure that the attack does a set amount of damage every time
-        Attack attack = new Attack.Builder("Test Attack", Type.Normal).statusEffect(100,
-                Stat.Attack, 1, false).build();
-
-        attack.applyAttack(user, opponent);
-
-        assertEquals((int) (attackStat * 3.0 / 2.0), opponent.getAttack());
+        assertEquals((int) (attackStat * 2.0 / 3.0), opponent.getAttackStat());
     }
 
     /**
@@ -237,11 +197,11 @@ public class AttackTests {
     public void TestHealingAttack() throws Exception{
         System.out.println("TestHealingAttack");
 
-        Codeamon user = CodeamonFactory.getCodeamon(Type.Fire, 10);
-        Codeamon opponent = CodeamonFactory.getCodeamon(Type.Fire, 10);
+        Codeamon user = CodeamonFactory.createCodeamon(Type.Fairy, 10);
+        Codeamon opponent = CodeamonFactory.createCodeamon(Type.Steel, 10);
 
         //Set crit chance to 0 to ensure that the attack does a set amount of damage every time
-        Attack attack = new Attack.Builder("Test Attack", Type.Normal).heal(100).build();
+        Attack attack = new Attack.AttackBuilder("Test Attack", Type.Normal).heal(100).build();
 
         //damage the user, the apply the effect of the attack to heal it
         user.damage(1000);

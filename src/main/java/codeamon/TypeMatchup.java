@@ -7,14 +7,15 @@ import java.util.List;
  * TypeEffectiveness is a class that knows which types are super effective and not very effective
  * against all the other types.
  */
-public class TypeMatchups {
+public class TypeMatchup {
     /**
      * TODO: For now, type matchups that deal no damage are treated as not very effective. If there
      * is time to implement an "AI" that can determine effectiveness before selecting a move,
      * implement the 0 damage option
      */
 
-    //List of types the attack is super effective against
+    //List of types the attack is super effective against.
+    //Normal is not super effective against anything.
     private static final List<Type> fireSuper = Arrays.asList(Type.Grass, Type.Ice, Type.Bug,
                                     Type.Steel);
     private static final List<Type> waterSuper = Arrays.asList(Type.Fire, Type.Ground, Type.Rock);
@@ -29,7 +30,7 @@ public class TypeMatchups {
                                     Type.Poison, Type.Rock, Type.Steel);
     private static final List<Type> flyingSuper = Arrays.asList(Type.Grass, Type.Fighting,
                                     Type.Bug);
-    private static final List<Type> psychicSuper = Arrays.asList(Type.Fire, Type.Poison);
+    private static final List<Type> psychicSuper = Arrays.asList(Type.Fighting, Type.Poison);
     private static final List<Type> bugSuper = Arrays.asList(Type.Grass, Type.Psychic, Type.Dark);
     private static final List<Type> rockSuper = Arrays.asList(Type.Fire, Type.Ice, Type.Flying,
                                     Type.Bug);
@@ -46,8 +47,7 @@ public class TypeMatchups {
                                     Type.Dragon);
     private static final List<Type> waterWeak = Arrays.asList(Type.Water, Type.Grass, Type.Dragon);
     private static final List<Type> grassWeak = Arrays.asList(Type.Fire, Type.Grass, Type.Poison,
-                                    Type.Flying,
-            Type.Bug, Type.Dragon, Type.Steel);
+                                    Type.Flying, Type.Bug, Type.Dragon, Type.Steel);
     private static final List<Type> electricWeak = Arrays.asList(Type.Grass, Type.Electric,
                                     Type.Dragon, Type.Ground);
     private static final List<Type> iceWeak = Arrays.asList(Type.Fire, Type.Water, Type.Ice,
@@ -67,8 +67,7 @@ public class TypeMatchups {
                                     Type.Steel);
     private static final List<Type> ghostWeak = Arrays.asList(Type.Dark, Type.Normal);
     private static final List<Type> dragonWeak = Arrays.asList(Type.Steel, Type.Fairy);
-    private static final List<Type> darkWeak = Arrays.asList(Type.Fighting, Type.Dark, Type.Bug,
-                                    Type.Fairy);
+    private static final List<Type> darkWeak = Arrays.asList(Type.Fighting, Type.Dark, Type.Fairy);
     private static final List<Type> steelWeak = Arrays.asList(Type.Fire, Type.Water, Type.Electric,
                                     Type.Steel);
     private static final List<Type> fairyWeak = Arrays.asList(Type.Fire, Type.Poison, Type.Steel);

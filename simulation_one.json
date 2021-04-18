@@ -1,0 +1,53 @@
+{
+	"trainers": [{
+		"name": "Derek",
+		"codeamon": [{
+			"type": "Grass",
+			"level": 10
+		}, {
+			"type": "Electric",
+			"level": 10
+		}, {
+			"type": "Normal",
+			"level": 10
+		}]
+	}, {
+		"name": "Ben",
+		"codeamon": [{
+			"type": "Water",
+			"level": 10
+		}, {
+			"type": "Poison",
+			"level": 10
+		}, {
+			"type": "Fire",
+			"level": 10
+		}]
+	}, {
+		"name": "Chris",
+		"codeamon": [{
+			"type": "Psychic",
+			"level": 10
+		}, {
+			"type": "Fighting",
+			"level": 10
+		}, {
+			"type": "Ice",
+			"level": 10
+		}]
+	}, {
+		"name": "Burgundy",
+		"codeamon": [{
+			"type": "Normal",
+			"level": 10
+		}, {
+			"type": "Bug",
+			"level": 10
+		}, {
+			"type": "Flying",
+			"level": 10
+		}]
+	}],
+	"wildBattles": 5,
+	"wildLevel": 10
+}

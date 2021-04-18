@@ -6,8 +6,9 @@ package codeamon;
  * and recalculating stats after leveling up.
  */
 public abstract class CodeamonStats {
-    private int maxHitPoints;
-    private int currentHitPoints;
+    //current and max hit points must be zero for initial call of setStats() to function
+    private int maxHitPoints = 0;
+    private int currentHitPoints = 0;
     private int attack;
     private int defense;
     private int speed;
@@ -29,13 +30,35 @@ public abstract class CodeamonStats {
             level = 1;
         }
 
+        setStats(level);
+        resetStatStages();
+    }
+
+    /**
+     * Sets the stats for the Codeamon based on its current level.
+     *
+     * @param level The Codeamon's current level
+     */
+    private void setStats(int level) {
+        int damage = maxHitPoints - currentHitPoints;
+
         maxHitPoints = calculateMaxHitPoints(getBaseHitPoints(), level);
-        currentHitPoints = maxHitPoints;
+        currentHitPoints = maxHitPoints - damage;
         attack = calculateStat(getBaseAttack(), level);
         defense = calculateStat(getBaseDefense(), level);
         speed = calculateStat(getBaseSpeed(), level);
 
-        resetStatStages();
+    }
+
+    /**
+     * The Codeamon levels up and recalculates this Codeamon's stats based on it's new level.
+     * The difference between it's current and maximum hit points will remain the same after
+     * leveling up.
+     *
+     * @param level The Codeamon's new level
+     */
+    public void levelUp(int level) {
+        setStats(level);
     }
 
     /**
@@ -57,14 +80,16 @@ public abstract class CodeamonStats {
     }
 
     /**
-     * Heals the Codeamon by a specified amount.
+     * Heals the Codeamon by a specified amount. If the amount of healing is 0 or less, the
+     * Codeamon will be healed for 1 hit point.
      *
-     * @param heal The amount to heal. If the amount is less than 0, it will be set as 1
+     * @param heal The amount of Hit Points to heal
      */
     public void heal(int heal) {
         if (heal < 1) {
             heal = 1;
         }
+
         currentHitPoints += heal;
 
         if (currentHitPoints > maxHitPoints) {
@@ -103,7 +128,7 @@ public abstract class CodeamonStats {
      *
      * @return The Codeamon's Attack after modifiers
      */
-    public int getAttack() {
+    public int getAttackStat() {
         return (int) (attack * getModifier(attackStage));
     }
 
@@ -115,7 +140,7 @@ public abstract class CodeamonStats {
      */
     public int getAttackCritical() {
         if (attackStage > 0) {
-            return getAttack();
+            return getAttackStat();
         } else {
             return attack;
         }
@@ -126,7 +151,7 @@ public abstract class CodeamonStats {
      *
      * @return The Codeamon's Defense after modifiers
      */
-    public int getDefense() {
+    public int getDefenseStat() {
         return (int) (defense * getModifier(defenseStage));
     }
 
@@ -149,7 +174,7 @@ public abstract class CodeamonStats {
      *
      * @return The Codeamon's Speed after modifiers
      */
-    public int getSpeed() {
+    public int getSpeedStat() {
         return (int) (speed * getModifier(speedStage));
     }
 
@@ -219,9 +244,30 @@ public abstract class CodeamonStats {
      * @param stat The Stat to apply the changes to
      * @param stages The number of stages to be applied
      */
-    public void applyStatStageChange(Stat stat, int stages) {
+    public void applyStatStageChange(String name, Stat stat, int stages) {
+        //if stages to change is 0
+        if (stages == 0) {
+            System.out.println(name + "'s stats were unchanged!");
+            return;
+        }
+
         if (stat == Stat.Attack) {
+            //display a message of how the stages were changed
+            if (stages > 0 && attackStage != MAX_STAGE) {
+                System.out.println(name + "'s Attack increased!");
+            } else if (stages > 0 && attackStage == MAX_STAGE) {
+                System.out.println(name + "'s Attack can't go any higher!");
+                return;
+            } else if (stages < 0 && attackStage != MIN_STAGE) {
+                System.out.println(name + "'s Attack decreased!");
+            } else if (stages < 0 && attackStage == MIN_STAGE) {
+                System.out.println(name + "'s Attack can't go any lower!");
+                return;
+            }
+
             attackStage += stages;
+
+            //do not let the stages go above or below the max and min
             if (attackStage > MAX_STAGE) {
                 attackStage = MAX_STAGE;
             }
@@ -229,8 +275,24 @@ public abstract class CodeamonStats {
             if (attackStage < MIN_STAGE) {
                 attackStage = MIN_STAGE;
             }
+
         } else if (stat == Stat.Defense) {
+            //display a message of how the stages were changed
+            if (stages > 0 && defenseStage != MAX_STAGE) {
+                System.out.println(name + "'s Defense increased!");
+            } else if (stages > 0 && defenseStage == MAX_STAGE) {
+                System.out.println(name + "'s Defense can't go any higher!");
+                return;
+            } else if (stages < 0 && defenseStage != MIN_STAGE) {
+                System.out.println(name + "'s Defense decreased!");
+            } else if (stages < 0 && defenseStage == MIN_STAGE) {
+                System.out.println(name + "'s Defense can't go any lower!");
+                return;
+            }
+
             defenseStage += stages;
+
+            //do not let the stages go above or below the max and min
             if (defenseStage > MAX_STAGE) {
                 defenseStage = MAX_STAGE;
             }
@@ -239,7 +301,22 @@ public abstract class CodeamonStats {
                 defenseStage = MIN_STAGE;
             }
         } else {
+            //display a message of how the stages were changed
+            if (stages > 0 && speedStage != MAX_STAGE) {
+                System.out.println(name + "'s Speed increased!");
+            } else if (stages > 0 && speedStage == MAX_STAGE) {
+                System.out.println(name + "'s Speed can't go any higher!");
+                return;
+            } else if (stages < 0 && speedStage != MIN_STAGE) {
+                System.out.println(name + "'s Speed decreased!");
+            } else if (stages < 0 && speedStage == MIN_STAGE) {
+                System.out.println(name + "'s Speed can't go any lower!");
+                return;
+            }
+
             speedStage += stages;
+
+            //do not let the stages go above or below the max and min
             if (speedStage > MAX_STAGE) {
                 speedStage = MAX_STAGE;
             }

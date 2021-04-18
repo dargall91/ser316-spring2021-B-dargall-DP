@@ -1,39 +1,56 @@
 # Code-A-Mon
-*Gotta Code 'Em All!*
+### *"Gotta Code 'Em All!"*
 
-I love Pokemon. I've loved Pokemon ever since it first released on the Game Boy. after I took my first introductory
-programming course in high school, the first program I ever made was a text-based Pokemon game in C++ . It was a very
-crude and simple version of what I will doing here. Years ago, I had an idea for a Pokemon ROM Hack (a mod for an
-existing Pokemon game) and worked on it on and off for a few years. I have so many ideas for this project, the only
-limitation is time.
+The Codeamon program is a simulation for Codeamon Trainers to battle and recruit Wild Codeamon before competing against
+each other in a single elimination Tournament. The Simulation begins in the Day. During the Day, every Trainer will
+battle against a single random Wild Codeamon. If they defeat it, it will join their party. Once all Trainers have
+completed their Wild Battles, the simulation will switch to Night. At Night, each Trainer's Codeamon recover all lost
+Hit Points to prepare them for the next Day's battles. Once all Trainers Codeamon have recovered this way, it becomes
+Day once again. This pattern continues until each Trainer has battled a specified number of Wild Codeamon, which
+increase in level by 1 each day. On the Day after the last Wild Codeamon battles have concluded, the Tournament begins.
+While the Tournament is ongoing, the Day and Night cycle will continue, except that a single round of the Tournament
+will replace Wild Battles during the day. Trainers who lose their battles during a round are eliminated from the
+Tournament. The Tournament concludes when only a single Trainer remains, at which point the simulation is over.
 
-The goal of this program is to create a simulation of a Trainer who begins with one ~~Pokemon~~ Code-A-Mon, and will
-run until a TBD event has triggered. Possibilities for such an event are battling a certain rival trainer, catching a
-specified number of Code-A-Mon, or after a certain number of days have passed. The simulation will mimic many of the
-actual mechanics from Pokemon, because many of the mechanics used in the Mascotmon program and suggested in the
-assignment document are not how they actually work in the mainline games, and that annoyed me to no end.
+There are three different simulations that can be run:
 
-# Builder Pattern
-The first design pattern I intend to use is the Builder Pattern. The Builder Pattern will be used to build Trainers by
-setting attributes such as their name and the Code-A-Mon on their team. 
+### Default Simulation
+This is the simulation that is run if neither of the json files are passed to the .jar as command line arguments. This
+simulation consists of 4 Codeamon Trainers who each begin with a single level 20 Codeamon. Trainers will battle against
+10 Wild Codeamon, which will begin at level 16, before competing in the Tournament.
 
-# State Pattern
-The second design pattern I've chosen is the State Pattern. A State for Night and a State for Day can be used to
-determine what the list of possible events that can trigger are, and control the transition between the two states
-after those events have concluded.
+### simulation_one.json
+This simulation consists of 4 Codeamon Trainers who each begin with 3 level 10 Codeamon. Trainers will battle against
+5 Wild Codeamon, which will begin at level 10, before competing in the Tournament.
 
-# Strategy Pattern
-The third design pattern I've chosen is the Strategy Pattern. A Battle between two trainers and a battle between a
-trainer and a wild Cod-A-Mon are similar, but there will be some things that can only happen in one compared to the
-other, such as the option to catch the wild Cod-A-Mon. These different options and event flows can be stored in
-separate Strategies.
+### simulation_two.json
+This simulation consists of 8 Codeamon Trainers who each begin with 6 level 100 Codeamon. Trainers will not battle
+against any Wild Codeamon in this simulation, they will instead immediately start competing in the Tournament.
 
-# Other Design Patterns
-While the above three design patterns will be the ones I focus on, if there is time I may use some others. One idea for
-another design pattern is an Observer Pattern used to update a CodeDex, a tool used by trainers to track how many
-Code-A-Mon they've seen and caught. When a Code-A-Mon is encountered for the first time, the CodeDex will be notified,
-and the Code-A-Mon will be flagged as seen. Capturing a Code-A-Mon will similarly notify the CodeDex Tracking seen and
-caught Code-A-Mon in this manner would allow for the simulation to choose not to catch a Code-A-Mon the trainer has
-already caught before. Another design pattern I'm considering is a Factory Method for creating Code-A-Mon. There will
-be separate classes for Code-A-Mon of each type to store that specific Code-A-Mon's data, and a Factory could be used
-to make the required type of Code-A-Mon.
+## Design Patterns
+
+### Builder Pattern
+The Builder Pattern is used in two separate case. The first is build a Codeamon Trainer. The TrainerBuilder is used to
+specify the beginning state of a Codeamon Trainer, that is their name, how much CodeaDollars (¢) they have, and their
+initial Codeamon Party composition. The Trainer Builder ended up not being as useful as I wanted it to be in the end,
+because the way I set it up didn't really allow for adding an unknown number of Codeamon to a Trainer like I needed
+when reading the json files. The second case of the builder, which is used to construct Attacks, was on the other hand
+very useful. The Attack Builder allows for nearly fully customizable attacks. An Attack's name and Type must be set with
+the builder, but beyond that anything is possible. An Attack can be set to deal damage, heal the user, raise or lower
+the user's stats, or raise or lower the user's opponent's stats. With the Builder, an Attack can even be set to do any
+combination of these things except affect the stats of both the user and its opponent, or it can even do nothing at all. 
+
+### State Pattern
+The State Pattern will be used in the Day and Night Cycle. It is used to determine what events happen during each
+of these times. During the Day, battles occur. Trainers will first battle one random Wild Codeamon a day until a
+specified number of battles has occurred. After each Day, it will become Night, and each Trainer's Codeamon party will
+rest and fully recover all lost Hit Points. After all the Wild Battles have concluded, the Day and Night cycle will
+continue, with a single round of the Tournament replacing Wild Battles during the day, until only one Trainer remains.
+
+## Factory Method
+The Factory Method is used for the creation of a Codeamon. There are 18 different types of Codeamon, and there is one
+species of Codeamon of each type. All Codeamon of the same species have the same base stats and attacks, though the
+attacks vary by the Codeamon's initial level. A Codeamon Factory is used to determine what species to create based on a
+Type parameter. The Factory is also capable of creating a random type of Codeamon. The Codeamon Factory is also used in
+conjunction with a Stats Factory, which gets the base stat values for a given Type, and determines its current stats
+based on it's level.

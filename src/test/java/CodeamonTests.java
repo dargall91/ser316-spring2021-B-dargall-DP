@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit Tests for Codeamon
+ */
 public class CodeamonTests {
     @AfterEach
     public void afterEach() throws Exception {
@@ -20,9 +23,9 @@ public class CodeamonTests {
     public void TestCodeamonAttributes() throws Exception {
         System.out.println("TestCodeamonAttributes");
 
-        Type type = Type.Fire;
+        Type type = Type.Grass;
         int level = 10;
-        Codeamon mon = CodeamonFactory.getCodeamon(type, level);
+        Codeamon mon = CodeamonFactory.createCodeamon(type, level);
 
         System.out.println("Name: " + mon.getName());
         System.out.println("Level: " + mon.getLevel());
@@ -42,9 +45,9 @@ public class CodeamonTests {
     public void TestInvalidLevelCodeamon() throws Exception {
         System.out.println("TestInvalidLevelCodeamon");
 
-        Type type = Type.Fire;
+        Type type = Type.Normal;
         int level = 1;
-        Codeamon mon = CodeamonFactory.getCodeamon(type, 0);
+        Codeamon mon = CodeamonFactory.createCodeamon(type, 0);
 
         System.out.println("Level: " + mon.getLevel());
 
@@ -60,11 +63,11 @@ public class CodeamonTests {
     public void TestCodeamonNickname() throws Exception {
         System.out.println("TestCodeamonNickname");
 
-        Type type = Type.Fire;
+        Type type = Type.Water;
         int level = 10;
         String nickname = "Billy Bob Jones";
 
-        Codeamon mon = CodeamonFactory.getCodeamon(type, level);
+        Codeamon mon = CodeamonFactory.createCodeamon(type, level);
         mon.setNickname(nickname);
 
         System.out.println("Name: " + mon.getName());

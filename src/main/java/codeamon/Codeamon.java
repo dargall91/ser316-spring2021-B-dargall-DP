@@ -1,14 +1,18 @@
 package codeamon;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  * An abstract data structure that represents a Codeamon. Has the methods necessary for getting a
- * Codeamon's stats,  * name, and level, inflicting damage, healing damage, getting its EXP yield,
+ * Codeamon's stats, name, and level, inflicting damage, healing damage, getting its EXP yield,
  * and applying gained EXP.
  */
-public abstract class Codeamon {
+public abstract class Codeamon implements Comparable<Codeamon> {
     private CodeamonStats stats;
     private int level;
     private String nickname;
+    int exp;
 
     /**
      * Constructs a Codeamon with the specified stats and level.
@@ -19,6 +23,16 @@ public abstract class Codeamon {
     public Codeamon(CodeamonStats stats, int level) {
         if (level < 1) {
             level = 1;
+        }
+
+        //starting experience points is equals to the minimum number of EXP required to reach
+        //the current level, which is level^3. The exception is level 1 Codeamon, which have 0 EXP.
+        //based on this formula: https://bulbapedia.bulbagarden.net/wiki/Experience#Medium_Fast
+
+        if (level == 1) {
+            exp = 0;
+        } else {
+            exp = (int) Math.pow(level, 3);
         }
 
         this.stats = stats;
@@ -46,7 +60,7 @@ public abstract class Codeamon {
      * @param stages The number of stages to be applied
      */
     public void applyStatStageChange(Stat stat, int stages) {
-        stats.applyStatStageChange(stat, stages);
+        stats.applyStatStageChange(getName(), stat, stages);
     }
 
     /**
@@ -104,18 +118,16 @@ public abstract class Codeamon {
     }
 
     /**
-     * This Codeamon resets all stat changes.
-     */
-    public void resetStatStages() {
-        stats.resetStatStages();
-    }
-
-    /**
-     * Heals the Codeamon by a specified amount.
+     * Heals the Codeamon by a specified amount. If the amount of healing is 0 or less, the
+     * Codeamon will be healed for 1 hit point.
      *
-     * @param heal The amount to heal
+     * @param heal The amount of Hit Points to heal
      */
     public void heal(int heal) {
+        if (heal < 1) {
+            heal = 1;
+        }
+
         stats.heal(heal);
     }
 
@@ -133,6 +145,10 @@ public abstract class Codeamon {
         System.out.println(getName() + " took " + damage + " damagae!");
 
         stats.damage(damage);
+
+        if (isFainted()) {
+            System.out.println(getName() + " fainted!");
+        }
     }
 
     /**
@@ -148,19 +164,28 @@ public abstract class Codeamon {
     /**
      * Gets this Codeamon's attack stat.
      *
-     * @return The Hit Point maximum
+     * @return The Attack stat (after any modifiers)
      */
-    public int getAttack() {
-        return stats.getAttack();
+    public int getAttackStat() {
+        return stats.getAttackStat();
     }
 
     /**
      * Gets this Codeamon's defense stat.
      *
-     * @return The Hit Point maximum
+     * @return The Defense stat (after any modifiers)
      */
-    public int getDefense() {
-        return stats.getDefense();
+    public int getDefenseStat() {
+        return stats.getDefenseStat();
+    }
+
+    /**
+     * Gets this Codeamon's speed stat.
+     *
+     * @return The Speed Stat (after any modifiers)
+     */
+    public int getSpeedStat() {
+        return stats.getSpeedStat();
     }
 
     /**
@@ -176,4 +201,124 @@ public abstract class Codeamon {
      * @return The type
      */
     public abstract Type getType();
+
+    /**
+     * Checks if this Codeamon has fainted or not. A Codeamon is considered to have fainted when
+     * it's Hit Points drop to 0.
+     *
+     * @return True if it has fainted, false if it has not
+     */
+    public boolean isFainted() {
+        return getCurrentHitPoints() == 0;
+    }
+
+    /**
+     * This Codeamon attacks another Codeamon. The attack to be used will be chosen at random.
+     *
+     * @param opponent This Codeamon's opponent
+     */
+    public void attack(Codeamon opponent) {
+        Attack[] attackArr = getAttacks();
+
+        //Get a random attack an apply it's effect
+        Random rand = new Random();
+        Attack attack = attackArr[rand.nextInt(attackArr.length)];
+
+        attack.applyAttack(this, opponent);
+    }
+
+    /**
+     * Gets the list of this Codeamon's attacks.
+     *
+     * @return An array of this Codeamon's attacks
+     */
+    public abstract Attack[] getAttacks();
+
+    /**
+     * Gives experience to the Codeamon in the party of the Trainer that defeated it. Only
+     * non-fainted Codeamon can gain experience.
+     *
+     * @param party The Codeamon party of the Trainer who defeated this Codeamon
+     */
+    public void giveExperience(ArrayList<Codeamon> party) {
+        //loosely based on the equation here:
+        //https://bulbapedia.bulbagarden.net/wiki/Experience#Gain_formula
+        //All modifiers in that formula are set to 1, and base EXP Yield being used is 150
+        int givenExp = 150 * level / 7;
+
+        for (Codeamon c : party) {
+            if (!c.isFainted()) {
+                c.gainExperience(givenExp);
+            }
+        }
+    }
+
+    /**
+     * Gives this Codeamon experience points then checks if it leveled up. The experience points
+     * required to reach a given level is that level to the power of 3. Level 100 Codeamon cannot
+     * gain levels.
+     *
+     * @param exp The amount of EXP to be gained.
+     */
+    public void gainExperience(int exp) {
+        if (level == 100) {
+            return;
+        }
+
+        System.out.println(getName() + " gained " + exp + " EXP Points!");
+
+        this.exp += exp;
+
+        if (Math.pow(level + 1, 3) <= this.exp) {
+            level++;
+            stats.levelUp(level);
+            System.out.println(getName() + " grew to level " + level + "!");
+        }
+    }
+
+    /**
+     * Prints this Codeamon's name, current hit points, and max hit points. For example,
+     */
+    public void printBattleStatus() {
+        System.out.println(getName() + ":");
+        System.out.println("Level: " + level);
+        System.out.println("HP: " + getCurrentHitPoints() + "/" + getMaxHitPoints() + " HP");
+    }
+
+    /**
+     * Gets the total amount of EXP this Codeamon has.
+     *
+     * @return The total experience points
+     */
+    public int getExperiencePoints() {
+        return exp;
+    }
+
+    @Override
+    public int compareTo(Codeamon codeamon) {
+        //this Codeamon is not fainted and other Codeamon is
+        if (!isFainted() && codeamon.isFainted()) {
+            return -1;
+        }
+        //this Codeamon is fainted and other Codeamon is not
+        if (isFainted() && !codeamon.isFainted()) {
+            return 1;
+        }
+        //bot Codeamon are fainted they considered to be equal for the purpose of sorting
+        if (isFainted() && codeamon.isFainted()) {
+            return 0;
+        }
+
+        //neither Codeamon are fainted
+        if (level < codeamon.getLevel()) {
+            return -1;
+        }
+
+        if (level > codeamon.getLevel()) {
+            return 1;
+        }
+
+        return 0;
+
+    }
 }

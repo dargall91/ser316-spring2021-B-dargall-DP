@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Unit Tests for CodeamonStats
+ */
 public class CodeamonStatsTests {
     @AfterEach
     public void afterEach() throws Exception {
@@ -23,22 +26,21 @@ public class CodeamonStatsTests {
     public void TestStatValues() throws Exception {
         System.out.println("TestStatValues");
 
-        Type type = Type.Fire;
         int level = 10;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, level);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Grass, level);
 
         System.out.println("Max Hit Points: " + stats.getMaxHitPoints());
         System.out.println("Current Hit Points: " + stats.getCurrentHitPoints());
-        System.out.println("Attack: " + stats.getAttack());
-        System.out.println("Defense: " + stats.getDefense());
-        System.out.println("Speed: " + stats.getSpeed());
+        System.out.println("Attack: " + stats.getAttackStat());
+        System.out.println("Defense: " + stats.getDefenseStat());
+        System.out.println("Speed: " + stats.getSpeedStat());
 
         assertAll(() -> assertEquals(2 * stats.getBaseHitPoints() * level / 100
                         + level + 10, stats.getMaxHitPoints()),
                 () -> assertEquals(stats.getMaxHitPoints(), stats.getCurrentHitPoints()),
-                () -> assertEquals(2 * stats.getBaseAttack() * level / 100 + 5, stats.getAttack()),
-                () -> assertEquals(2 * stats.getBaseDefense() * level / 100 + 5, stats.getDefense()),
-                () -> assertEquals(2 * stats.getBaseSpeed() * level / 100 + 5, stats.getSpeed()));
+                () -> assertEquals(2 * stats.getBaseAttack() * level / 100 + 5, stats.getAttackStat()),
+                () -> assertEquals(2 * stats.getBaseDefense() * level / 100 + 5, stats.getDefenseStat()),
+                () -> assertEquals(2 * stats.getBaseSpeed() * level / 100 + 5, stats.getSpeedStat()));
     }
 
     /**
@@ -50,22 +52,21 @@ public class CodeamonStatsTests {
     public void TestInvalidLevelStatValues() throws Exception {
         System.out.println("TestInvalidLevelStatValues");
 
-        Type type = Type.Fire;
         int level = 1;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, 0);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Normal, 0);
 
         System.out.println("Max Hit Points: " + stats.getMaxHitPoints());
         System.out.println("Current Hit Points: " + stats.getCurrentHitPoints());
-        System.out.println("Attack: " + stats.getAttack());
-        System.out.println("Defense: " + stats.getDefense());
-        System.out.println("Speed: " + stats.getSpeed());
+        System.out.println("Attack: " + stats.getAttackStat());
+        System.out.println("Defense: " + stats.getDefenseStat());
+        System.out.println("Speed: " + stats.getSpeedStat());
 
         assertAll(() -> assertEquals(2 * stats.getBaseHitPoints() * 1 / 100
                         + level + 10, stats.getMaxHitPoints()),
                 () -> assertEquals(stats.getMaxHitPoints(), stats.getCurrentHitPoints()),
-                () -> assertEquals(2 * stats.getBaseAttack() * level / 100 + 5, stats.getAttack()),
-                () -> assertEquals(2 * stats.getBaseDefense() * level / 100 + 5, stats.getDefense()),
-                () -> assertEquals(2 * stats.getBaseSpeed() * level / 100 + 5, stats.getSpeed()));
+                () -> assertEquals(2 * stats.getBaseAttack() * level / 100 + 5, stats.getAttackStat()),
+                () -> assertEquals(2 * stats.getBaseDefense() * level / 100 + 5, stats.getDefenseStat()),
+                () -> assertEquals(2 * stats.getBaseSpeed() * level / 100 + 5, stats.getSpeedStat()));
     }
 
     /**
@@ -77,8 +78,7 @@ public class CodeamonStatsTests {
     public void TestDamage() throws Exception{
         System.out.println("TestDamage");
 
-        Type type = Type.Fire;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, 1);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Fire, 1);
 
         int damage = 2;
 
@@ -99,8 +99,7 @@ public class CodeamonStatsTests {
     public void TestDamageGreaterThanHitPoints() throws Exception{
         System.out.println("TestDamageGreaterThanHitPoints");
 
-        Type type = Type.Fire;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, 1);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Fire, 1);
 
         stats.damage(stats.getMaxHitPoints() + 1);
 
@@ -118,8 +117,7 @@ public class CodeamonStatsTests {
     public void TestDamageIsZero() throws Exception{
         System.out.println("TestDamageIsZero");
 
-        Type type = Type.Fire;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, 1);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Fire, 1);
 
         stats.damage(0);
 
@@ -137,8 +135,7 @@ public class CodeamonStatsTests {
     public void TestHeal() throws Exception{
         System.out.println("TestHeal");
 
-        Type type = Type.Fire;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, 1);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Fire, 1);
 
         int damage = 2;
         int heal = 1;
@@ -160,8 +157,7 @@ public class CodeamonStatsTests {
     public void TestHealIsZero() throws Exception{
         System.out.println("TestHealIsZero");
 
-        Type type = Type.Fire;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, 1);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Fire, 1);
 
         int damage = 2;
 
@@ -182,8 +178,7 @@ public class CodeamonStatsTests {
     public void TestHealPastFull() throws Exception{
         System.out.println("TestHealPastFull");
 
-        Type type = Type.Fire;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, 1);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Fire, 1);
 
         int damage = 2;
 
@@ -204,8 +199,7 @@ public class CodeamonStatsTests {
     public void TestRest() {
         System.out.println("TestRest");
 
-        Type type = Type.Fire;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, 1);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Fire, 1);
 
         int damage = 10000;
 
@@ -226,30 +220,29 @@ public class CodeamonStatsTests {
     public void TestApplyNegativeStatStageChange() throws Exception {
         System.out.println("TestApplyNegativeStatStageChange");
 
-        Type type = Type.Fire;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, 10);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Fire, 10);
 
-        int attack = stats.getAttack();
-        int defense = stats.getDefense();
-        int speed = stats.getSpeed();
+        int attack = stats.getAttackStat();
+        int defense = stats.getDefenseStat();
+        int speed = stats.getSpeedStat();
 
         System.out.println("Before Changes:");
-        System.out.println("Attack: " + stats.getAttack());
-        System.out.println("Defense: " + stats.getDefense());
-        System.out.println("Speed: " + stats.getSpeed());
+        System.out.println("Attack: " + stats.getAttackStat());
+        System.out.println("Defense: " + stats.getDefenseStat());
+        System.out.println("Speed: " + stats.getSpeedStat());
 
-        stats.applyStatStageChange(Stat.Attack, -7);
-        stats.applyStatStageChange(Stat.Defense, -7);
-        stats.applyStatStageChange(Stat.Speed, -7);
+        stats.applyStatStageChange("Codeamon", Stat.Attack, -7);
+        stats.applyStatStageChange("Codeamon", Stat.Defense, -7);
+        stats.applyStatStageChange("Codeamon", Stat.Speed, -7);
 
         System.out.println("\nAfter Changes:");
-        System.out.println("Attack: " + stats.getAttack());
-        System.out.println("Defense: " + stats.getDefense());
-        System.out.println("Speed: " + stats.getSpeed());
+        System.out.println("Attack: " + stats.getAttackStat());
+        System.out.println("Defense: " + stats.getDefenseStat());
+        System.out.println("Speed: " + stats.getSpeedStat());
 
-        assertAll(() -> assertEquals((int) (attack * (2.0 / 8.0)), stats.getAttack()),
-                () -> assertEquals((int) (defense * (2.0 / 8.0)), stats.getDefense()),
-                () -> assertEquals((int) (speed * (2.0 / 8.0)), stats.getSpeed()));
+        assertAll(() -> assertEquals((int) (attack * (2.0 / 8.0)), stats.getAttackStat()),
+                () -> assertEquals((int) (defense * (2.0 / 8.0)), stats.getDefenseStat()),
+                () -> assertEquals((int) (speed * (2.0 / 8.0)), stats.getSpeedStat()));
     }
 
     /**
@@ -261,30 +254,29 @@ public class CodeamonStatsTests {
     public void TestApplyPositiveStatStageChange() throws Exception {
         System.out.println("TestApplyPositiveStatStageChange");
 
-        Type type = Type.Fire;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, 10);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Fire, 10);
 
-        int attack = stats.getAttack();
-        int defense = stats.getDefense();
-        int speed = stats.getSpeed();
+        int attack = stats.getAttackStat();
+        int defense = stats.getDefenseStat();
+        int speed = stats.getSpeedStat();
 
         System.out.println("Before Changes:");
-        System.out.println("Attack: " + stats.getAttack());
-        System.out.println("Defense: " + stats.getDefense());
-        System.out.println("Speed: " + stats.getSpeed());
+        System.out.println("Attack: " + stats.getAttackStat());
+        System.out.println("Defense: " + stats.getDefenseStat());
+        System.out.println("Speed: " + stats.getSpeedStat());
 
-        stats.applyStatStageChange(Stat.Attack, 7);
-        stats.applyStatStageChange(Stat.Defense, 7);
-        stats.applyStatStageChange(Stat.Speed, 7);
+        stats.applyStatStageChange("Codeamon", Stat.Attack, 7);
+        stats.applyStatStageChange("Codeamon", Stat.Defense, 7);
+        stats.applyStatStageChange("Codeamon", Stat.Speed, 7);
 
         System.out.println("\nAfter Changes:");
-        System.out.println("Attack: " + stats.getAttack());
-        System.out.println("Defense: " + stats.getDefense());
-        System.out.println("Speed: " + stats.getSpeed());
+        System.out.println("Attack: " + stats.getAttackStat());
+        System.out.println("Defense: " + stats.getDefenseStat());
+        System.out.println("Speed: " + stats.getSpeedStat());
 
-        assertAll(() -> assertEquals((int) (attack * (8.0 / 2.0)), stats.getAttack()),
-                () -> assertEquals((int) (defense * (8.0 / 2.0)), stats.getDefense()),
-                () -> assertEquals((int) (speed * (8.0 / 2.0)), stats.getSpeed()));
+        assertAll(() -> assertEquals((int) (attack * (8.0 / 2.0)), stats.getAttackStat()),
+                () -> assertEquals((int) (defense * (8.0 / 2.0)), stats.getDefenseStat()),
+                () -> assertEquals((int) (speed * (8.0 / 2.0)), stats.getSpeedStat()));
     }
 
     /**
@@ -296,37 +288,36 @@ public class CodeamonStatsTests {
     public void TestResetStatStages() throws Exception {
         System.out.println("TestApplyPositiveStatChange");
 
-        Type type = Type.Fire;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, 10);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Fire, 10);
 
-        int attack = stats.getAttack();
-        int defense = stats.getDefense();
-        int speed = stats.getSpeed();
+        int attack = stats.getAttackStat();
+        int defense = stats.getDefenseStat();
+        int speed = stats.getSpeedStat();
 
         System.out.println("Before Changes:");
-        System.out.println("Attack: " + stats.getAttack());
-        System.out.println("Defense: " + stats.getDefense());
-        System.out.println("Speed: " + stats.getSpeed());
+        System.out.println("Attack: " + stats.getAttackStat());
+        System.out.println("Defense: " + stats.getDefenseStat());
+        System.out.println("Speed: " + stats.getSpeedStat());
 
-        stats.applyStatStageChange(Stat.Attack, 7);
-        stats.applyStatStageChange(Stat.Defense, 7);
-        stats.applyStatStageChange(Stat.Speed, 7);
+        stats.applyStatStageChange("Codeamon", Stat.Attack, 7);
+        stats.applyStatStageChange("Codeamon", Stat.Defense, 7);
+        stats.applyStatStageChange("Codeamon", Stat.Speed, 7);
 
         System.out.println("\nAfter Changes:");
-        System.out.println("Attack: " + stats.getAttack());
-        System.out.println("Defense: " + stats.getDefense());
-        System.out.println("Speed: " + stats.getSpeed());
+        System.out.println("Attack: " + stats.getAttackStat());
+        System.out.println("Defense: " + stats.getDefenseStat());
+        System.out.println("Speed: " + stats.getSpeedStat());
 
         stats.resetStatStages();
 
         System.out.println("\nAfter Reset:");
-        System.out.println("Attack: " + stats.getAttack());
-        System.out.println("Defense: " + stats.getDefense());
-        System.out.println("Speed: " + stats.getSpeed());
+        System.out.println("Attack: " + stats.getAttackStat());
+        System.out.println("Defense: " + stats.getDefenseStat());
+        System.out.println("Speed: " + stats.getSpeedStat());
 
-        assertAll(() -> assertEquals(attack, stats.getAttack()),
-                () -> assertEquals(defense, stats.getDefense()),
-                () -> assertEquals(speed, stats.getSpeed()));
+        assertAll(() -> assertEquals(attack, stats.getAttackStat()),
+                () -> assertEquals(defense, stats.getDefenseStat()),
+                () -> assertEquals(speed, stats.getSpeedStat()));
     }
 
     /**
@@ -339,23 +330,22 @@ public class CodeamonStatsTests {
     public void TestCriticalStatsPositiveStages() throws Exception {
         System.out.println("TestCriticalStatsPositiveStages");
 
-        Type type = Type.Fire;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, 10);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Fire, 10);
 
-        int defense = stats.getDefense();
+        int defense = stats.getDefenseStat();
 
         System.out.println("Before Changes:");
-        System.out.println("Attack: " + stats.getAttack());
-        System.out.println("Defense: " + stats.getDefense());
+        System.out.println("Attack: " + stats.getAttackStat());
+        System.out.println("Defense: " + stats.getDefenseStat());
 
-        stats.applyStatStageChange(Stat.Attack, 2);
-        stats.applyStatStageChange(Stat.Defense, 2);
+        stats.applyStatStageChange("Codeamon", Stat.Attack, 2);
+        stats.applyStatStageChange("Codeamon", Stat.Defense, 2);
 
-        int attack = stats.getAttack();
+        int attack = stats.getAttackStat();
 
         System.out.println("\nAfter Changes:");
-        System.out.println("Attack: " + stats.getAttack());
-        System.out.println("Defense: " + stats.getDefense());
+        System.out.println("Attack: " + stats.getAttackStat());
+        System.out.println("Defense: " + stats.getDefenseStat());
 
         System.out.println("\nCritcal Values:");
         System.out.println("Attack: " + stats.getAttackCritical());
@@ -375,23 +365,22 @@ public class CodeamonStatsTests {
     public void TestCriticalStatsNegativeStages() throws Exception {
         System.out.println("TestCriticalStatsNegativeStages");
 
-        Type type = Type.Fire;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, 10);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Fire, 10);
 
-        int attack = stats.getAttack();
+        int attack = stats.getAttackStat();
 
         System.out.println("Before Changes:");
-        System.out.println("Attack: " + stats.getAttack());
-        System.out.println("Defense: " + stats.getDefense());
+        System.out.println("Attack: " + stats.getAttackStat());
+        System.out.println("Defense: " + stats.getDefenseStat());
 
-        stats.applyStatStageChange(Stat.Attack, -2);
-        stats.applyStatStageChange(Stat.Defense, -2);
+        stats.applyStatStageChange("Codeamon", Stat.Attack, -2);
+        stats.applyStatStageChange("Codeamon", Stat.Defense, -2);
 
-        int defense = stats.getDefense();
+        int defense = stats.getDefenseStat();
 
         System.out.println("\nAfter Changes:");
-        System.out.println("Attack: " + stats.getAttack());
-        System.out.println("Defense: " + stats.getDefense());
+        System.out.println("Attack: " + stats.getAttackStat());
+        System.out.println("Defense: " + stats.getDefenseStat());
 
         System.out.println("\nCritcal Values:");
         System.out.println("Attack: " + stats.getAttackCritical());
