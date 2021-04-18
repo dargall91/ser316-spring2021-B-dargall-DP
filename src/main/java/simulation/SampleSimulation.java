@@ -1,3 +1,5 @@
+package simulation;
+
 import codeamon.GrassCodeamon;
 import codeamon.NormalCodeamon;
 import codeamon.PsychicCodeamon;
@@ -6,7 +8,7 @@ import java.util.ArrayList;
 import trainer.Trainer;
 
 /**
- * Contains the Data needed to run a Codeamon Simulation without json input.
+ * Contains the Data needed to run a Codeamon Simulation.Simulation without json input.
  */
 public class SampleSimulation implements Simulation {
     private ArrayList<Trainer> trainers;
@@ -14,7 +16,7 @@ public class SampleSimulation implements Simulation {
     private int wildBattles;
 
     /**
-     * Creates the trainers to be used in the Sample Simulation, and sets the level of the wild
+     * Creates the trainers to be used in the Sample Simulation.Simulation, and sets the level of the wild
      * Codeamon and the number of Wild Codeamon to battle.
      */
     public SampleSimulation() {

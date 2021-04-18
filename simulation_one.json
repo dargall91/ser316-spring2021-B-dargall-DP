@@ -1,0 +1,29 @@
+{
+	"trainers": [{
+		"name": "Derek",
+		"codeamon": [{
+			"type": "grass",
+			"level": 10
+		}]
+	}, {
+		"name": "Ben",
+		"codeamon": [{
+			"type": "water",
+			"level": 10
+		}]
+	}, {
+		"name": "Chris",
+		"codeamon": [{
+			"type": "psychic",
+			"level": 10
+		}]
+	}, {
+		"name": "Burgundy",
+		"codeamon": [{
+			"type": "normal",
+			"level": 10
+		}]
+	}],
+	"wildBattles": 5,
+	"wildLevel": 8
+}
