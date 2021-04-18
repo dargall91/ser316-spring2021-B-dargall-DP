@@ -24,8 +24,8 @@ public class SimulationTests {
         Simulation sim = new SampleSimulation();
 
         assertAll(() -> assertEquals(4, sim.getTrainers().size()),
-                () -> assertEquals(5, sim.getWildBattles()),
-                () -> assertEquals(8, sim.getWildLevel()));
+                () -> assertEquals(10, sim.getWildBattles()),
+                () -> assertEquals(16, sim.getWildLevel()));
     }
 
     /**
