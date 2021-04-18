@@ -22,7 +22,6 @@ public class Battle {
      */
     public static boolean wildBattle(Trainer trainer, Codeamon wildCodeamon) {
         Codeamon trainerCodeamon = trainer.getNextCodeamon();
-        //TODO: display mon names and hit points after each round
         System.out.println("A wild " + wildCodeamon.getName() + " appeared!");
         trainer.printPartyStatus();
         System.out.println(trainer.getName() + " sent out " + trainerCodeamon.getName() + "!");

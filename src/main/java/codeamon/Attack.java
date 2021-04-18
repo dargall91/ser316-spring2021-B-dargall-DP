@@ -26,7 +26,6 @@ import java.util.Random;
  * </p>
  */
 public class Attack {
-    //TODO: is it really necessary for these to be final? No setters implicitly makes them final
     private final String name;
     private final Type type;
     private final int power;

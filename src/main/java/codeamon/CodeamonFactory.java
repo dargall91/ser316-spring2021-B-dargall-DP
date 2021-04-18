@@ -11,7 +11,7 @@ import java.util.Random;
  *     The following requirements are fulfilled by this Design Pattern and any related classes (this
  *     Design Pattern works directly with the CodeamonStatsFactory to fulfill more requirements):
  *     <li>Codeamon have four attacks, which are determined by it's level when created</li>
- *     <li>Codeamon have a type that resistant to or weak against certain other attack types
+ *     <li>Codeamon have a type that is resistant to or weak against certain other attack types
  *     (enforced by the TypeMatchup class)</li>
  * </p>
  */

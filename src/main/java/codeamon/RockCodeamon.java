@@ -54,9 +54,9 @@ public class RockCodeamon extends Codeamon {
                     .power(150)
                     .accuracy(80)
                     .build();
-            attacks[1] = new Attack.AttackBuilder("Sand Force ", Type.Ground)
+            attacks[1] = new Attack.AttackBuilder("Sand Force", Type.Ground)
                     .power(50)
-                    .statusEffect(80, Stat.Attack, 2, true)
+                    .statusEffect(50, Stat.Attack, 1, true)
                     .build();
             attacks[2] = new Attack.AttackBuilder("Harden", Type.Normal)
                     .statusEffect(100, Stat.Defense, 1, true)

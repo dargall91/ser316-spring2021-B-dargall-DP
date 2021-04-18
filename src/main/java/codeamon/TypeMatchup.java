@@ -8,12 +8,6 @@ import java.util.List;
  * against all the other types.
  */
 public class TypeMatchup {
-    /**
-     * TODO: For now, type matchups that deal no damage are treated as not very effective. If there
-     * is time to implement an "AI" that can determine effectiveness before selecting a move,
-     * implement the 0 damage option
-     */
-
     //List of types the attack is super effective against.
     //Normal is not super effective against anything.
     private static final List<Type> fireSuper = Arrays.asList(Type.Grass, Type.Ice, Type.Bug,
