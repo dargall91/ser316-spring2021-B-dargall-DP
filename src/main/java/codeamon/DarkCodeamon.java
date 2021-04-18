@@ -19,29 +19,54 @@ public class DarkCodeamon extends Codeamon {
         //Codeamon have different attacks depending on their initial level
         attacks = new Attack[MAX_ATTACKS];
         if (level <= 15) {
-            attacks[0] = new Attack.AttackBuilder("Ember", Type.Fire).power(40)
-                    .statusEffect(10, Stat.Attack, 1, false).build();
-            attacks[1] = new Attack.AttackBuilder("Scratch", Type.Normal).power(40).build();
+            attacks[0] = new Attack.AttackBuilder("Pursuit", Type.Dark)
+                    .power(40)
+                    .build();
+            attacks[1] = new Attack.AttackBuilder("Tackle", Type.Normal)
+                    .power(40)
+                    .build();
             attacks[2] = new Attack.AttackBuilder("Howl", Type.Normal)
-                    .statusEffect(100, Stat.Attack, 1, true).build();
-            attacks[3] = new Attack.AttackBuilder("Bite", Type.Dark).power(60).build();
+                    .statusEffect(100, Stat.Attack, 1, true)
+                    .build();
+            attacks[3] = new Attack.AttackBuilder("Mud Shot", Type.Ground)
+                    .power(55)
+                    .accuracy(95)
+                    .statusEffect(100, Stat.Speed, -1, false)
+                    .build();
         } else if (level <= 30) {
-            attacks[0] = new Attack.AttackBuilder("Flame Wheel", Type.Fire).power(65)
-                    .statusEffect(10, Stat.Attack, 1, false).build();
-            attacks[1] = new Attack.AttackBuilder("Cut", Type.Normal).power(50)
-                    .accuracy(95).build();
+            attacks[0] = new Attack.AttackBuilder("Snarl", Type.Dark)
+                    .power(55)
+                    .accuracy(95)
+                    .statusEffect(100, Stat.Attack, -1, false)
+                    .build();
+            attacks[1] = new Attack.AttackBuilder("Cut", Type.Normal)
+                    .power(50)
+                    .accuracy(95)
+                    .build();
             attacks[2] = new Attack.AttackBuilder("Howl", Type.Normal)
-                    .statusEffect(100, Stat.Attack, 1, true).build();
-            attacks[3] = new Attack.AttackBuilder("Bite", Type.Dark).power(60).build();
+                    .statusEffect(100, Stat.Attack, 1, true)
+                    .build();
+            attacks[3] = new Attack.AttackBuilder("Mud Shot", Type.Ground)
+                    .power(55)
+                    .accuracy(95)
+                    .statusEffect(100, Stat.Speed, -1, false)
+                    .build();
         } else {
-            attacks[0] = new Attack.AttackBuilder("Flamethrower", Type.Fire).power(70)
-                    .statusEffect(15, Stat.Attack, 1, false).build();
-            attacks[1] = new Attack.AttackBuilder("Slash", Type.Normal).power(70)
-                    .critChance(50).build();
+            attacks[0] = new Attack.AttackBuilder("Crunch", Type.Dark)
+                    .power(70)
+                    .statusEffect(20, Stat.Defense, -1, false)
+                    .build();
+            attacks[1] = new Attack.AttackBuilder("Play Rough", Type.Fairy)
+                    .power(90)
+                    .accuracy(90)
+                    .build();
             attacks[2] = new Attack.AttackBuilder("Howl", Type.Normal)
-                    .statusEffect(100, Stat.Attack, 1, true).build();
-            attacks[3] = new Attack.AttackBuilder("Crunch", Type.Dark).power(80)
-                    .statusEffect(20, Stat.Defense, -1, false).build();
+                    .statusEffect(100, Stat.Attack, 1, true)
+                    .build();
+            attacks[3] = new Attack.AttackBuilder("Bulldoze", Type.Ground)
+                    .power(60)
+                    .statusEffect(100, Stat.Speed, -1, false)
+                    .build();
         }
     }
 

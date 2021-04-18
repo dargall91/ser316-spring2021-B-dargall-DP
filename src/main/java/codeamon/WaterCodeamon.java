@@ -19,29 +19,50 @@ public class WaterCodeamon extends Codeamon {
         //Codeamon have different attacks depending on their initial level
         attacks = new Attack[MAX_ATTACKS];
         if (level <= 15) {
-            attacks[0] = new Attack.AttackBuilder("Bubble", Type.Water).power(40)
-                    .statusEffect(10, Stat.Speed, -1, false).build();
-            attacks[1] = new Attack.AttackBuilder("Tackle", Type.Normal).power(40).build();
+            attacks[0] = new Attack.AttackBuilder("Bubble", Type.Water)
+                    .power(40)
+                    .statusEffect(10, Stat.Speed, -1, false)
+                    .build();
+            attacks[1] = new Attack.AttackBuilder("Tackle", Type.Normal)
+                    .power(40)
+                    .build();
             attacks[2] = new Attack.AttackBuilder("Leer", Type.Normal)
-                    .statusEffect(100, Stat.Defense, -1, false).build();
-            attacks[3] = new Attack.AttackBuilder("Bite", Type.Dark).power(60).build();
+                    .statusEffect(100, Stat.Defense, -1, false)
+                    .build();
+            attacks[3] = new Attack.AttackBuilder("Bite", Type.Dark)
+                    .power(60)
+                    .build();
         } else if (level <= 30) {
-            attacks[0] = new Attack.AttackBuilder("Water Pulse", Type.Water).power(60)
-                    .statusEffect(20, Stat.Attack, 1, false).build();
-            attacks[1] = new Attack.AttackBuilder("Rapid Spin", Type.Normal).power(50)
-                    .statusEffect(100, Stat.Speed, 1, true).build();
+            attacks[0] = new Attack.AttackBuilder("Water Pulse", Type.Water)
+                    .power(60)
+                    .statusEffect(20, Stat.Attack, 1, false)
+                    .build();
+            attacks[1] = new Attack.AttackBuilder("Rapid Spin", Type.Normal)
+                    .power(50)
+                    .statusEffect(100, Stat.Speed, 1, true)
+                    .build();
             attacks[2] = new Attack.AttackBuilder("Leer", Type.Normal)
-                    .statusEffect(100, Stat.Defense, -1, false).build();
-            attacks[3] = new Attack.AttackBuilder("Bite", Type.Dark).power(60).build();
+                    .statusEffect(100, Stat.Defense, -1, false)
+                    .build();
+            attacks[3] = new Attack.AttackBuilder("Bite", Type.Dark)
+                    .power(60)
+                    .build();
         } else {
-            attacks[0] = new Attack.AttackBuilder("Hydro Pump", Type.Water).power(110)
-                    .accuracy(70).build();
-            attacks[1] = new Attack.AttackBuilder("Rapid Spin", Type.Normal).power(50)
-                    .statusEffect(100, Stat.Speed, 1, true).build();
+            attacks[0] = new Attack.AttackBuilder("Hydro Pump", Type.Water)
+                    .power(110)
+                    .accuracy(70)
+                    .build();
+            attacks[1] = new Attack.AttackBuilder("Rapid Spin", Type.Normal)
+                    .power(50)
+                    .statusEffect(100, Stat.Speed, 1, true)
+                    .build();
             attacks[2] = new Attack.AttackBuilder("Leer", Type.Normal)
-                    .statusEffect(100, Stat.Defense, -1, false).build();
-            attacks[3] = new Attack.AttackBuilder("Crunch", Type.Dark).power(80)
-                    .statusEffect(20, Stat.Defense, -1, false).build();
+                    .statusEffect(100, Stat.Defense, -1, false)
+                    .build();
+            attacks[3] = new Attack.AttackBuilder("Crunch", Type.Dark)
+                    .power(80)
+                    .statusEffect(20, Stat.Defense, -1, false)
+                    .build();
         }
     }
 
