@@ -25,8 +25,76 @@ public class CodeamonFactory {
 
         //TODO: ifs for all types
 
+        if (type == Type.Normal) {
+            return new NormalCodeamon(level);
+        }
+
         if (type == Type.Fire) {
             return new FireCodeamon(level);
+        }
+
+        if (type == Type.Water) {
+            return new WaterCodeamon(level);
+        }
+
+        if (type == Type.Grass) {
+            return new GrassCodeamon(level);
+        }
+
+        if (type == Type.Electric) {
+            return new ElectricCodeamon(level);
+        }
+
+        if (type == Type.Ice) {
+            return new IceCodeamon(level);
+        }
+
+        if (type == Type.Fighting) {
+            return new FightingCodeamon(level);
+        }
+
+        if (type == Type.Poison) {
+            return new PoisonCodeamon(level);
+        }
+
+        if (type == Type.Ground) {
+            return new GroundCodeamon(level);
+        }
+
+        if (type == Type.Flying) {
+            return new FlyingCodeamon(level);
+        }
+
+        if (type == Type.Psychic) {
+            return new PsychicCodeamon(level);
+        }
+
+        if (type == Type.Bug) {
+            return new BugCodeamon(level);
+        }
+
+        if (type == Type.Rock) {
+            return new RockCodeamon(level);
+        }
+
+        if (type == Type.Ghost) {
+            return new GhostCodeamon(level);
+        }
+
+        if (type == Type.Dragon) {
+            return new DragonCodeamon(level);
+        }
+
+        if (type == Type.Dark) {
+            return new DarkCodeamon(level);
+        }
+
+        if (type == Type.Steel) {
+            return new SteelCodeamon(level);
+        }
+
+        if (type == Type.Fairy) {
+            return new FairyCodeamon(level);
         }
 
         return null;

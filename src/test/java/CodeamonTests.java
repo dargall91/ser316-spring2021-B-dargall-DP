@@ -23,7 +23,7 @@ public class CodeamonTests {
     public void TestCodeamonAttributes() throws Exception {
         System.out.println("TestCodeamonAttributes");
 
-        Type type = Type.Fire;
+        Type type = Type.Grass;
         int level = 10;
         Codeamon mon = CodeamonFactory.createCodeamon(type, level);
 
@@ -45,7 +45,7 @@ public class CodeamonTests {
     public void TestInvalidLevelCodeamon() throws Exception {
         System.out.println("TestInvalidLevelCodeamon");
 
-        Type type = Type.Fire;
+        Type type = Type.Normal;
         int level = 1;
         Codeamon mon = CodeamonFactory.createCodeamon(type, 0);
 
@@ -63,7 +63,7 @@ public class CodeamonTests {
     public void TestCodeamonNickname() throws Exception {
         System.out.println("TestCodeamonNickname");
 
-        Type type = Type.Fire;
+        Type type = Type.Water;
         int level = 10;
         String nickname = "Billy Bob Jones";
 
@@ -74,9 +74,4 @@ public class CodeamonTests {
 
         assertEquals(nickname, mon.getName());
     }
-
-    //TODO: test isFainted() method
-    //TODO: heal updated to prevent 0 or negative healing
-    //TODO: Most tests for CodeamonStats could really just be run through here since they have the
-    //many same method names and this will result in better code coverage without additional tests
 }

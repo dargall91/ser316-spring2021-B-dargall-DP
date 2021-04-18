@@ -28,7 +28,7 @@ public class TimeCycleTests {
     public void TestWildDay() throws Exception {
         System.out.println("TestWildDay");
 
-        Codeamon mon = CodeamonFactory.createCodeamon(Type.Fire, 100);
+        Codeamon mon = CodeamonFactory.createCodeamon(Type.Poison, 100);
         mon.setNickname("Jack");
         Trainer trainer = new Trainer.TrainerBuilder("Derek").codeamon(mon).build();
 
@@ -87,11 +87,11 @@ public class TimeCycleTests {
     public void TestTournamentDay() throws Exception {
         System.out.println("TestTournamentDay");
 
-        Codeamon monOne = CodeamonFactory.createCodeamon(Type.Fire, 100);
+        Codeamon monOne = CodeamonFactory.createCodeamon(Type.Dragon, 100);
         monOne.setNickname("Jack");
         Trainer trainerOne = new Trainer.TrainerBuilder("Derek").codeamon(monOne).build();
 
-        Codeamon monTwo = CodeamonFactory.createCodeamon(Type.Fire, 1);
+        Codeamon monTwo = CodeamonFactory.createCodeamon(Type.Flying, 1);
         monTwo.setNickname("Jill");
         Trainer trainerTwo = new Trainer.TrainerBuilder("Ben").codeamon(monTwo).build();
 
@@ -118,7 +118,7 @@ public class TimeCycleTests {
     public void TestFullCycle() throws Exception {
         System.out.println("TestFullCycle");
 
-        Codeamon jack = CodeamonFactory.createCodeamon(Type.Fire, 100);
+        Codeamon jack = CodeamonFactory.createCodeamon(Type.Water, 100);
         jack.setNickname("Jack");
         Trainer derek = new Trainer.TrainerBuilder("Derek").codeamon(jack).build();
 
@@ -126,7 +126,7 @@ public class TimeCycleTests {
         list.add(derek);
 
         for (int i = 0; i < 3; i++) {
-            Codeamon mon = CodeamonFactory.createCodeamon(Type.Fire, 1);
+            Codeamon mon = CodeamonFactory.createCodeamon(Type.Ground, 1);
             mon.setNickname("Mon " + i);
             Trainer trainerTwo = new Trainer.TrainerBuilder("Trainer" + i).codeamon(mon).build();
 
