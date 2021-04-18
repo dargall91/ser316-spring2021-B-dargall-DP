@@ -5,25 +5,30 @@ import trainer.Trainer;
 
 /**
  * TimeCycleContext keeps track of the current state of TimeCycle, determines which state's
- * implementation of runEvents() to execute when called, and dtermines how many Wild Codeamon each
- * Trainer will battle before the Tournament begins.
+ * implementation of runEvents() to execute when called, determines how many Wild Codeamon each
+ * Trainer will battle before the Tournament begins, and determines the level of the Wild Codeamon.
  */
 public class TimeCycleContext {
     private TimeCycle state;
     private int battleCount = 0;
     private final int wildBattles;
+    private final int initialLevel;
     private Tournament tournament;
 
     /**
      * Constructor that sets the initial state as Day, determines the number of Wild Codeamon
      * each Trainer will battle during the Day before starting the tournament, and sets the list of
-     * trainers who will compete in the tournament.
+     * trainers who will compete in the tournament. The Wild Codeamon will start at a specified
+     * level, and that level will increase every Day.
      *
-     * @param wildCount The number of wild Codeamon battles to occur before the tournament begins
+     * @param wildBattles The number of wild Codeamon battles to occur before the tournament begins
+     * @param initialLevel The level of the first Wild Codeamon. A Wild Codeamon will no tbe below
+     *                  level 1 or above level 100, regardless of this value.
      * @param trainers The list of Trainers who will compete in the tournament
      */
-    public TimeCycleContext(int wildCount, ArrayList<Trainer> trainers) {
-        wildBattles = wildCount;
+    public TimeCycleContext(int wildBattles, int initialLevel, ArrayList<Trainer> trainers) {
+        this.wildBattles = wildBattles;
+        this.initialLevel = initialLevel;
         tournament = new Tournament(trainers);
         setState(new Day());
     }
@@ -55,6 +60,15 @@ public class TimeCycleContext {
      */
     public int getWildBattleLimit() {
         return wildBattles;
+    }
+
+    /**
+     * Gets the level of the Wild Codeamon to be encountered on this Day.
+     *
+     * @return The level of the Wild Codeamon to be encounter.
+     */
+    public int getWildLevel() {
+        return initialLevel + battleCount;
     }
 
     /**

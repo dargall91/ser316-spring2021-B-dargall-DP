@@ -51,9 +51,9 @@ public class Tournament {
         }
 
         if (currentRound < rounds) {
-            System.out.println("Round " + currentRound + " of the Tournament is now underway!");
+            System.out.println("Round " + currentRound + " of the Tournament is starting!");
         } else {
-            System.out.println("The final round of the Tournament is now underway!");
+            System.out.println("The final round of the Tournament is starting!");
         }
 
         //track the winners
@@ -62,7 +62,7 @@ public class Tournament {
         //Byes are considered to have won
         for (int i = 0; i < byes; i++) {
             System.out.println(bracket.get(bracket.size() - 1 + i).getName()
-                    +" get a Bye and advances straight to the next round!");
+                    +" gets a Bye and advances straight to the next round!");
             winners.add(bracket.get(bracket.size() - 1 + i));
         }
 

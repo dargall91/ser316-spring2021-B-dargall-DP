@@ -28,7 +28,10 @@ public class Battle {
         System.out.println(trainer.getName() + " sent out " + trainerCodeamon.getName() + "!");
 
         while (trainer.getRemainingPartySize() > 0 && !wildCodeamon.isFainted()) {
+            System.out.print(trainer.getName() + "'s ");
             trainerCodeamon.printBattleStatus();
+
+            System.out.print("Wild ");
             wildCodeamon.printBattleStatus();
 
             fight(trainerCodeamon, wildCodeamon);
@@ -74,7 +77,7 @@ public class Battle {
     public static Trainer trainerBattle(Trainer trainerOne, Trainer trainerTwo) {
         System.out.println("The Battle Between " + trainerOne.getName() + " and "
                 + trainerTwo.getName() + " is now underway!");
-        //TODO: display mon & trainer names and hit points after each round
+
         trainerOne.printPartyStatus();
         trainerTwo.printPartyStatus();
 
@@ -85,7 +88,9 @@ public class Battle {
         System.out.println(trainerTwo.getName() + " sent out " + codeamonTwo.getName() + "!");
 
         while (trainerOne.getRemainingPartySize() > 0 && trainerTwo.getRemainingPartySize() > 0) {
+            System.out.print(trainerOne.getName() + "'s ");
             codeamonOne.printBattleStatus();
+            System.out.print(trainerTwo.getName() + "'s ");
             codeamonTwo.printBattleStatus();
 
             fight(codeamonOne, codeamonTwo);

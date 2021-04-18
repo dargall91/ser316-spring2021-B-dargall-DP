@@ -26,26 +26,18 @@ public class Day implements TimeCycle {
     @Override
     public void runEvents(TimeCycleContext context, ArrayList<Trainer> trainers) {
         if (context.getWildBattleCount() < context.getWildBattleLimit()) {
-            //do wild battles
+            //Trainers encounter wild Codeamon
             for (Trainer t : trainers) {
-                //The level of the wild Codeamon is the level of the trainer's first Codeamom in
-                //their party - 2 + the number of days that have passed. The first wild Codeamon
-                //will therefore be 2 levels below the Trainer's first Codeamon
-                int wildLevel = t.getCodeamonParty().get(0).getLevel() - 2
-                        + context.getWildBattleCount();
-                Battle.wildBattle(t, CodeamonFactory.createCodeamon(Type.Fire, wildLevel));
+                Battle.wildBattle(t, CodeamonFactory.createCodeamon(Type.Fire,
+                        context.getWildLevel()));
             }
-
+            //Increase the wild battle counter
             context.incrementBattleCount();
-            context.setState(new Night());
         } else {
-            Tournament tournament = context.getTournament();
-
-            tournament.executeNextRound();
-
-            if (!tournament.isConcluded()) {
-                context.setState(new Night());
-            }
+            //Run the next round of the Tournament
+            context.getTournament().executeNextRound();
         }
+
+        context.setState(new Night());
     }
 }
