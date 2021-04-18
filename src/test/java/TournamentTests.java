@@ -20,40 +20,6 @@ public class TournamentTests {
     }
 
     /**
-     * Test that a tournament properly calculates the number of rounds in a tournament. The number
-     * of rounds in a tournament is equals to ceiling(log(P)/log(2)) where P is the number of
-     * participants.
-     *
-     * @throws Exception
-     */
-    /*@Test
-    public void TestTournamentRounds() throws Exception {
-        System.out.println("TestTournamentRounds");
-
-        ArrayList<Trainer> eightTrainers = new ArrayList<>();
-
-        for (int i = 0; i < 8; i++) {
-            eightTrainers.add(new Trainer.TrainerBuilder("Trainer " + i).build());
-        }
-
-        Tournament eight = new Tournament(eightTrainers);
-
-        ArrayList<Trainer> fifteenTrainers = new ArrayList<>();
-
-        for (int i = 0; i < 15; i++) {
-            fifteenTrainers.add(new Trainer.TrainerBuilder("Trainer " + i).build());
-        }
-
-        Tournament fifteen = new Tournament(fifteenTrainers);
-
-        System.out.println("Eight Trainers: " + eight.getRounds() + " Rounds");
-        System.out.println("Fifteen Trainers: " + fifteen.getRounds() + " Rounds");
-
-        assertAll(() -> assertEquals(3, eight.getRounds()),
-                () -> assertEquals(4, fifteen.getRounds()));
-    }*/
-
-    /**
      * Test that Trainers are eliminated from the bracket when they lose. After the first round,
      * there should be 4 Trainers remaining out of the original 8.
      *
