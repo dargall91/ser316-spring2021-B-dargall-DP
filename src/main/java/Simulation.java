@@ -1,6 +1,5 @@
-import trainer.Trainer;
-
 import java.util.ArrayList;
+import trainer.Trainer;
 
 public interface Simulation {
     /**

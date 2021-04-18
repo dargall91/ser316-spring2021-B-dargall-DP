@@ -43,6 +43,8 @@ public class Battle {
                 System.out.println(trainer.getName() + " sent out "
                         + trainerCodeamon.getName() + "!");
             }
+
+            System.out.println();
         }
 
         if (trainer.getRemainingPartySize() > 0) {
@@ -119,6 +121,8 @@ public class Battle {
                             + codeamonTwo.getName() + "!");
                 }
             }
+
+            System.out.println();
         }
 
         //Get the winner

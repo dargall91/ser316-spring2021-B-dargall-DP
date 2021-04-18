@@ -372,17 +372,17 @@ public class Attack {
         }
 
         boolean isCrit = isCritical();
-        double crit;
+        double crit = 1.0;
         double damage;
 
         if (isCrit) {
+            System.out.println("A Critical Hit!");
             damage = (((2.0 * user.getLevel() / 5.0 + 2.0) * power * user.getAttackCritical()
                     / opponent.getDefenseCritical()) / 50.0) + 2.0;
             crit = 1.5;
         } else {
             damage = (((2.0 * user.getLevel() / 5.0 + 2.0) * power * user.getAttackStat()
                     / opponent.getDefenseStat()) / 50.0) + 2.0;
-            crit = 1.0;
         }
 
         double stab = 1.0;
@@ -396,19 +396,12 @@ public class Attack {
         //TODO: Weather and weather modifier
         damage *= crit * stab * effective;
 
-        //Check if the attack did positive damage (If * 0 type damage modifiers are implemented it
-        //would result in 0 damage being dealt here)
-        if (damage > 0) {
-            //apply the damage
-            opponent.damage((int) damage);
+        //apply the damage
+        opponent.damage((int) damage);
+        //apply healing for damaging moves
+        applyHeal(user);
 
-            //apply healing for damaging moves
-            applyHeal(user);
-
-            return true;
-        }
-
-        return false;
+        return true;
     }
 
     /**
@@ -455,7 +448,6 @@ public class Attack {
     private boolean isCritical() {
         //An attack with a 100% crit chance always crits and one with a 0% chance never does
         if (critChance == ONE_HUNDRED) {
-            System.out.println("Critical hit!");
             return true;
         } else if (critChance < ONE) {
             return false;

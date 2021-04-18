@@ -19,8 +19,10 @@ public class Night implements TimeCycle {
     public void runEvents(TimeCycleContext context, ArrayList<Trainer> trainers) {
         for (Trainer t : trainers) {
             t.restParty();
+            System.out.println(t.getName() + "'s Codeamon rested.");
         }
 
+        System.out.println();
         context.setState(new Day());
     }
 }
