@@ -28,10 +28,9 @@ public class DarkCodeamon extends Codeamon {
             attacks[2] = new Attack.AttackBuilder("Howl", Type.Normal)
                     .statusEffect(100, Stat.Attack, 1, true)
                     .build();
-            attacks[3] = new Attack.AttackBuilder("Mud Shot", Type.Ground)
-                    .power(55)
-                    .accuracy(95)
-                    .statusEffect(100, Stat.Speed, -1, false)
+            attacks[3] = new Attack.AttackBuilder("Confusion", Type.Psychic)
+                    .power(50)
+                    .statusEffect(15, Stat.Attack, -1, false)
                     .build();
         } else if (level <= 30) {
             attacks[0] = new Attack.AttackBuilder("Snarl", Type.Dark)
@@ -46,15 +45,14 @@ public class DarkCodeamon extends Codeamon {
             attacks[2] = new Attack.AttackBuilder("Howl", Type.Normal)
                     .statusEffect(100, Stat.Attack, 1, true)
                     .build();
-            attacks[3] = new Attack.AttackBuilder("Mud Shot", Type.Ground)
-                    .power(55)
-                    .accuracy(95)
-                    .statusEffect(100, Stat.Speed, -1, false)
+            attacks[3] = new Attack.AttackBuilder("Confusion", Type.Psychic)
+                    .power(50)
+                    .statusEffect(15, Stat.Attack, -1, false)
                     .build();
         } else {
-            attacks[0] = new Attack.AttackBuilder("Crunch", Type.Dark)
+            attacks[0] = new Attack.AttackBuilder("Night Slash", Type.Dark)
                     .power(70)
-                    .statusEffect(20, Stat.Defense, -1, false)
+                    .critChance(70)
                     .build();
             attacks[1] = new Attack.AttackBuilder("Play Rough", Type.Fairy)
                     .power(90)
@@ -63,9 +61,9 @@ public class DarkCodeamon extends Codeamon {
             attacks[2] = new Attack.AttackBuilder("Howl", Type.Normal)
                     .statusEffect(100, Stat.Attack, 1, true)
                     .build();
-            attacks[3] = new Attack.AttackBuilder("Bulldoze", Type.Ground)
-                    .power(60)
-                    .statusEffect(100, Stat.Speed, -1, false)
+            attacks[3] = new Attack.AttackBuilder("Psycho Cut", Type.Psychic)
+                    .power(70)
+                    .critChance(70)
                     .build();
         }
     }

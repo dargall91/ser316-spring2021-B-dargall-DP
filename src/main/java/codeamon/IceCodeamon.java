@@ -19,9 +19,9 @@ public class IceCodeamon extends Codeamon {
         //Codeamon have different attacks depending on their initial level
         attacks = new Attack[MAX_ATTACKS];
         if (level <= 15) {
-            attacks[0] = new Attack.AttackBuilder("Ember", Type.Fire)
+            attacks[0] = new Attack.AttackBuilder("Ice Shard", Type.Ice)
                     .power(40)
-                    .statusEffect(10, Stat.Attack, 1, false)
+                    .statusEffect(100, Stat.Speed, 1, true)
                     .build();
             attacks[1] = new Attack.AttackBuilder("Scratch", Type.Normal)
                     .power(40)
@@ -29,13 +29,13 @@ public class IceCodeamon extends Codeamon {
             attacks[2] = new Attack.AttackBuilder("Howl", Type.Normal)
                     .statusEffect(100, Stat.Attack, 1, true)
                     .build();
-            attacks[3] = new Attack.AttackBuilder("Bite", Type.Dark)
-                    .power(60)
+            attacks[3] = new Attack.AttackBuilder("Water Gun", Type.Water)
+                    .power(40)
                     .build();
         } else if (level <= 30) {
-            attacks[0] = new Attack.AttackBuilder("Flame Wheel", Type.Fire)
-                    .power(65)
-                    .statusEffect(10, Stat.Attack, 1, false)
+            attacks[0] = new Attack.AttackBuilder("Ice Shard", Type.Ice)
+                    .power(40)
+                    .statusEffect(100, Stat.Speed, 1, true)
                     .build();
             attacks[1] = new Attack.AttackBuilder("Cut", Type.Normal)
                     .power(50)
@@ -44,13 +44,13 @@ public class IceCodeamon extends Codeamon {
             attacks[2] = new Attack.AttackBuilder("Howl", Type.Normal)
                     .statusEffect(100, Stat.Attack, 1, true)
                     .build();
-            attacks[3] = new Attack.AttackBuilder("Bite", Type.Dark)
-                    .power(60)
+            attacks[3] = new Attack.AttackBuilder("Brine", Type.Water)
+                    .power(65)
                     .build();
         } else {
-            attacks[0] = new Attack.AttackBuilder("Flamethrower", Type.Fire)
-                    .power(70)
-                    .statusEffect(15, Stat.Attack, 1, false)
+            attacks[0] = new Attack.AttackBuilder("Ice Punch", Type.Ice)
+                    .power(75)
+                    .statusEffect(100, Stat.Speed, 1, true)
                     .build();
             attacks[1] = new Attack.AttackBuilder("Slash", Type.Normal)
                     .power(70)
@@ -59,9 +59,9 @@ public class IceCodeamon extends Codeamon {
             attacks[2] = new Attack.AttackBuilder("Howl", Type.Normal)
                     .statusEffect(100, Stat.Attack, 1, true)
                     .build();
-            attacks[3] = new Attack.AttackBuilder("Crunch", Type.Dark)
-                    .power(80)
-                    .statusEffect(20, Stat.Defense, -1, false)
+            attacks[3] = new Attack.AttackBuilder("Aqua Tail", Type.Water)
+                    .power(90)
+                    .accuracy(90)
                     .build();
         }
     }

@@ -57,7 +57,7 @@ public class FairyCodeamon extends Codeamon {
                     .statusEffect(100, Stat.Defense, -1, false)
                     .build();
             attacks[3] = new Attack.AttackBuilder("Moonlight", Type.Fairy)
-                    .heal(20)
+                    .heal(25)
                     .build();
         }
     }
