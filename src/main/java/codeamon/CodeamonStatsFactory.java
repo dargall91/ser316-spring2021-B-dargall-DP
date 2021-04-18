@@ -2,6 +2,16 @@ package codeamon;
 
 /**
  * A Factory Method class for getting the stats for a specific type of Codeamon.
+ *
+ * The following requirements are fulfilled by this Design Pattern and any related classes:
+ *
+ * Codeamon have the following stats: Hit Points, Attack, Defense, and Speed
+ *
+ * Codeamon's stats change based on their level
+ *
+ * Codeamon's stats can be temporarily increased or decreased in battle
+ *
+ * When a Codeamon reaches 0 hit points, it faints
  */
 public class CodeamonStatsFactory {
     /**

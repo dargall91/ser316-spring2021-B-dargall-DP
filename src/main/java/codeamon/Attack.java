@@ -12,6 +12,22 @@ import java.util.Random;
  * deals damage must hit the opponent in order to apply any additional effects or healing. A
  * non-damaging Attack that buffs, debuffs, or heals the user always succeeds. A non-damaging
  * attack the targets the opponent must hit the opponent in order to apply any additional effects.
+ *
+ * The following requirements are fulfilled by this Design Pattern and any related classes:
+ *
+ * Each attack has a different Type
+ *
+ * Attacks can get STAB (Same Type Attack Bonus) if the type matches the user's type
+ *
+ * Codeamon attacks have type advantages and disadvantages (enforced by TypeMatchup class
+ * with results used here)
+ *
+ * Attacks can have a chance to crit and deal an extra 50% damage
+ *
+ * Attacks can have a chance to miss
+ *
+ * Attacks that deal damage always deal at least 1 damage (this check is done in
+ * CodeamonStats.damage)
  */
 public class Attack {
     //TODO: is it really necessary for these to be final? No setters implicitly makes them final
@@ -25,11 +41,11 @@ public class Attack {
     private final Stat stat;
     private final int stages;
     private final boolean self;
-    private static final int ONE = 1;
+    private static final int MIN_CHANCE = 1;
     private static final double MIN_HEAL = 0.01;
     private static final int MAX_STAGE = 6;
     private static final int MIN_STAGE = -6;
-    private static final int ONE_HUNDRED = 100;
+    private static final int MAX_CHANCE = 100;
 
     /**
      * A Builder Method for constructing an Attack. Allows full customization of the Attack by
@@ -95,10 +111,10 @@ public class Attack {
          * @return The AttackBuilder
          */
         public AttackBuilder critChance(int critChance) {
-            if (critChance < ONE) {
+            if (critChance < MIN_CHANCE) {
                 this.critChance = 0;
-            } else if (critChance > ONE_HUNDRED) {
-                this.critChance = ONE_HUNDRED;
+            } else if (critChance > MAX_CHANCE) {
+                this.critChance = MAX_CHANCE;
             } else {
                 this.critChance = critChance;
             }
@@ -114,10 +130,10 @@ public class Attack {
          * @return The AttackBuilder
          */
         public AttackBuilder accuracy(int accuracy) {
-            if (accuracy < ONE) {
-                this.accuracy = ONE;
-            } else if (accuracy > ONE_HUNDRED) {
-                this.accuracy = ONE_HUNDRED;
+            if (accuracy < MIN_CHANCE) {
+                this.accuracy = MIN_CHANCE;
+            } else if (accuracy > MAX_CHANCE) {
+                this.accuracy = MAX_CHANCE;
             } else {
                 this.accuracy = accuracy;
             }
@@ -140,10 +156,10 @@ public class Attack {
          * @return The AttackBuilder
          */
         public AttackBuilder statusEffect(int effectChance, Stat stat, int stages, boolean self) {
-            if (effectChance < ONE) {
-                this.effectChance = ONE;
-            } else if (effectChance > ONE_HUNDRED) {
-                this.effectChance = ONE_HUNDRED;
+            if (effectChance < MIN_CHANCE) {
+                this.effectChance = MIN_CHANCE;
+            } else if (effectChance > MAX_CHANCE) {
+                this.effectChance = MAX_CHANCE;
             } else {
                 this.effectChance = effectChance;
             }
@@ -171,9 +187,9 @@ public class Attack {
          * @return The AttackBuilder
          */
         public AttackBuilder heal(int heal) {
-            if (heal < ONE) {
-                this.heal = ONE / 100.0;
-            } else if (heal > ONE_HUNDRED) {
+            if (heal < MIN_CHANCE) {
+                this.heal = MIN_CHANCE / 100.0;
+            } else if (heal > MAX_CHANCE) {
                 this.heal = 1.0;
             } else {
                 this.heal = heal / 100.0;
@@ -260,7 +276,7 @@ public class Attack {
      * @return The percentage of hit points healed with this attack
      */
     public int getHeal() {
-        return (int) (heal * ONE_HUNDRED);
+        return (int) (heal * MAX_CHANCE);
     }
 
     /**
@@ -303,7 +319,7 @@ public class Attack {
         System.out.println(user.getName() + " used " + name + ".");
 
         //If Attack deals damage
-        if (power > ONE) {
+        if (power > MIN_CHANCE) {
             if (applyDamage(user, opponent)) {
                 //apply stat changes for damaging moves
                 if (self) {
@@ -316,7 +332,7 @@ public class Attack {
         } else if (self) { //Attack is non-damaging and targets self
             applyEffect(user);
             applyHeal(user);
-        } else if (effectChance >= ONE && isHit() && !opponent.isFainted()) {
+        } else if (effectChance >= MIN_CHANCE && isHit() && !opponent.isFainted()) {
             //This is a non-damaging move that targets the opponent and it hit
             applyEffect(opponent);
             applyHeal(user);
@@ -411,14 +427,14 @@ public class Attack {
      */
     private boolean isHit() {
         //Attacks with 100% accuracy always hit
-        if (accuracy == ONE_HUNDRED) {
+        if (accuracy == MAX_CHANCE) {
             return true;
         }
 
         //Get random number from 0-99, add one, then if it is <= Accuracy, the attack hits
         Random random = new Random();
 
-        return (random.nextInt(ONE_HUNDRED) + 1 <= accuracy);
+        return (random.nextInt(MAX_CHANCE) + 1 <= accuracy);
     }
 
     /**
@@ -428,16 +444,16 @@ public class Attack {
      */
     private boolean effectTriggered() {
         //An attack with a 100% effect chance always triggers and one with a 0% chance always fails
-        if (effectChance == ONE_HUNDRED) {
+        if (effectChance == MAX_CHANCE) {
             return true;
-        } else if (effectChance < ONE) {
+        } else if (effectChance < MIN_CHANCE) {
             return false;
         }
 
         //Get random number from 0-99, add one, then if it is <= Effect Chance, the effect triggers
         Random random = new Random();
 
-        return (random.nextInt(ONE_HUNDRED) + 1 <= effectChance);
+        return (random.nextInt(MAX_CHANCE) + 1 <= effectChance);
     }
 
     /**
@@ -447,15 +463,15 @@ public class Attack {
      */
     private boolean isCritical() {
         //An attack with a 100% crit chance always crits and one with a 0% chance never does
-        if (critChance == ONE_HUNDRED) {
+        if (critChance == MAX_CHANCE) {
             return true;
-        } else if (critChance < ONE) {
+        } else if (critChance < MIN_CHANCE) {
             return false;
         }
 
         //Get random number from 0-99, add one, then if it is <= Crit Chance, it crits
         Random random = new Random();
 
-        return (random.nextInt(ONE_HUNDRED) + 1 <= critChance);
+        return (random.nextInt(MAX_CHANCE) + 1 <= critChance);
     }
 }

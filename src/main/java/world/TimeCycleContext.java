@@ -7,6 +7,33 @@ import trainer.Trainer;
  * TimeCycleContext keeps track of the current state of TimeCycle, determines which state's
  * implementation of runEvents() to execute when called, determines how many Wild Codeamon each
  * Trainer will battle before the Tournament begins, and determines the level of the Wild Codeamon.
+ *
+ * The following requirements are fulfilled by this Design Pattern and any related classes:
+ *
+ * The simulation runs on cycles that consist of Day and Night
+ *
+ * During the day, Trainers can battle
+ *
+ * Trainers battle Wild Codeamon or other Trainers in the Tournament
+ *
+ * Trainers can recruit Wild Codeamon onto their team by defeating them
+ *
+ * Defeating a Codeamon earns EXP for all non-fainted Codeamon in the party
+ *
+ * Defeating another Trainer earns half of that Trainer's money
+ *
+ * During the Night all Codeamon fully heal
+ *
+ * Only one battle takes place at a time
+ *
+ * Trainers can only battle with one Codeamon at a time, but they can use another if one faints
+ *
+ * Attacks are turn based, with speed determining who goes first
+ *
+ * A Trainer battle is not over until all of one Trainer's Codeamon have fainted
+ *
+ *
+ *
  */
 public class TimeCycleContext {
     private TimeCycle state;
