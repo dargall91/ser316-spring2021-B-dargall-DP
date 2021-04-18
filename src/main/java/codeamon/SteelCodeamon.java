@@ -1,13 +1,11 @@
 package codeamon;
 
-import java.util.ArrayList;
-
 /**
  * Data structure for a Fire type species of Codeamon.
  */
-public class FireCodeamon extends Codeamon {
-    private static final String NAME = "Flamemon";
-    private static final Type TYPE = Type.Fire;
+public class SteelCodeamon extends Codeamon {
+    private static final String NAME = "Steelmon";
+    private static final Type TYPE = Type.Steel;
     private Attack[] attacks;
     private static int MAX_ATTACKS = 4;
 
@@ -16,54 +14,58 @@ public class FireCodeamon extends Codeamon {
      *
      * @param level The level of the Codeamon
      */
-    public FireCodeamon(int level) {
+    public SteelCodeamon(int level) {
         super(CodeamonStatsFactory.getStats(TYPE, level), level);
         //Codeamon have different attacks depending on their initial level
         attacks = new Attack[MAX_ATTACKS];
         if (level <= 15) {
-            attacks[0] = new Attack.AttackBuilder("Ember", Type.Fire)
+            attacks[0] = new Attack.AttackBuilder("Metal Claw", Type.Steel)
+                    .power(50)
+                    .statusEffect(10, Stat.Attack, 1, true)
+                    .build();
+            attacks[1] = new Attack.AttackBuilder("Tackle", Type.Normal)
                     .power(40)
-                    .statusEffect(10, Stat.Attack, -1, false)
                     .build();
-            attacks[1] = new Attack.AttackBuilder("Scratch", Type.Normal)
-                    .power(40)
+            attacks[2] = new Attack.AttackBuilder("Shift Gear", Type.Steel)
+                    .statusEffect(100, Stat.Speed, 2, true)
                     .build();
-            attacks[2] = new Attack.AttackBuilder("Howl", Type.Normal)
-                    .statusEffect(100, Stat.Attack, 1, true)
-                    .build();
-            attacks[3] = new Attack.AttackBuilder("Bite", Type.Dark)
-                    .power(60)
+            attacks[3] = new Attack.AttackBuilder("Rock Throw", Type.Rock)
+                    .power(50)
+                    .accuracy(90)
                     .build();
         } else if (level <= 30) {
-            attacks[0] = new Attack.AttackBuilder("Flame Wheel", Type.Fire)
-                    .power(65)
-                    .statusEffect(10, Stat.Attack, -1, false)
+            attacks[0] = new Attack.AttackBuilder("Metal Claw", Type.Steel)
+                    .power(50)
+                    .statusEffect(10, Stat.Attack, 1, true)
                     .build();
             attacks[1] = new Attack.AttackBuilder("Cut", Type.Normal)
                     .power(50)
                     .accuracy(95)
                     .build();
-            attacks[2] = new Attack.AttackBuilder("Howl", Type.Normal)
-                    .statusEffect(100, Stat.Attack, 1, true)
+            attacks[2] = new Attack.AttackBuilder("Shift Gear", Type.Steel)
+                    .statusEffect(100, Stat.Speed, 2, true)
                     .build();
-            attacks[3] = new Attack.AttackBuilder("Bite", Type.Dark)
-                    .power(60)
+            attacks[3] = new Attack.AttackBuilder("Rock Throw", Type.Rock)
+                    .power(50)
+                    .accuracy(90)
                     .build();
         } else {
-            attacks[0] = new Attack.AttackBuilder("Flamethrower", Type.Fire)
+            attacks[0] = new Attack.AttackBuilder("Meteor Mash", Type.Steel)
                     .power(90)
-                    .statusEffect(10, Stat.Attack, -1, false)
+                    .accuracy(90)
+                    .statusEffect(30, Stat.Attack, 1, false)
                     .build();
             attacks[1] = new Attack.AttackBuilder("Slash", Type.Normal)
                     .power(70)
                     .critChance(50)
                     .build();
-            attacks[2] = new Attack.AttackBuilder("Howl", Type.Normal)
-                    .statusEffect(100, Stat.Attack, 1, true)
+            attacks[2] = new Attack.AttackBuilder("Shift Gear", Type.Steel)
+                    .statusEffect(100, Stat.Speed, 2, true)
                     .build();
-            attacks[3] = new Attack.AttackBuilder("Crunch", Type.Dark)
-                    .power(80)
-                    .statusEffect(20, Stat.Defense, -1, false)
+            attacks[3] = new Attack.AttackBuilder("Stone Edge", Type.Rock)
+                    .power(100)
+                    .accuracy(80)
+                    .critChance(50)
                     .build();
         }
     }

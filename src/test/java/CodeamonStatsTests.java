@@ -26,9 +26,8 @@ public class CodeamonStatsTests {
     public void TestStatValues() throws Exception {
         System.out.println("TestStatValues");
 
-        Type type = Type.Fire;
         int level = 10;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, level);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Grass, level);
 
         System.out.println("Max Hit Points: " + stats.getMaxHitPoints());
         System.out.println("Current Hit Points: " + stats.getCurrentHitPoints());
@@ -53,9 +52,8 @@ public class CodeamonStatsTests {
     public void TestInvalidLevelStatValues() throws Exception {
         System.out.println("TestInvalidLevelStatValues");
 
-        Type type = Type.Fire;
         int level = 1;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, 0);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Normal, 0);
 
         System.out.println("Max Hit Points: " + stats.getMaxHitPoints());
         System.out.println("Current Hit Points: " + stats.getCurrentHitPoints());
@@ -80,8 +78,7 @@ public class CodeamonStatsTests {
     public void TestDamage() throws Exception{
         System.out.println("TestDamage");
 
-        Type type = Type.Fire;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, 1);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Fire, 1);
 
         int damage = 2;
 
@@ -102,8 +99,7 @@ public class CodeamonStatsTests {
     public void TestDamageGreaterThanHitPoints() throws Exception{
         System.out.println("TestDamageGreaterThanHitPoints");
 
-        Type type = Type.Fire;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, 1);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Fire, 1);
 
         stats.damage(stats.getMaxHitPoints() + 1);
 
@@ -121,8 +117,7 @@ public class CodeamonStatsTests {
     public void TestDamageIsZero() throws Exception{
         System.out.println("TestDamageIsZero");
 
-        Type type = Type.Fire;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, 1);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Fire, 1);
 
         stats.damage(0);
 
@@ -140,8 +135,7 @@ public class CodeamonStatsTests {
     public void TestHeal() throws Exception{
         System.out.println("TestHeal");
 
-        Type type = Type.Fire;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, 1);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Fire, 1);
 
         int damage = 2;
         int heal = 1;
@@ -163,8 +157,7 @@ public class CodeamonStatsTests {
     public void TestHealIsZero() throws Exception{
         System.out.println("TestHealIsZero");
 
-        Type type = Type.Fire;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, 1);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Fire, 1);
 
         int damage = 2;
 
@@ -185,8 +178,7 @@ public class CodeamonStatsTests {
     public void TestHealPastFull() throws Exception{
         System.out.println("TestHealPastFull");
 
-        Type type = Type.Fire;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, 1);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Fire, 1);
 
         int damage = 2;
 
@@ -207,8 +199,7 @@ public class CodeamonStatsTests {
     public void TestRest() {
         System.out.println("TestRest");
 
-        Type type = Type.Fire;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, 1);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Fire, 1);
 
         int damage = 10000;
 
@@ -229,8 +220,7 @@ public class CodeamonStatsTests {
     public void TestApplyNegativeStatStageChange() throws Exception {
         System.out.println("TestApplyNegativeStatStageChange");
 
-        Type type = Type.Fire;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, 10);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Fire, 10);
 
         int attack = stats.getAttackStat();
         int defense = stats.getDefenseStat();
@@ -264,8 +254,7 @@ public class CodeamonStatsTests {
     public void TestApplyPositiveStatStageChange() throws Exception {
         System.out.println("TestApplyPositiveStatStageChange");
 
-        Type type = Type.Fire;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, 10);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Fire, 10);
 
         int attack = stats.getAttackStat();
         int defense = stats.getDefenseStat();
@@ -299,8 +288,7 @@ public class CodeamonStatsTests {
     public void TestResetStatStages() throws Exception {
         System.out.println("TestApplyPositiveStatChange");
 
-        Type type = Type.Fire;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, 10);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Fire, 10);
 
         int attack = stats.getAttackStat();
         int defense = stats.getDefenseStat();
@@ -342,8 +330,7 @@ public class CodeamonStatsTests {
     public void TestCriticalStatsPositiveStages() throws Exception {
         System.out.println("TestCriticalStatsPositiveStages");
 
-        Type type = Type.Fire;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, 10);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Fire, 10);
 
         int defense = stats.getDefenseStat();
 
@@ -378,8 +365,7 @@ public class CodeamonStatsTests {
     public void TestCriticalStatsNegativeStages() throws Exception {
         System.out.println("TestCriticalStatsNegativeStages");
 
-        Type type = Type.Fire;
-        CodeamonStats stats = CodeamonStatsFactory.getStats(type, 10);
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Fire, 10);
 
         int attack = stats.getAttackStat();
 

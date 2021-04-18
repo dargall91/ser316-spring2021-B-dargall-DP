@@ -26,9 +26,9 @@ public class BattleTests {
     public void TestWildBattleTrainerWins() throws Exception {
         System.out.println("TestWildBattleTrainerWins");
 
-        Codeamon trainerMon = new CodeamonFactory().createCodeamon(Type.Fire, 99);
+        Codeamon trainerMon = new CodeamonFactory().createCodeamon(Type.Grass, 99);
         trainerMon.setNickname("Jack");
-        Codeamon wildCodeamon = new CodeamonFactory().createCodeamon(Type.Fire, 1);
+        Codeamon wildCodeamon = new CodeamonFactory().createCodeamon(Type.Dark, 1);
         Trainer trainer = new Trainer.TrainerBuilder("Derek").codeamon(trainerMon).build();
 
         int initialExp = trainerMon.getExperiencePoints();
@@ -51,9 +51,9 @@ public class BattleTests {
     public void TestWildBattleWildWins() throws Exception {
         System.out.println("TestWildBattleWildWins");
 
-        Codeamon trainerMon = new CodeamonFactory().createCodeamon(Type.Fire, 1);
+        Codeamon trainerMon = new CodeamonFactory().createCodeamon(Type.Ghost, 1);
         trainerMon.setNickname("Jack");
-        Codeamon wildCodeamon = new CodeamonFactory().createCodeamon(Type.Fire, 99);
+        Codeamon wildCodeamon = new CodeamonFactory().createCodeamon(Type.Bug, 99);
         Trainer trainer = new Trainer.TrainerBuilder("Derek").codeamon(trainerMon).build();
 
         int initialExp = trainerMon.getExperiencePoints();
@@ -75,11 +75,11 @@ public class BattleTests {
     public void TestWildBattleCodeamonFaints() throws Exception {
         System.out.println("TestWildBattleCodeamonFaints");
 
-        Codeamon tMonOne = new CodeamonFactory().createCodeamon(Type.Fire, 1);
+        Codeamon tMonOne = new CodeamonFactory().createCodeamon(Type.Rock, 1);
         tMonOne.setNickname("Jack");
-        Codeamon tMonTwo = new CodeamonFactory().createCodeamon(Type.Fire, 99);
+        Codeamon tMonTwo = new CodeamonFactory().createCodeamon(Type.Normal, 99);
         tMonTwo.setNickname("Jill");
-        Codeamon wildCodeamon = new CodeamonFactory().createCodeamon(Type.Fire, 30);
+        Codeamon wildCodeamon = new CodeamonFactory().createCodeamon(Type.Ice, 30);
         Trainer trainer = new Trainer.TrainerBuilder("Derek").codeamon(tMonOne)
                 .codeamon(tMonTwo).build();
 
@@ -105,9 +105,9 @@ public class BattleTests {
     public void TestTrainerBattle() throws Exception {
         System.out.println("TestTrainerBattle");
 
-        Codeamon tOneMon = new CodeamonFactory().createCodeamon(Type.Fire, 99);
+        Codeamon tOneMon = new CodeamonFactory().createCodeamon(Type.Steel, 99);
         tOneMon.setNickname("Jack");
-        Codeamon tTwoMon = new CodeamonFactory().createCodeamon(Type.Fire, 1);
+        Codeamon tTwoMon = new CodeamonFactory().createCodeamon(Type.Poison, 1);
         tTwoMon.setNickname("Jill");
 
         Trainer trainerOne = new Trainer.TrainerBuilder("Derek").codeamon(tOneMon).build();
@@ -136,11 +136,11 @@ public class BattleTests {
     public void TestTrainerBattleCodeamonFaints() throws Exception {
         System.out.println("TestTrainerBattleCodeamonFaints");
 
-        Codeamon tOneMon = new CodeamonFactory().createCodeamon(Type.Fire, 30);
+        Codeamon tOneMon = new CodeamonFactory().createCodeamon(Type.Electric, 30);
         tOneMon.setNickname("Jack");
-        Codeamon tTwoMonOne = new CodeamonFactory().createCodeamon(Type.Fire, 1);
+        Codeamon tTwoMonOne = new CodeamonFactory().createCodeamon(Type.Bug, 1);
         tTwoMonOne.setNickname("Jill");
-        Codeamon tTwoMonTwo = new CodeamonFactory().createCodeamon(Type.Fire, 99);
+        Codeamon tTwoMonTwo = new CodeamonFactory().createCodeamon(Type.Electric, 99);
         tTwoMonTwo.setNickname("James");
 
 

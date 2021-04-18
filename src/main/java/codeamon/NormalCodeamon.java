@@ -1,13 +1,11 @@
 package codeamon;
 
-import java.util.ArrayList;
-
 /**
  * Data structure for a Fire type species of Codeamon.
  */
-public class FireCodeamon extends Codeamon {
-    private static final String NAME = "Flamemon";
-    private static final Type TYPE = Type.Fire;
+public class NormalCodeamon extends Codeamon {
+    private static final String NAME = "Regularmon";
+    private static final Type TYPE = Type.Normal;
     private Attack[] attacks;
     private static int MAX_ATTACKS = 4;
 
@@ -16,54 +14,50 @@ public class FireCodeamon extends Codeamon {
      *
      * @param level The level of the Codeamon
      */
-    public FireCodeamon(int level) {
+    public NormalCodeamon(int level) {
         super(CodeamonStatsFactory.getStats(TYPE, level), level);
         //Codeamon have different attacks depending on their initial level
         attacks = new Attack[MAX_ATTACKS];
         if (level <= 15) {
-            attacks[0] = new Attack.AttackBuilder("Ember", Type.Fire)
-                    .power(40)
-                    .statusEffect(10, Stat.Attack, -1, false)
-                    .build();
-            attacks[1] = new Attack.AttackBuilder("Scratch", Type.Normal)
+            attacks[0] = new Attack.AttackBuilder("Scratch", Type.Fire)
                     .power(40)
                     .build();
-            attacks[2] = new Attack.AttackBuilder("Howl", Type.Normal)
-                    .statusEffect(100, Stat.Attack, 1, true)
+            attacks[1] = new Attack.AttackBuilder("Disarming Voice", Type.Fairy)
+                    .power(40)
+                    .build();
+            attacks[2] = new Attack.AttackBuilder("Defense Curl", Type.Normal)
+                    .statusEffect(100, Stat.Defense, 1, true)
                     .build();
             attacks[3] = new Attack.AttackBuilder("Bite", Type.Dark)
                     .power(60)
                     .build();
         } else if (level <= 30) {
-            attacks[0] = new Attack.AttackBuilder("Flame Wheel", Type.Fire)
+            attacks[0] = new Attack.AttackBuilder("Stomp", Type.Normal)
                     .power(65)
-                    .statusEffect(10, Stat.Attack, -1, false)
                     .build();
-            attacks[1] = new Attack.AttackBuilder("Cut", Type.Normal)
-                    .power(50)
-                    .accuracy(95)
+            attacks[1] = new Attack.AttackBuilder("Disarming Voice", Type.Fairy)
+                    .power(40)
                     .build();
-            attacks[2] = new Attack.AttackBuilder("Howl", Type.Normal)
-                    .statusEffect(100, Stat.Attack, 1, true)
+            attacks[2] = new Attack.AttackBuilder("Defense Curl", Type.Normal)
+                    .statusEffect(100, Stat.Defense, 1, true)
                     .build();
             attacks[3] = new Attack.AttackBuilder("Bite", Type.Dark)
                     .power(60)
                     .build();
         } else {
-            attacks[0] = new Attack.AttackBuilder("Flamethrower", Type.Fire)
-                    .power(90)
-                    .statusEffect(10, Stat.Attack, -1, false)
+            attacks[0] = new Attack.AttackBuilder("Body Slam", Type.Fire)
+                    .power(85)
+                    .statusEffect(30, Stat.Speed, -1, false)
                     .build();
-            attacks[1] = new Attack.AttackBuilder("Slash", Type.Normal)
+            attacks[1] = new Attack.AttackBuilder("Shadow Claw", Type.Ghost)
                     .power(70)
-                    .critChance(50)
+                    .critChance(70)
                     .build();
-            attacks[2] = new Attack.AttackBuilder("Howl", Type.Normal)
-                    .statusEffect(100, Stat.Attack, 1, true)
+            attacks[2] = new Attack.AttackBuilder("Defense Curl", Type.Normal)
+                    .statusEffect(100, Stat.Defense, 1, true)
                     .build();
-            attacks[3] = new Attack.AttackBuilder("Crunch", Type.Dark)
-                    .power(80)
-                    .statusEffect(20, Stat.Defense, -1, false)
+            attacks[3] = new Attack.AttackBuilder("Recover", Type.Normal)
+                    .heal(40)
                     .build();
         }
     }
