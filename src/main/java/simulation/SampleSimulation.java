@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import trainer.Trainer;
 
 /**
- * Contains the Data needed to run a Codeamon Simulation.Simulation without json input.
+ * Contains the Data needed to run a Codeamon Simulation.Simulation without json input. Each
+ * Trainer begins with a single level 20 Codeamon and will battle 10 Wild Codeamon that start at
+ * Level 16 in this simulation.
  */
 public class SampleSimulation implements Simulation {
     private ArrayList<Trainer> trainers;
@@ -23,20 +25,20 @@ public class SampleSimulation implements Simulation {
         trainers = new ArrayList<>();
 
         trainers.add(new Trainer.TrainerBuilder("Derek")
-                .codeamon(new GrassCodeamon(10))
+                .codeamon(new GrassCodeamon(20))
                 .build());
         trainers.add(new Trainer.TrainerBuilder("Ben")
-                .codeamon(new WaterCodeamon(10))
+                .codeamon(new WaterCodeamon(20))
                 .build());
         trainers.add(new Trainer.TrainerBuilder("Chris")
-                .codeamon(new PsychicCodeamon(10))
+                .codeamon(new PsychicCodeamon(20))
                 .build());
         trainers.add(new Trainer.TrainerBuilder("Burgundy")
-                .codeamon(new NormalCodeamon(10))
+                .codeamon(new NormalCodeamon(20))
                 .build());
 
-        wildLevel = 8;
-        wildBattles = 5;
+        wildLevel = 16;
+        wildBattles = 10;
     }
 
     @Override

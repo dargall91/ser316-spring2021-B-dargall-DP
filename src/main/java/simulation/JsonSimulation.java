@@ -12,7 +12,11 @@ import org.json.simple.parser.JSONParser;
 import trainer.Trainer;
 
 /**
- * Contains the Data for a Codeamon Simulation that is read from a .json file.
+ * Contains the Data for a Codeamon Simulation that is read from a .json file. In simulation_one,
+ * each Trainer will begin with a single level 10 Codeamon and battle against 5 Wild Codeamon that
+ * start at level 8. In simulation_two, each Trainer will begin with a full team of 6 level 100
+ * Codeamon. They will not battle against any Wild Codeamon, and instead go right into the
+ * Tournament.
  */
 public class JsonSimulation implements Simulation {
     private ArrayList<Trainer> trainers;

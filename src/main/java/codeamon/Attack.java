@@ -13,21 +13,17 @@ import java.util.Random;
  * non-damaging Attack that buffs, debuffs, or heals the user always succeeds. A non-damaging
  * attack the targets the opponent must hit the opponent in order to apply any additional effects.
  *
- * The following requirements are fulfilled by this Design Pattern and any related classes:
- *
- * Each attack has a different Type
- *
- * Attacks can get STAB (Same Type Attack Bonus) if the type matches the user's type
- *
- * Codeamon attacks have type advantages and disadvantages (enforced by TypeMatchup class
- * with results used here)
- *
- * Attacks can have a chance to crit and deal an extra 50% damage
- *
- * Attacks can have a chance to miss
- *
- * Attacks that deal damage always deal at least 1 damage (this check is done in
- * CodeamonStats.damage)
+ * <p>
+ *     The following requirements are fulfilled by this Design Pattern and any related classes:
+ *     <li>Each attack has a different Type</li>
+ *     <li>Attacks can get STAB (Same Type Attack Bonus) if the type matches the user's type</li>
+ *     <li>Codeamon attacks have type advantages and disadvantages (enforced by TypeMatchup class
+ *     with results used here)</li>
+ *     <li>Attacks can have a chance to crit and deal an extra 50% damage</li>
+ *     <li>Attacks can have a chance to miss</li>
+ *     <li>Attacks that deal damage always deal at least 1 damage (this check is done in
+ *     CodeamonStats.damage)</li>
+ * </p>
  */
 public class Attack {
     //TODO: is it really necessary for these to be final? No setters implicitly makes them final
