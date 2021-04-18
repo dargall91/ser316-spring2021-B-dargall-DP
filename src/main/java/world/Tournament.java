@@ -45,9 +45,10 @@ public class Tournament {
         the formula can be simplified into P - (2 * P - 2 ^ N)
 
         Wow, I just realized this can greatly simplified. -1 * (P - 2 ^ N) = byes. I feel dumb now
+        Wow, I feel more dumb. That's just N ^ 2 - P
          */
         if (currentRound == 1) {
-            byes = -1 * (int) (bracket.size() - Math.pow(2, rounds));
+            byes = (int) (Math.pow(2, rounds) - bracket.size());
         }
 
         if (currentRound < rounds) {
@@ -70,7 +71,8 @@ public class Tournament {
         Trainers are paired up by their placement in the list. The first Trainer battles the last
         Trainer, the second Trainer battles the second to last Trainer, and so on until all
         Trainers have battled. If there are byes, the byes go to the last X Trainers in the list,
-        where X is the number of byes.
+        where X is the number of byes, and the end of the list is considered to be the last Trainer
+        to not get a bye.
          */
         for (int i = 0; i < (bracket.size() - byes) / 2; i++) {
             System.out.println();

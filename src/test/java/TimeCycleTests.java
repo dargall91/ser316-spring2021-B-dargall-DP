@@ -56,7 +56,7 @@ public class TimeCycleTests {
      */
     @Test
     public void TestNight() throws Exception {
-        System.out.println("TestWildDay");
+        System.out.println("TestNight");
 
         Codeamon mon = CodeamonFactory.createCodeamon(Type.Fire, 1);
         mon.setNickname("Jack");
@@ -109,8 +109,8 @@ public class TimeCycleTests {
 
     /**
      * Test the entire cycle of Day (Wild Battles) -> Night -> Day (Tournament) works as intended.
-     * For this test, derek should have recruited 6 Codeamon to their party and won the Tournament.
-     * All other Trainers should have recruited no Codeamon.
+     * For this test, derek should have recruited 5 additional Codeamon to their party and won the
+     * Tournament. All other Trainers should have recruited no additional Codeamon.
      *
      * @throws Exception
      */

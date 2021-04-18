@@ -1,13 +1,11 @@
 package codeamon;
 
-import java.util.ArrayList;
-
 /**
  * Data structure for a Fire type species of Codeamon.
  */
-public class FireCodeamon extends Codeamon {
-    private static final String NAME = "Flamemon";
-    private static final Type TYPE = Type.Fire;
+public class BugCodeamon extends Codeamon {
+    private static final String NAME = "Antmon";
+    private static final Type TYPE = Type.Ice;
     private Attack[] attacks;
     private static int MAX_ATTACKS = 4;
 
@@ -16,7 +14,7 @@ public class FireCodeamon extends Codeamon {
      *
      * @param level The level of the Codeamon
      */
-    public FireCodeamon(int level) {
+    public BugCodeamon(int level) {
         super(CodeamonStatsFactory.getStats(TYPE, level), level);
         //Codeamon have different attacks depending on their initial level
         attacks = new Attack[MAX_ATTACKS];
