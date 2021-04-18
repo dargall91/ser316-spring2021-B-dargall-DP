@@ -18,7 +18,7 @@ public class Main {
         //If there are command line arguments, use them for the simulation.
         //Otherwise, use the Sample Simulation
         if (args.length > 0) {
-            System.out.println("Loading " + args[0] + "Simulation.");
+            System.out.println("Loading " + args[0]);
             sim = new JsonSimulation(args[0]);
 
             //If there is an error parsing the json file, there will be no trainers. In this case
