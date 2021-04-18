@@ -63,9 +63,9 @@ public class FightingCodeamon extends Codeamon {
             attacks[2] = new Attack.AttackBuilder("Swords Dance", Type.Normal)
                     .statusEffect(100, Stat.Attack, 2, true)
                     .build();
-            attacks[3] = new Attack.AttackBuilder("Slam", Type.Normal)
-                    .power(80)
-                    .accuracy(80)
+            attacks[3] = new Attack.AttackBuilder("Mega Kick", Type.Normal)
+                    .power(120)
+                    .accuracy(75)
                     .build();
         }
     }

@@ -19,49 +19,51 @@ public class GhostCodeamon extends Codeamon {
         //Codeamon have different attacks depending on their initial level
         attacks = new Attack[MAX_ATTACKS];
         if (level <= 15) {
-            attacks[0] = new Attack.AttackBuilder("Ember", Type.Fire)
+            attacks[0] = new Attack.AttackBuilder("Shadow Sneak", Type.Ghost)
                     .power(40)
-                    .statusEffect(10, Stat.Attack, 1, false)
+                    .statusEffect(100, Stat.Speed, 1, true)
                     .build();
-            attacks[1] = new Attack.AttackBuilder("Scratch", Type.Normal)
+            attacks[1] = new Attack.AttackBuilder("Acid", Type.Poison)
                     .power(40)
+                    .statusEffect(10, Stat.Defense, -1, false)
                     .build();
-            attacks[2] = new Attack.AttackBuilder("Howl", Type.Normal)
-                    .statusEffect(100, Stat.Attack, 1, true)
+            attacks[2] = new Attack.AttackBuilder("Leer", Type.Normal)
+                    .statusEffect(100, Stat.Defense, -1, false)
                     .build();
-            attacks[3] = new Attack.AttackBuilder("Bite", Type.Dark)
-                    .power(60)
+            attacks[3] = new Attack.AttackBuilder("Disarming Voice", Type.Fairy)
+                    .power(40)
                     .build();
         } else if (level <= 30) {
-            attacks[0] = new Attack.AttackBuilder("Flame Wheel", Type.Fire)
-                    .power(65)
-                    .statusEffect(10, Stat.Attack, 1, false)
-                    .build();
-            attacks[1] = new Attack.AttackBuilder("Cut", Type.Normal)
-                    .power(50)
-                    .accuracy(95)
-                    .build();
-            attacks[2] = new Attack.AttackBuilder("Howl", Type.Normal)
-                    .statusEffect(100, Stat.Attack, 1, true)
-                    .build();
-            attacks[3] = new Attack.AttackBuilder("Bite", Type.Dark)
+            attacks[0] = new Attack.AttackBuilder("Ominous Wind", Type.Ghost)
                     .power(60)
+                    .statusEffect(15, Stat.Attack, 1, true)
+                    .build();
+            attacks[1] = new Attack.AttackBuilder("Acid", Type.Poison)
+                    .power(40)
+                    .statusEffect(10, Stat.Defense, -1, false)
+                    .build();
+            attacks[2] = new Attack.AttackBuilder("Leer", Type.Normal)
+                    .statusEffect(100, Stat.Defense, -1, false)
+                    .build();
+            attacks[3] = new Attack.AttackBuilder("Disarming Voice", Type.Fairy)
+                    .power(40)
                     .build();
         } else {
-            attacks[0] = new Attack.AttackBuilder("Flamethrower", Type.Fire)
-                    .power(70)
-                    .statusEffect(15, Stat.Attack, 1, false)
-                    .build();
-            attacks[1] = new Attack.AttackBuilder("Slash", Type.Normal)
-                    .power(70)
-                    .critChance(50)
-                    .build();
-            attacks[2] = new Attack.AttackBuilder("Howl", Type.Normal)
-                    .statusEffect(100, Stat.Attack, 1, true)
-                    .build();
-            attacks[3] = new Attack.AttackBuilder("Crunch", Type.Dark)
+            attacks[0] = new Attack.AttackBuilder("Shadow Ball", Type.Ghost)
                     .power(80)
-                    .statusEffect(20, Stat.Defense, -1, false)
+                    .statusEffect(30, Stat.Defense, -1, false)
+                    .build();
+            attacks[1] = new Attack.AttackBuilder("Sludge Bomb", Type.Poison)
+                    .power(90)
+                    .statusEffect(10, Stat.Speed, -1, false)
+                    .build();
+            attacks[2] = new Attack.AttackBuilder("Leer", Type.Normal)
+                    .statusEffect(100, Stat.Defense, -1, false)
+                    .build();
+            attacks[3] = new Attack.AttackBuilder("Frost Breath", Type.Normal)
+                    .power(60)
+                    .accuracy(90)
+                    .critChance(100)
                     .build();
         }
     }

@@ -19,49 +19,52 @@ public class GrassCodeamon extends Codeamon {
         //Codeamon have different attacks depending on their initial level
         attacks = new Attack[MAX_ATTACKS];
         if (level <= 15) {
-            attacks[0] = new Attack.AttackBuilder("Ember", Type.Fire)
+            attacks[0] = new Attack.AttackBuilder("Vine Whip", Type.Grass)
+                    .power(45)
+                    .build();
+            attacks[1] = new Attack.AttackBuilder("Acid", Type.Poison)
                     .power(40)
-                    .statusEffect(10, Stat.Attack, 1, false)
+                    .statusEffect(10, Stat.Defense, -1, false)
                     .build();
-            attacks[1] = new Attack.AttackBuilder("Scratch", Type.Normal)
-                    .power(40)
+            attacks[2] = new Attack.AttackBuilder("Growth", Type.Grass)
+                    .statusEffect(100, Stat.Defense, 1, true)
                     .build();
-            attacks[2] = new Attack.AttackBuilder("Howl", Type.Normal)
-                    .statusEffect(100, Stat.Attack, 1, true)
-                    .build();
-            attacks[3] = new Attack.AttackBuilder("Bite", Type.Dark)
-                    .power(60)
+            attacks[3] = new Attack.AttackBuilder("Mud Shot", Type.Ground)
+                    .power(55)
+                    .accuracy(95)
+                    .statusEffect(100, Stat.Speed, -1, false)
                     .build();
         } else if (level <= 30) {
-            attacks[0] = new Attack.AttackBuilder("Flame Wheel", Type.Fire)
-                    .power(65)
-                    .statusEffect(10, Stat.Attack, 1, false)
-                    .build();
-            attacks[1] = new Attack.AttackBuilder("Cut", Type.Normal)
-                    .power(50)
-                    .accuracy(95)
-                    .build();
-            attacks[2] = new Attack.AttackBuilder("Howl", Type.Normal)
-                    .statusEffect(100, Stat.Attack, 1, true)
-                    .build();
-            attacks[3] = new Attack.AttackBuilder("Bite", Type.Dark)
+            attacks[0] = new Attack.AttackBuilder("Magical Leaf", Type.Grass)
                     .power(60)
                     .build();
-        } else {
-            attacks[0] = new Attack.AttackBuilder("Flamethrower", Type.Fire)
-                    .power(70)
-                    .statusEffect(15, Stat.Attack, 1, false)
+            attacks[1] = new Attack.AttackBuilder("Acid", Type.Poison)
+                    .power(40)
+                    .statusEffect(10, Stat.Defense, -1, false)
                     .build();
-            attacks[1] = new Attack.AttackBuilder("Slash", Type.Normal)
+            attacks[2] = new Attack.AttackBuilder("Growth", Type.Grass)
+                    .statusEffect(100, Stat.Defense, 1, true)
+                    .build();
+            attacks[3] = new Attack.AttackBuilder("Mud Shot", Type.Ground)
+                    .power(55)
+                    .accuracy(95)
+                    .statusEffect(100, Stat.Speed, -1, false)
+                    .build();
+        } else {
+            attacks[0] = new Attack.AttackBuilder("Giga Drain", Type.Fire)
+                    .power(75)
+                    .heal(20)
+                    .build();
+            attacks[1] = new Attack.AttackBuilder("Cross Poison", Type.Poison)
                     .power(70)
                     .critChance(50)
                     .build();
-            attacks[2] = new Attack.AttackBuilder("Howl", Type.Normal)
-                    .statusEffect(100, Stat.Attack, 1, true)
+            attacks[2] = new Attack.AttackBuilder("Growth", Type.Grass)
+                    .statusEffect(100, Stat.Defense, 1, true)
                     .build();
-            attacks[3] = new Attack.AttackBuilder("Crunch", Type.Dark)
-                    .power(80)
-                    .statusEffect(20, Stat.Defense, -1, false)
+            attacks[3] = new Attack.AttackBuilder("Earth Power", Type.Ground)
+                    .power(90)
+                    .statusEffect(30, Stat.Defense, -1, false)
                     .build();
         }
     }
