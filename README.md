@@ -17,7 +17,7 @@ There are three different simulations that can be run:
 ### Default Simulation
 This is the simulation that is run if neither of the json files are passed to the .jar as command line arguments. This
 simulation consists of 4 Codeamon Trainers who each begin with a single level 20 Codeamon. Trainers will battle against
-5 Wild Codeamon, which will begin at level 16, before competing in the Tournament.
+10 Wild Codeamon, which will begin at level 16, before competing in the Tournament.
 
 ### simulation_one.json
 This simulation consists of 4 Codeamon Trainers who each begin with 3 level 10 Codeamon. Trainers will battle against
