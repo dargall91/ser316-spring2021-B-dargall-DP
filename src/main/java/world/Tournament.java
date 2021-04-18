@@ -63,7 +63,7 @@ public class Tournament {
         //Byes are considered to have won
         for (int i = 0; i < byes; i++) {
             System.out.println(bracket.get(bracket.size() - 1 + i).getName()
-                    +" gets a Bye and advances straight to the next round!");
+                    + " gets a Bye and advances straight to the next round!");
             winners.add(bracket.get(bracket.size() - 1 + i));
         }
 
@@ -132,7 +132,7 @@ public class Tournament {
     }
 
     /**
-     * Gets the list of Trainers who have not yet been eliminated from the bracket
+     * Gets the list of Trainers who have not yet been eliminated from the bracket.
      *
      * @return The list of Trainers
      */

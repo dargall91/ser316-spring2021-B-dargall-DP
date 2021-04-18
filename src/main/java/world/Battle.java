@@ -43,6 +43,8 @@ public class Battle {
                 System.out.println(trainer.getName() + " sent out "
                         + trainerCodeamon.getName() + "!");
             }
+
+            System.out.println();
         }
 
         if (trainer.getRemainingPartySize() > 0) {
@@ -99,6 +101,7 @@ public class Battle {
             if (codeamonOne.isFainted()) {
                 codeamonOne.giveExperience(trainerTwo.getCodeamonParty());
 
+                System.out.println();
                 trainerOne.printPartyStatus();
                 trainerTwo.printPartyStatus();
 
@@ -110,6 +113,7 @@ public class Battle {
             } else if (codeamonTwo.isFainted()) {
                 codeamonTwo.giveExperience(trainerOne.getCodeamonParty());
 
+                System.out.println();
                 trainerOne.printPartyStatus();
                 trainerTwo.printPartyStatus();
 
@@ -119,6 +123,8 @@ public class Battle {
                             + codeamonTwo.getName() + "!");
                 }
             }
+
+            System.out.println();
         }
 
         //Get the winner
@@ -169,7 +175,6 @@ public class Battle {
      * @param second The second Codeamon to act in this round
      */
     private static void attack(Codeamon first, Codeamon second) {
-        //first attacks
         first.attack(second);
 
         if (second.isFainted()) {

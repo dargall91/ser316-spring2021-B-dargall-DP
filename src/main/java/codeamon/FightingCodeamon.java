@@ -30,7 +30,7 @@ public class FightingCodeamon extends Codeamon {
             attacks[2] = new Attack.AttackBuilder("Work Up", Type.Normal)
                     .statusEffect(100, Stat.Attack, 1, true)
                     .build();
-            attacks[1] = new Attack.AttackBuilder("Tackle", Type.Normal)
+            attacks[3] = new Attack.AttackBuilder("Tackle", Type.Normal)
                     .power(40)
                     .build();
         } else if (level <= 30) {

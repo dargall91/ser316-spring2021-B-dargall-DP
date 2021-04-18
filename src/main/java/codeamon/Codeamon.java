@@ -118,13 +118,6 @@ public abstract class Codeamon implements Comparable<Codeamon> {
     }
 
     /**
-     * This Codeamon resets all stat changes.
-     */
-    public void resetStatStages() {
-        stats.resetStatStages();
-    }
-
-    /**
      * Heals the Codeamon by a specified amount. If the amount of healing is 0 or less, the
      * Codeamon will be healed for 1 hit point.
      *
@@ -279,8 +272,7 @@ public abstract class Codeamon implements Comparable<Codeamon> {
         if (Math.pow(level + 1, 3) <= this.exp) {
             level++;
             stats.levelUp(level);
-            System.out.println(getName() + " leveled up!");
-            System.out.println(getName() + " is now level " + level + "!");
+            System.out.println(getName() + " grew to level " + level + "!");
         }
     }
 
@@ -288,7 +280,9 @@ public abstract class Codeamon implements Comparable<Codeamon> {
      * Prints this Codeamon's name, current hit points, and max hit points. For example,
      */
     public void printBattleStatus() {
-        System.out.println(getName() + ": " + getCurrentHitPoints() + "/" + getMaxHitPoints() + " HP");
+        System.out.println(getName() + ":");
+        System.out.println("Level: " + level);
+        System.out.println("HP: " + getCurrentHitPoints() + "/" + getMaxHitPoints() + " HP");
     }
 
     /**
