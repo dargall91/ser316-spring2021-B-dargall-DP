@@ -3,8 +3,17 @@ package codeamon;
 import java.util.Random;
 
 /**
- * A Factory Method class for creating a Codeamon. The minimum level a Codeamon can be is 1 and the
- * maximum level a Codeamon can be is 100.
+ * A Factory Method class for creating a Codeamon. Codeamon can either be created at random or with
+ * a specific type, either way the level of the Codeamon must be specified. The minimum level a
+ * Codeamon can be is 1 and the maximum level a Codeamon can be is 100.
+ *
+ * <p>
+ *     The following requirements are fulfilled by this Design Pattern and any related classes (this
+ *     Design Pattern works directly with the CodeamonStatsFactory to fulfill more requirements):
+ *     <li>Codeamon have four attacks, which are determined by it's level when created</li>
+ *     <li>Codeamon have a type that resistant to or weak against certain other attack types
+ *     (enforced by the TypeMatchup class)</li>
+ * </p>
  */
 public class CodeamonFactory {
     /**
