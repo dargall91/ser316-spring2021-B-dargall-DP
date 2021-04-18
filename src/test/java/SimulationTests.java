@@ -40,6 +40,6 @@ public class SimulationTests {
 
         assertAll(() -> assertEquals(4, sim.getTrainers().size()),
                 () -> assertEquals(5, sim.getWildBattles()),
-                () -> assertEquals(8, sim.getWildLevel()));
+                () -> assertEquals(10, sim.getWildLevel()));
     }
 }
