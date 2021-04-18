@@ -2,25 +2,25 @@
 	"trainers": [{
 		"name": "Derek",
 		"codeamon": [{
-			"type": "grass",
+			"type": "Grass",
 			"level": 10
 		}]
 	}, {
 		"name": "Ben",
 		"codeamon": [{
-			"type": "water",
+			"type": "Water",
 			"level": 10
 		}]
 	}, {
 		"name": "Chris",
 		"codeamon": [{
-			"type": "psychic",
+			"type": "Psychic",
 			"level": 10
 		}]
 	}, {
 		"name": "Burgundy",
 		"codeamon": [{
-			"type": "normal",
+			"type": "Normal",
 			"level": 10
 		}]
 	}],

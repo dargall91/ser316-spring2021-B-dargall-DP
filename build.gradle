@@ -16,7 +16,7 @@ repositories {
 dependencies {
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
 	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
-	runtime 'com.github.cliftonlabs:json-simple:3.1.1'
+	compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
 }
 
 test {

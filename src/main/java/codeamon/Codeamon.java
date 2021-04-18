@@ -272,8 +272,7 @@ public abstract class Codeamon implements Comparable<Codeamon> {
         if (Math.pow(level + 1, 3) <= this.exp) {
             level++;
             stats.levelUp(level);
-            System.out.println(getName() + " leveled up!");
-            System.out.println(getName() + " is now level " + level + "!");
+            System.out.println(getName() + " grew to level " + level + "!");
         }
     }
 
