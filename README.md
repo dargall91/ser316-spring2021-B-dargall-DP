@@ -1,6 +1,8 @@
 # Code-A-Mon
 ### *"Gotta Code 'Em All!"*
 
+
+
 The Codeamon program is a simulation for Codeamon Trainers to battle and recruit Wild Codeamon before competing against
 each other in a single elimination Tournament. The Simulation begins in the Day. During the Day, every Trainer will
 battle against a single random Wild Codeamon. If they defeat it, it will join their party. Once all Trainers have
@@ -19,13 +21,15 @@ This is the simulation that is run if neither of the json files are passed to th
 simulation consists of 4 Codeamon Trainers who each begin with a single level 20 Codeamon. Trainers will battle against
 10 Wild Codeamon, which will begin at level 16, before competing in the Tournament.
 
-### simulation_one.json
+### Simulation One
 This simulation consists of 4 Codeamon Trainers who each begin with 3 level 10 Codeamon. Trainers will battle against
-5 Wild Codeamon, which will begin at level 10, before competing in the Tournament.
+5 Wild Codeamon, which will begin at level 10, before competing in the Tournament. This simulation is stored in
+simulation_one.json
 
-### simulation_two.json
+### Simulation Two
 This simulation consists of 8 Codeamon Trainers who each begin with 6 level 100 Codeamon. Trainers will not battle
-against any Wild Codeamon in this simulation, they will instead immediately start competing in the Tournament.
+against any Wild Codeamon in this simulation, they will instead immediately start competing in the Tournament. This
+simulation is stored in simulation_two.json
 
 ## Design Patterns
 
@@ -90,3 +94,16 @@ Requirements Fulfilled by the Codeamon Stats Factory Method And Related Classes:
 - Codeamon's stats increase with their level
 - Codeamon's stats can be temporarily increased or decreased in battle
 - When a Codeamon reaches 0 hit points, it faints
+
+## How to Run The Simulations
+
+[Demonstration](https://youtu.be/d4SOqk0PmyM)
+
+1. Clone the repo: "git clone git@github.com:dargall91/ser316-spring2021-B-dargall-DP.git"
+2. Build the program: "gradle build"
+3. To run the Default Simulation: "gradle run" OR "java -jar build/libs/ser316-spring2021-B-dargall-DP.jar"
+4. To run Simulation One: "java -jar build/libs/ser316-spring2021-B-dargall-DP.jar simulation_one.json"
+5. To run Simulation Two: "java -jar build/libs/ser316-spring2021-B-dargall-DP.jar simulation_two.json"
+
+If you copy the above commands, you may need to edit them to use you OS's file separator
+
