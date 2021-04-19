@@ -90,6 +90,7 @@ public class Trainer {
         name = builder.name;
         codeamonParty = builder.party;
         codeaDollars = builder.codeaDollars;
+        Collections.sort(codeamonParty);
     }
 
     /**
@@ -194,6 +195,8 @@ public class Trainer {
         }
 
         codeamonParty.add(codeamon);
+        Collections.sort(codeamonParty);
+
         return true;
     }
 
@@ -217,8 +220,6 @@ public class Trainer {
             return null;
         }
 
-        Collections.sort(codeamonParty);
-
         return codeamonParty.get(codeamonParty.size() - getRemainingPartySize());
     }
 
@@ -234,7 +235,7 @@ public class Trainer {
     /**
      * Prints the Trainer's name and a representation of how many Codeamon they have remaining. "O"
      * represents a non-fainted Codeamon and "X" represents a fainted Codeamon. For example, a
-     * Trainer "Derek"with two fainted and three non-fainted Codeamon would be displayed as
+     * Trainer "Derek" with two fainted and three non-fainted Codeamon would be displayed as
      * "Derek: XXOOO".
      */
     public void printPartyStatus() {
