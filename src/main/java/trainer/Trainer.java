@@ -8,17 +8,18 @@ import java.util.Collections;
  * A Trainer is someone who captures and tames Codeamon. A trainer is created using a Builder
  * Design Pattern. A trainer can have a maximum of 6 Codeamon in their party. A trainer can
  * participate in battles against either other trainers or Wild Codeamon.
+ *
+ * <p>
+ *     The following requirements are fulfilled by this Design Pattern and any related classes:
+ *     <li>A Trainer can recruit new Codeamon to their party</li>
+ *     <li>A Trainer can have no more than 6 Codeamon</li>
+ * </p>
  */
 public class Trainer {
     private final String name;
     private int codeaDollars;
     private ArrayList<Codeamon> codeamonParty;
     private static final int MAX_PARTY = 6;
-    //A party that is sorted must be kept separate from the original list to avoid messing
-    //with the levels of random Wild Codeamon in Day
-    private ArrayList<Codeamon> sortedParty;
-
-    //TODO: track wins/loses for tournament
 
     /**
      * A Builder Method for constructing at attack. Contains methods for adding Codeamon to the
@@ -89,6 +90,7 @@ public class Trainer {
         name = builder.name;
         codeamonParty = builder.party;
         codeaDollars = builder.codeaDollars;
+        Collections.sort(codeamonParty);
     }
 
     /**
@@ -193,6 +195,8 @@ public class Trainer {
         }
 
         codeamonParty.add(codeamon);
+        Collections.sort(codeamonParty);
+
         return true;
     }
 
@@ -216,21 +220,13 @@ public class Trainer {
             return null;
         }
 
-        //If there is only Codeamon in the party, select it
-        if (codeamonParty.size() == 1) {
-            return codeamonParty.get(0);
-        }
-
-        sortedParty = codeamonParty;
-        Collections.sort(sortedParty);
-
-        return sortedParty.get(0);
+        return codeamonParty.get(codeamonParty.size() - getRemainingPartySize());
     }
 
     /**
      * Gets this Trainer's Codeamon party.
      *
-     * @return THe Codeamon party
+     * @return The Codeamon party
      */
     public ArrayList<Codeamon> getCodeamonParty() {
         return codeamonParty;
@@ -239,7 +235,7 @@ public class Trainer {
     /**
      * Prints the Trainer's name and a representation of how many Codeamon they have remaining. "O"
      * represents a non-fainted Codeamon and "X" represents a fainted Codeamon. For example, a
-     * Trainer "Derek"with two fainted and three non-fainted Codeamon would be displayed as
+     * Trainer "Derek" with two fainted and three non-fainted Codeamon would be displayed as
      * "Derek: XXOOO".
      */
     public void printPartyStatus() {

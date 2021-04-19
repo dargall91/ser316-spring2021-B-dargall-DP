@@ -64,7 +64,7 @@
 		}]
 	}, {
 		"name": "Burgundy",
-		"codeamon": [[{
+		"codeamon": [{
 			"type": "Normal",
 			"level": 100
 		}, {
@@ -82,10 +82,10 @@
 		}, {
 			"type": "Fairy",
 			"level": 100
-		}]]
+		}]
 	}, {
 		"name": "Billy Bob Jones",
-		"codeamon": [[{
+		"codeamon": [{
 			"type": "Dark",
 			"level": 100
 		}, {
@@ -103,10 +103,10 @@
 		}, {
 			"type": "Water",
 			"level": 100
-		}]]
+		}]
 	}, {
 		"name": "Joe-Anne Fabrics",
-		"codeamon": [[{
+		"codeamon": [{
 			"type": "Bug",
 			"level": 100
 		}, {
@@ -124,10 +124,10 @@
 		}, {
 			"type": "Poison",
 			"level": 100
-		}]]
+		}]
 	}, {
 		"name": "Warrick Oul",
-		"codeamon": [[{
+		"codeamon": [{
 			"type": "Psychic",
 			"level": 100
 		}, {
@@ -145,10 +145,10 @@
 		}, {
 			"type": "Ghost",
 			"level": 100
-		}]]
+		}]
 	}, {
 		"name": "Grug Smith",
-		"codeamon": [[{
+		"codeamon": [{
 			"type": "Ground",
 			"level": 100
 		}, {
@@ -166,7 +166,7 @@
 		}, {
 			"type": "Fairy",
 			"level": 100
-		}]]
+		}]
 	}],
 	"wildBattles": 0,
 	"wildLevel": 0

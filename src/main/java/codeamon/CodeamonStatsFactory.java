@@ -8,7 +8,7 @@ package codeamon;
  * <p>
  *     The following requirements are fulfilled by this Design Pattern and any related classes:
  *     <li>Codeamon have the following stats: Hit Points, Attack, Defense, and Speed</li>
- *     <li>Codeamon's stats change based on their level</li>
+ *     <li>Codeamon's stats increase with their level</li>
  *     <li>Codeamon's stats can be temporarily increased or decreased in battle</li>
  *     <li>When a Codeamon reaches 0 hit points, it faints</li>
  * </p>
