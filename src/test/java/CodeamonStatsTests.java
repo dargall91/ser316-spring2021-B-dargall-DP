@@ -246,6 +246,43 @@ public class CodeamonStatsTests {
     }
 
     /**
+     * Test that when a Stat Stage reaches the minimum further changes will have no effect.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void TestNegativeStatStageLimit() throws Exception {
+        System.out.println("TestNegativeStatStageLimit");
+
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Fire, 10);
+
+        int attack = stats.getAttackStat();
+        int defense = stats.getDefenseStat();
+        int speed = stats.getSpeedStat();
+
+        System.out.println("Before Changes:");
+        System.out.println("Attack: " + stats.getAttackStat());
+        System.out.println("Defense: " + stats.getDefenseStat());
+        System.out.println("Speed: " + stats.getSpeedStat());
+
+        stats.applyStatStageChange("Codeamon", Stat.Attack, -6);
+        stats.applyStatStageChange("Codeamon", Stat.Defense, -6);
+        stats.applyStatStageChange("Codeamon", Stat.Speed, -6);
+        stats.applyStatStageChange("Codeamon", Stat.Attack, -1);
+        stats.applyStatStageChange("Codeamon", Stat.Defense, -1);
+        stats.applyStatStageChange("Codeamon", Stat.Speed, -1);
+
+        System.out.println("\nAfter Changes:");
+        System.out.println("Attack: " + stats.getAttackStat());
+        System.out.println("Defense: " + stats.getDefenseStat());
+        System.out.println("Speed: " + stats.getSpeedStat());
+
+        assertAll(() -> assertEquals((int) (attack * (2.0 / 8.0)), stats.getAttackStat()),
+                () -> assertEquals((int) (defense * (2.0 / 8.0)), stats.getDefenseStat()),
+                () -> assertEquals((int) (speed * (2.0 / 8.0)), stats.getSpeedStat()));
+    }
+
+    /**
      * Test that positive stat stages are properly applied.
      *
      * @throws Exception
@@ -268,6 +305,43 @@ public class CodeamonStatsTests {
         stats.applyStatStageChange("Codeamon", Stat.Attack, 7);
         stats.applyStatStageChange("Codeamon", Stat.Defense, 7);
         stats.applyStatStageChange("Codeamon", Stat.Speed, 7);
+
+        System.out.println("\nAfter Changes:");
+        System.out.println("Attack: " + stats.getAttackStat());
+        System.out.println("Defense: " + stats.getDefenseStat());
+        System.out.println("Speed: " + stats.getSpeedStat());
+
+        assertAll(() -> assertEquals((int) (attack * (8.0 / 2.0)), stats.getAttackStat()),
+                () -> assertEquals((int) (defense * (8.0 / 2.0)), stats.getDefenseStat()),
+                () -> assertEquals((int) (speed * (8.0 / 2.0)), stats.getSpeedStat()));
+    }
+
+    /**
+     * Test that when a Stat Stage reaches the maximum further changes will have no effect.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void TestPositiveStatStageLimit() throws Exception {
+        System.out.println("TestPositiveStatStageLimit");
+
+        CodeamonStats stats = CodeamonStatsFactory.getStats(Type.Fire, 10);
+
+        int attack = stats.getAttackStat();
+        int defense = stats.getDefenseStat();
+        int speed = stats.getSpeedStat();
+
+        System.out.println("Before Changes:");
+        System.out.println("Attack: " + stats.getAttackStat());
+        System.out.println("Defense: " + stats.getDefenseStat());
+        System.out.println("Speed: " + stats.getSpeedStat());
+
+        stats.applyStatStageChange("Codeamon", Stat.Attack, 6);
+        stats.applyStatStageChange("Codeamon", Stat.Defense, 6);
+        stats.applyStatStageChange("Codeamon", Stat.Speed, 6);
+        stats.applyStatStageChange("Codeamon", Stat.Attack, 1);
+        stats.applyStatStageChange("Codeamon", Stat.Defense, 1);
+        stats.applyStatStageChange("Codeamon", Stat.Speed, 1);
 
         System.out.println("\nAfter Changes:");
         System.out.println("Attack: " + stats.getAttackStat());

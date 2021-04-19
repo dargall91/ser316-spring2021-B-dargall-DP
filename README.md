@@ -38,7 +38,20 @@ when reading the json files. The second case of the builder, which is used to co
 very useful. The Attack Builder allows for nearly fully customizable attacks. An Attack's name and Type must be set with
 the builder, but beyond that anything is possible. An Attack can be set to deal damage, heal the user, raise or lower
 the user's stats, or raise or lower the user's opponent's stats. With the Builder, an Attack can even be set to do any
-combination of these things except affect the stats of both the user and its opponent, or it can even do nothing at all. 
+combination of these things except affect the stats of both the user and its opponent, or it can even do nothing at all.
+
+Requirements Fulfilled by the Trainer Builder And Related Classes:
+- A Trainer can recruit new Codeamon to their party
+- A Trainer can have no more than 6 Codeamon in their party
+
+Requirements Fulfilled by the Attack Builder And Related Classes:
+- Each attack has a different Type
+- Attacks can get STAB (Same Type Attack Bonus) if the type matches the user's type
+- Codeamon attacks have type advantages and disadvantages (enforced by the TypeMatchup.java class with results used
+  here)
+- Attacks can have a chance to crit and deal an extra 50% damage
+- Attacks can have a chance to miss
+- Attacks that deal damage always deal at least 1 damage (this check is done in CodeamonStats.damage())
 
 ### State Pattern
 The State Pattern will be used in the Day and Night Cycle. It is used to determine what events happen during each
@@ -47,10 +60,33 @@ specified number of battles has occurred. After each Day, it will become Night, 
 rest and fully recover all lost Hit Points. After all the Wild Battles have concluded, the Day and Night cycle will
 continue, with a single round of the Tournament replacing Wild Battles during the day, until only one Trainer remains.
 
-## Factory Method
+Requirements Fulfilled by the Time Cycle State Pattern And Related Classes:
+- The simulation runs on a Day/Night cycle
+- During the day, Trainers can battle
+- Trainers can battle Wild Codeamon or other Trainers in the Tournament
+- Trainers can recruit Wild Codeamon onto their team by defeating them in battle
+- Defeating a Codeamon earns EXP for all non-fainted Codeamon in the Trainer’s party
+- Defeating another Trainer earns half of that Trainer's money
+- During the Night all Trainers’ Codeamon fully heal
+- Only one battle takes place at a time
+- Trainers can only battle with one Codeamon at a time, but they can use another if one faints
+- Attacks are turn based, with speed determining who goes first. In the event of a speed tie, a Codeamon is chosen at random
+- A Trainer battle is not over until all of one Trainer's Codeamon have fainted
+
+### Factory Method
 The Factory Method is used for the creation of a Codeamon. There are 18 different types of Codeamon, and there is one
 species of Codeamon of each type. All Codeamon of the same species have the same base stats and attacks, though the
 attacks vary by the Codeamon's initial level. A Codeamon Factory is used to determine what species to create based on a
 Type parameter. The Factory is also capable of creating a random type of Codeamon. The Codeamon Factory is also used in
 conjunction with a Stats Factory, which gets the base stat values for a given Type, and determines its current stats
 based on it's level.
+
+Requirements Fulfilled by the Codeamon Factory Method And Related Classes:
+- Codeamon have four attacks, which are determined by it's level when created
+- Codeamon have a single type that is resistant to or weak against certain other attack types (tracked by the TypeMatchup.java class)
+
+Requirements Fulfilled by the Codeamon Stats Factory Method And Related Classes:
+- Codeamon have the following stats: Hit Points, Attack, Defense, and Speed
+- Codeamon's stats increase with their level
+- Codeamon's stats can be temporarily increased or decreased in battle
+- When a Codeamon reaches 0 hit points, it faints

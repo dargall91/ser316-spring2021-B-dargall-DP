@@ -51,7 +51,7 @@ public class GrassCodeamon extends Codeamon {
                     .statusEffect(100, Stat.Speed, -1, false)
                     .build();
         } else {
-            attacks[0] = new Attack.AttackBuilder("Giga Drain", Type.Fire)
+            attacks[0] = new Attack.AttackBuilder("Giga Drain", Type.Grass)
                     .power(75)
                     .heal(20)
                     .build();

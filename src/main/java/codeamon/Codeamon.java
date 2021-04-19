@@ -128,6 +128,8 @@ public abstract class Codeamon implements Comparable<Codeamon> {
             heal = 1;
         }
 
+        System.out.println(getName() + " recovered " + heal + " Hit Points!");
+
         stats.heal(heal);
     }
 
