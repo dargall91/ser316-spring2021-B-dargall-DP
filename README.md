@@ -34,15 +34,16 @@ simulation is stored in simulation_two.json
 ## Design Patterns
 
 ### Builder Pattern
-The Builder Pattern is used in two separate case. The first is build a Codeamon Trainer. The TrainerBuilder is used to
-specify the beginning state of a Codeamon Trainer, that is their name, how much CodeaDollars (¢) they have, and their
+The Builder Pattern is used in two separate case. The first is to build a Codeamon Trainer. The TrainerBuilder is used
+to specify the beginning state of a Codeamon Trainer, that is their name, how much CodeaDollars (¢) they have, and their
 initial Codeamon Party composition. The Trainer Builder ended up not being as useful as I wanted it to be in the end,
 because the way I set it up didn't really allow for adding an unknown number of Codeamon to a Trainer like I needed
-when reading the json files. The second case of the builder, which is used to construct Attacks, was on the other hand
+when reading the json files. The second case of the builder on the other hand, which is used to construct Attacks, was
 very useful. The Attack Builder allows for nearly fully customizable attacks. An Attack's name and Type must be set with
 the builder, but beyond that anything is possible. An Attack can be set to deal damage, heal the user, raise or lower
 the user's stats, or raise or lower the user's opponent's stats. With the Builder, an Attack can even be set to do any
-combination of these things except affect the stats of both the user and its opponent, or it can even do nothing at all.
+combination of these things except affect the stats of both the user and its opponent. An attack can even do nothing at
+all if you choose to set only a name and type.
 
 Requirements Fulfilled by the Trainer Builder And Related Classes:
 - A Trainer can recruit new Codeamon to their party
