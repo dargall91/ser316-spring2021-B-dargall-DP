@@ -73,7 +73,7 @@ Requirements Fulfilled by the Time Cycle State Pattern And Related Classes:
 - Attacks are turn based, with speed determining who goes first. In the event of a speed tie, a Codeamon is chosen at random
 - A Trainer battle is not over until all of one Trainer's Codeamon have fainted
 
-## Factory Method
+### Factory Method
 The Factory Method is used for the creation of a Codeamon. There are 18 different types of Codeamon, and there is one
 species of Codeamon of each type. All Codeamon of the same species have the same base stats and attacks, though the
 attacks vary by the Codeamon's initial level. A Codeamon Factory is used to determine what species to create based on a
