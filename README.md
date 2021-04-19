@@ -1,6 +1,8 @@
 # Code-A-Mon
 ### *"Gotta Code 'Em All!"*
 
+
+
 The Codeamon program is a simulation for Codeamon Trainers to battle and recruit Wild Codeamon before competing against
 each other in a single elimination Tournament. The Simulation begins in the Day. During the Day, every Trainer will
 battle against a single random Wild Codeamon. If they defeat it, it will join their party. Once all Trainers have
@@ -19,26 +21,29 @@ This is the simulation that is run if neither of the json files are passed to th
 simulation consists of 4 Codeamon Trainers who each begin with a single level 20 Codeamon. Trainers will battle against
 10 Wild Codeamon, which will begin at level 16, before competing in the Tournament.
 
-### simulation_one.json
+### Simulation One
 This simulation consists of 4 Codeamon Trainers who each begin with 3 level 10 Codeamon. Trainers will battle against
-5 Wild Codeamon, which will begin at level 10, before competing in the Tournament.
+5 Wild Codeamon, which will begin at level 10, before competing in the Tournament. This simulation is stored in
+simulation_one.json
 
-### simulation_two.json
+### Simulation Two
 This simulation consists of 8 Codeamon Trainers who each begin with 6 level 100 Codeamon. Trainers will not battle
-against any Wild Codeamon in this simulation, they will instead immediately start competing in the Tournament.
+against any Wild Codeamon in this simulation, they will instead immediately start competing in the Tournament. This
+simulation is stored in simulation_two.json
 
 ## Design Patterns
 
 ### Builder Pattern
-The Builder Pattern is used in two separate case. The first is build a Codeamon Trainer. The TrainerBuilder is used to
-specify the beginning state of a Codeamon Trainer, that is their name, how much CodeaDollars (¢) they have, and their
+The Builder Pattern is used in two separate case. The first is to build a Codeamon Trainer. The TrainerBuilder is used
+to specify the beginning state of a Codeamon Trainer, that is their name, how much CodeaDollars (¢) they have, and their
 initial Codeamon Party composition. The Trainer Builder ended up not being as useful as I wanted it to be in the end,
 because the way I set it up didn't really allow for adding an unknown number of Codeamon to a Trainer like I needed
-when reading the json files. The second case of the builder, which is used to construct Attacks, was on the other hand
+when reading the json files. The second case of the builder on the other hand, which is used to construct Attacks, was
 very useful. The Attack Builder allows for nearly fully customizable attacks. An Attack's name and Type must be set with
 the builder, but beyond that anything is possible. An Attack can be set to deal damage, heal the user, raise or lower
 the user's stats, or raise or lower the user's opponent's stats. With the Builder, an Attack can even be set to do any
-combination of these things except affect the stats of both the user and its opponent, or it can even do nothing at all.
+combination of these things except affect the stats of both the user and its opponent. An attack can even do nothing at
+all if you choose to set only a name and type.
 
 Requirements Fulfilled by the Trainer Builder And Related Classes:
 - A Trainer can recruit new Codeamon to their party
@@ -90,3 +95,16 @@ Requirements Fulfilled by the Codeamon Stats Factory Method And Related Classes:
 - Codeamon's stats increase with their level
 - Codeamon's stats can be temporarily increased or decreased in battle
 - When a Codeamon reaches 0 hit points, it faints
+
+## How to Run The Simulations
+
+[Demonstration](https://youtu.be/d4SOqk0PmyM)
+
+1. Clone the repo: "git clone git@github.com:dargall91/ser316-spring2021-B-dargall-DP.git"
+2. Build the program: "gradle build"
+3. To run the Default Simulation: "gradle run" OR "java -jar build/libs/ser316-spring2021-B-dargall-DP.jar"
+4. To run Simulation One: "java -jar build/libs/ser316-spring2021-B-dargall-DP.jar simulation_one.json"
+5. To run Simulation Two: "java -jar build/libs/ser316-spring2021-B-dargall-DP.jar simulation_two.json"
+
+If you copy the above commands, you may need to edit them to use you OS's file separator
+
