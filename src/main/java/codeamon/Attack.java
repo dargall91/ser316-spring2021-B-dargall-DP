@@ -469,4 +469,69 @@ public class Attack {
 
         return (random.nextInt(MAX_CHANCE) + 1 <= critChance);
     }
+
+    /**
+     * Gets this attacks description.
+     *
+     * @return the description
+     */
+    private String getDescription() {
+        String result = "";
+
+        if (critChance > 15) {
+            result += "\nIncreased chance to crit.";
+        }
+
+        if (effectChance > 0) {
+            result += "\n" + effectChance + "% chance to ";
+
+            if (stages < 0) {
+                result += "lower ";
+            } else if (stages > 0) {
+                result += "raise ";
+            } else {
+                result += "not modify ";
+            }
+
+            if (self) {
+                result += "the user's ";
+            } else {
+                result += "the target's ";
+            }
+
+            if (stat == Stat.Attack) {
+                result += "Attack ";
+            } else if (stat == Stat.Defense) {
+                result += "Defense ";
+            } else if (stat == Stat.Speed) {
+                result += "Speed ";
+            }
+
+            result += "by " + Math.abs(stages) + " stages.";
+        }
+
+        if (heal > 0.0) {
+            result += "\nHeals the user by " + (int) (heal * 100) + "% HP.";
+        }
+
+        if (power == 0 && effectChance == 0 && heal == 0) {
+            result = "This attack == Magikarp.Splash";
+        }
+
+        return result;
+    }
+
+    /**
+     * Stringifies this Attack for the player.
+     *
+     * @return Stringified Attack
+     */
+    @Override
+    public String toString() {
+        String result = name + ": " + type + "\n";
+        result += "Power: " + power + "Accuracy: " + accuracy + "";
+        result += getDescription();
+
+        return result;
+    }
 }

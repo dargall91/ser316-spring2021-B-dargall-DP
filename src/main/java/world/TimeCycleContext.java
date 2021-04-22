@@ -35,7 +35,7 @@ public class TimeCycleContext {
     private Simulation simulation;
 
     /**
-     * Constructor that sets the initial state as Day, determines the number of Wild Codeamon
+     * Constructor for the playable version of Codeamon. It sets the number of Wild Codeamon
      * each Trainer will battle during the Day before starting the tournament, and sets the list of
      * trainers who will compete in the tournament. The Wild Codeamon will start at a specified
      * level, and that level will increase every Day.
@@ -54,7 +54,8 @@ public class TimeCycleContext {
     }
 
     /**
-     * Constructor that sets up the TimeCycle based on the data saved within a provided Simulation.
+     * Constructor for the simulated version of Codeamon that sets up the TimeCycle based on the
+     * data saved within a provided Simulation.
      *
      * @param simulation The simulation that contains the data
      */
@@ -127,5 +128,14 @@ public class TimeCycleContext {
      */
     public Tournament getTournament() {
         return tournament;
+    }
+
+    /**
+     * Checks if this cycle is for the Playable version of Codeamon or not.
+     *
+     * @return True if this cycle is playable, otherwise false
+     */
+    public boolean getPlayable() {
+        return (simulation == null);
     }
 }
