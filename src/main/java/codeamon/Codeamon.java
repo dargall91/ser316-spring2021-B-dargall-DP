@@ -230,6 +230,20 @@ public abstract class Codeamon implements Comparable<Codeamon> {
     }
 
     /**
+     * This Codeamon attacks another Codeamon. The attack to be used is chosen by the player.
+     *
+     * @param opponent This Codeamon's opponent
+     * @param attackChoice The number of the attack to be used
+     */
+    public void attack(Codeamon opponent, int attackChoice) {
+        Attack[] attackArr = getAttacks();
+
+        Attack attack = attackArr[attackChoice - 1];
+
+        attack.applyAttack(this, opponent);
+    }
+
+    /**
      * Gets the list of this Codeamon's attacks.
      *
      * @return An array of this Codeamon's attacks
@@ -288,6 +302,17 @@ public abstract class Codeamon implements Comparable<Codeamon> {
     }
 
     /**
+     * Prints this Codeamon's attacks.
+     */
+    public void printAttacks() {
+        Attack[] attacks = getAttacks();
+
+        for (int i = 0; i < attacks.length; i++) {
+            System.out.println((i + 1) + ": " + attacks[i]);
+        }
+    }
+
+    /**
      * Gets the total amount of EXP this Codeamon has.
      *
      * @return The total experience points
@@ -321,6 +346,5 @@ public abstract class Codeamon implements Comparable<Codeamon> {
         }
 
         return 0;
-
     }
 }

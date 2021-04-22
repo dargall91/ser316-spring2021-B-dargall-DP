@@ -3,6 +3,9 @@ import simulation.SampleSimulation;
 import simulation.Simulation;
 import world.TimeCycleContext;
 
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 public class Main {
     /**
      * Entry point to the Codeamon simulation. A json file can be provided as a command line
@@ -29,6 +32,25 @@ public class Main {
                         + "trainers. Switching to Sample Simulation.");
             }
         } else {
+            Scanner scan = new Scanner(System.in);
+
+            int choice = -1;
+            do {
+                System.out.println("Choose a mode:");
+                System.out.println("1. Play Codeamon");
+                System.out.println("2. Run simulation");
+
+                try {
+                    choice = scan.nextInt();
+                } catch (InputMismatchException e) {
+                    System.out.println("Please select a number from 1-4.");
+                    choice = -1;
+                }
+
+                if (choice < 0 || choice > 4) {
+                    System.out.println("Please select a number from 1-4.");
+                }
+            } while (choice < 0 || choice > 4);
             System.out.println("Loading Sample Simulation");
             sim = new SampleSimulation();
         }

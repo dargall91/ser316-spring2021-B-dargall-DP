@@ -48,7 +48,7 @@ public class TimeCycleContext {
     public TimeCycleContext(int wildBattles, int initialLevel, ArrayList<Trainer> trainers) {
         this.wildBattles = wildBattles;
         this.initialLevel = initialLevel;
-        tournament = new Tournament(trainers);
+        tournament = new Tournament(trainers, true);
         simulation = null;
         setState(new Day());
     }
@@ -62,7 +62,7 @@ public class TimeCycleContext {
     public TimeCycleContext(Simulation simulation) {
         this.wildBattles = simulation.getWildBattles();
         this.initialLevel = simulation.getWildLevel();
-        tournament = new Tournament(simulation.getTrainers());
+        tournament = new Tournament(simulation.getTrainers(), false);
         setState(new Day());
     }
 

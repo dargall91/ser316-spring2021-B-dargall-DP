@@ -524,7 +524,7 @@ public class Attack {
     /**
      * Stringifies this Attack for the player.
      *
-     * @return Stringified Attack
+     * @return Stringifies Attack
      */
     @Override
     public String toString() {

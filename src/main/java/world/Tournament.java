@@ -11,14 +11,17 @@ public class Tournament {
     private ArrayList<Trainer> bracket;
     private int currentRound;
     private final int rounds;
+    private boolean playable;
 
     /**
      * Constructor for a Tournament that sets the list of competing Codeamon Trainers.
      *
      * @param trainers The list of competing Codeamon Trainers
+     * @param playable Sets if this Tournament can be played by a user or not.
      */
-    public Tournament(ArrayList<Trainer> trainers) {
+    public Tournament(ArrayList<Trainer> trainers, boolean playable) {
         bracket = trainers;
+        this.playable = playable;
         currentRound = 1;
         rounds = (int) Math.ceil(Math.log(bracket.size()) / Math.log(2));
     }
@@ -78,8 +81,16 @@ public class Tournament {
             System.out.println();
             Trainer trainerOne = bracket.get(i);
             Trainer trainerTwo = bracket.get(bracket.size() - 1 - byes - i);
-            Trainer winner = Battle.trainerBattle(trainerOne,
-                    trainerTwo);
+            Trainer winner;
+
+            if (playable && i == 0) {
+                winner = Battle.playableTrainerBattle(trainerOne,
+                        trainerTwo);
+            } else {
+                winner = Battle.trainerBattle(trainerOne,
+                        trainerTwo);
+            }
+
 
             if (winner == trainerOne) {
                 System.out.println(trainerTwo.getName() + " was eliminated from the Tournament!");
