@@ -36,7 +36,7 @@ public class TimeCycleTests {
         list.add(trainer);
 
         TimeCycleContext timeCycle = new TimeCycleContext(1, 5, list);
-        timeCycle.runEvents(list);
+        timeCycle.runEvents();
 
         System.out.println(trainer.getName() + ":");
 
@@ -66,8 +66,8 @@ public class TimeCycleTests {
         list.add(trainer);
 
         TimeCycleContext timeCycle = new TimeCycleContext(1, 100, list);
-        timeCycle.runEvents(list);
-        timeCycle.runEvents(list);
+        timeCycle.runEvents();
+        timeCycle.runEvents();
 
         System.out.println(trainer.getName() + ":");
 
@@ -100,7 +100,7 @@ public class TimeCycleTests {
         list.add(trainerTwo);
 
         TimeCycleContext timeCycle = new TimeCycleContext(0, 5, list);
-        timeCycle.runEvents(list);
+        timeCycle.runEvents();
 
         System.out.println("Winner: " + timeCycle.getTournament().getWinner().getName());
 
@@ -136,7 +136,7 @@ public class TimeCycleTests {
         TimeCycleContext timeCycle = new TimeCycleContext(5, 20, list);
 
         while (!timeCycle.getTournament().isConcluded()) {
-            timeCycle.runEvents(list);
+            timeCycle.runEvents();
         }
 
         System.out.println("Winner: " + timeCycle.getTournament().getWinner().getName());

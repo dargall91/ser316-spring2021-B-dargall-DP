@@ -25,7 +25,7 @@ public class Main {
             //the sample simulation should be used. Also, if there are no trainers in the
             //simulation, the simulation will do nothing, so the sample should be used anyway
             if (sim.getTrainers().size() == 0) {
-                System.out.println("Error loading " + args[0] + "Simulation o rit contained no "
+                System.out.println("Error loading " + args[0] + " Simulation or it contained no "
                         + "trainers. Switching to Sample Simulation.");
             }
         } else {
@@ -33,11 +33,10 @@ public class Main {
             sim = new SampleSimulation();
         }
 
-        TimeCycleContext cycle = new TimeCycleContext(sim.getWildBattles(),
-                sim.getWildLevel(), sim.getTrainers());
+        TimeCycleContext cycle = new TimeCycleContext(sim);
 
         while (!cycle.getTournament().isConcluded()) {
-            cycle.runEvents(sim.getTrainers());
+            cycle.runEvents();
         }
 
         System.out.println(cycle.getTournament().getWinner().getName() + " wins!");

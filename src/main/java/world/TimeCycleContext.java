@@ -1,6 +1,8 @@
 package world;
 
 import java.util.ArrayList;
+
+import simulation.Simulation;
 import trainer.Trainer;
 
 /**
@@ -30,6 +32,7 @@ public class TimeCycleContext {
     private final int wildBattles;
     private final int initialLevel;
     private Tournament tournament;
+    private Simulation simulation;
 
     /**
      * Constructor that sets the initial state as Day, determines the number of Wild Codeamon
@@ -38,7 +41,7 @@ public class TimeCycleContext {
      * level, and that level will increase every Day.
      *
      * @param wildBattles The number of wild Codeamon battles to occur before the tournament begins
-     * @param initialLevel The level of the first Wild Codeamon. A Wild Codeamon will no tbe below
+     * @param initialLevel The level of the first Wild Codeamon. A Wild Codeamon will not be below
      *                  level 1 or above level 100, regardless of this value.
      * @param trainers The list of Trainers who will compete in the tournament
      */
@@ -46,6 +49,19 @@ public class TimeCycleContext {
         this.wildBattles = wildBattles;
         this.initialLevel = initialLevel;
         tournament = new Tournament(trainers);
+        simulation = null;
+        setState(new Day());
+    }
+
+    /**
+     * Constructor that sets up the TimeCycle based on the data saved within a provided Simulation.
+     *
+     * @param simulation The simulation that contains the data
+     */
+    public TimeCycleContext(Simulation simulation) {
+        this.wildBattles = simulation.getWildBattles();
+        this.initialLevel = simulation.getWildLevel();
+        tournament = new Tournament(simulation.getTrainers());
         setState(new Day());
     }
 
@@ -64,8 +80,8 @@ public class TimeCycleContext {
      *
      * @param trainers A list of Trainers participating in the simulation.
      */
-    public void runEvents(ArrayList<Trainer> trainers) {
-        state.runEvents(this, trainers);
+    public void runEvents() {
+        state.runEvents(this, tournament.getBracket());
     }
 
     /**

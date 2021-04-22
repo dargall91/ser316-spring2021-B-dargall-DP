@@ -8,5 +8,5 @@ import trainer.Trainer;
  * the Codeamon world, Day and Night. Different events can happen during different times of a day.
  */
 public interface TimeCycle {
-    void runEvents(TimeCycleContext timeCycleContext, ArrayList<Trainer> trainers);
+    void runEvents(TimeCycleContext timeCycleContext, ArrayList<Trainer> bracket);
 }
