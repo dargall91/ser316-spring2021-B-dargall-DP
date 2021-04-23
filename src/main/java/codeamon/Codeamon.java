@@ -308,7 +308,7 @@ public abstract class Codeamon implements Comparable<Codeamon> {
         Attack[] attacks = getAttacks();
 
         for (int i = 0; i < attacks.length; i++) {
-            System.out.println((i + 1) + ": " + attacks[i]);
+            System.out.println((i + 1) + ". " + attacks[i]);
         }
     }
 

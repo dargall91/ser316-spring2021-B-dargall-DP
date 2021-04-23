@@ -107,10 +107,10 @@ public class Battle {
                     attackChoice = -1;
                 }
 
-                if (attackChoice < 0 || attackChoice > 4) {
+                if (attackChoice < 1 || attackChoice > 4) {
                     System.out.println("Please select a number from 1-4.");
                 }
-            } while (attackChoice < 0 || attackChoice > 4);
+            } while (attackChoice < 1 || attackChoice > 4);
 
             playableFight(trainerCodeamon, attackChoice, wildCodeamon);
 
@@ -126,7 +126,7 @@ public class Battle {
         }
 
         scan.close();
-        
+
         if (trainer.getRemainingPartySize() > 0) {
             wildCodeamon.giveExperience(trainer.getCodeamonParty());
 
@@ -263,10 +263,10 @@ public class Battle {
                     attackChoice = -1;
                 }
 
-                if (attackChoice < 0 || attackChoice > 4) {
+                if (attackChoice < 1 || attackChoice > 4) {
                     System.out.println("Please select a number from 1-4.");
                 }
-            } while (attackChoice < 0 || attackChoice > 4);
+            } while (attackChoice < 1 || attackChoice > 4);
 
             playableFight(playerMon, attackChoice, opponentMon);
 
