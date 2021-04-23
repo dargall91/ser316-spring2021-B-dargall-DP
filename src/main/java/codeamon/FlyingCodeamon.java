@@ -5,7 +5,7 @@ package codeamon;
  */
 public class FlyingCodeamon extends Codeamon {
     private static final String NAME = "Birdmon";
-    private static final Type TYPE = Type.Ice;
+    private static final Type TYPE = Type.Flying;
     private Attack[] attacks;
     private static int MAX_ATTACKS = 4;
 

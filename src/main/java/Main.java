@@ -120,7 +120,7 @@ public class Main {
                     }
                 } while (level < 1 || level > 100);
 
-                Codeamon starter = CodeamonFactory.createCodeamon(types[choice], level);
+                Codeamon starter = CodeamonFactory.createCodeamon(types[choice - 1], level);
                 Trainer player = new Trainer.TrainerBuilder(name).codeamon(starter).build();
                 ArrayList<Trainer> trainers = new ArrayList<>();
                 trainers.add(player);
