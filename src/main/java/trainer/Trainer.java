@@ -195,7 +195,6 @@ public class Trainer {
         }
 
         codeamonParty.add(codeamon);
-        Collections.sort(codeamonParty);
 
         return true;
     }
@@ -207,6 +206,8 @@ public class Trainer {
         for (Codeamon i : codeamonParty) {
             i.rest();
         }
+
+        Collections.sort(codeamonParty);
     }
 
     /**

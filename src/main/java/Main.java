@@ -50,13 +50,15 @@ public class Main {
 
                 try {
                     choice = scan.nextInt();
+                    scan.nextLine();
+
+                    if (choice < 1 || choice > 2) {
+                        System.out.println("Please select an option 1 or 2.");
+                    }
                 } catch (InputMismatchException e) {
                     System.out.println("Please select an option 1 or 2.");
                     choice = -1;
-                }
-
-                if (choice < 1 || choice > 2) {
-                    System.out.println("Please select an option 1 or 2.");
+                    scan.next();
                 }
             } while (choice < 1 || choice > 2);
 
@@ -65,55 +67,56 @@ public class Main {
                 sim = new SampleSimulation();
                 cycle = new TimeCycleContext(sim);
             } else {
-                System.out.println("What is your name?");
+                System.out.println("Enter your name:");
                 String name = scan.nextLine();
 
                 Type[] types = Type.values();
 
                 do {
-                    System.out.println("Choose your starter Codeamon;");
-
                     for (int i = 0; i < types.length; i++) {
-                        Codeamon mon = new CodeamonFactory().createCodeamon(types[i], 1);
+                        Codeamon mon = CodeamonFactory.createCodeamon(types[i], 1);
                         CodeamonStats stats = CodeamonStatsFactory.getStats(types[i], 1);
-                        System.out.println((i + 1) + ". " + mon.getName() + "\tType: "
-                                + mon.getType());
-                        System.out.println("Base Hit Points: " + stats.getBaseHitPoints()
-                                + "\tBase Attack: " + stats.getBaseAttack()
-                                + "\tBase Defense: " + stats.getBaseDefense()
-                                + "\tBase Speed: " + stats.getBaseSpeed());
+                        System.out.println((i + 1) + ". " + mon.getName());
+                        System.out.println("Type: " + mon.getType());
+                        System.out.println("Base Hit Points: " + stats.getBaseHitPoints());
+                        System.out.println("Base Attack: " + stats.getBaseAttack());
+                        System.out.println("Base Defense: " + stats.getBaseDefense());
+                        System.out.println("Base Speed: " + stats.getBaseSpeed());
+                        System.out.println();
                     }
+
+                    System.out.println("Enter the number of your Starter Codeamon:");
 
                     try {
                         choice = scan.nextInt();
+
+                        if (choice < 1 || choice > 18) {
+                            System.out.println("Please select an option 1-18.");
+                        }
                     } catch (InputMismatchException e) {
                         System.out.println("Please select an option 1-18.");
                         choice = -1;
-                    }
-
-                    if (choice < 1 || choice > 18) {
-                        System.out.println("Please select an option 1-18.");
                     }
                 } while (choice < 1 || choice > 18);
 
                 int level = -1;
 
                 do {
-                    System.out.print("Enter your Codeamon's level (from 1-100):");
+                    System.out.println("Enter your Codeamon's level (from 1-100):");
 
                     try {
                         level = scan.nextInt();
+
+                        if (level < 1 || level > 100) {
+                            System.out.println("Please select an option 1-100.");
+                        }
                     } catch (InputMismatchException e) {
                         System.out.println("Please select an option 1-100.");
                         level = -1;
                     }
-
-                    if (level < 1 || level > 100) {
-                        System.out.println("Please select an option 1-100.");
-                    }
                 } while (level < 1 || level > 100);
 
-                Codeamon starter = new CodeamonFactory().createCodeamon(types[choice], level);
+                Codeamon starter = CodeamonFactory.createCodeamon(types[choice], level);
                 Trainer player = new Trainer.TrainerBuilder(name).codeamon(starter).build();
                 ArrayList<Trainer> trainers = new ArrayList<>();
                 trainers.add(player);
@@ -121,70 +124,62 @@ public class Main {
                 int wildBattles = -1;
 
                 do {
-                    System.out.print("Enter the number of Wild Codeamon to battle (from 0-10): ");
+                    System.out.println("Enter the number of Wild Codeamon to battle (from 0-10): ");
 
                     try {
                         wildBattles = scan.nextInt();
-                    } catch (InputMismatchException e) {
-                        System.out.println("Please enter an integer.");
-                        wildBattles = -1;
-                    }
 
-                    if (wildBattles < 0 || wildBattles > 10) {
+                        if (wildBattles < 0 || wildBattles > 10) {
+                            System.out.println("Please select an option from 0-10.");
+                        }
+                    } catch (InputMismatchException e) {
                         System.out.println("Please select an option from 0-10.");
+                        wildBattles = -1;
                     }
                 } while (wildBattles < 0 || wildBattles > 10);
 
+                int numTrainers = 0;
+
                 do {
-                    System.out.print("Select the number of Trainers (including you) who will "
-                            + "compete in the tournament:");
-                    System.out.println("1. Four");
-                    System.out.println("2. Eight");
+                    System.out.println("Enter the number of Trainers (including you) who will "
+                            + "compete in the tournament (2-8):");
 
                     try {
-                        choice = scan.nextInt();
-                    } catch (InputMismatchException e) {
-                        System.out.println("Please select an option 1 or 2.");
-                        choice = -1;
-                    }
+                        numTrainers = scan.nextInt();
 
-                    if (choice < 1 || choice > 2) {
-                        System.out.println("Please select an option 1 or 2.");
+                        if (numTrainers < 2 || numTrainers > 8) {
+                            System.out.println("Please select an option from 1-8.");
+                        }
+                    } catch (InputMismatchException e) {
+                        System.out.println("Please select an option from 1-8.");
+                        numTrainers = -1;
                     }
-                } while (choice < 1 || choice > 2);
+                } while (numTrainers < 2 || numTrainers > 8);
 
                 Random rand = new Random();
                 ArrayList<Trainer> npcs = new ArrayList<>();
 
-                npcs.add(new Trainer.TrainerBuilder("Derek").codeamon(new CodeamonFactory()
+                npcs.add(new Trainer.TrainerBuilder("Derek").codeamon(CodeamonFactory
                         .createCodeamon(Type.Grass, level)).build());
-                npcs.add(new Trainer.TrainerBuilder("Ben").codeamon(new CodeamonFactory()
+                npcs.add(new Trainer.TrainerBuilder("Ben").codeamon(CodeamonFactory
                         .createCodeamon(Type.Water, level)).build());
-                npcs.add(new Trainer.TrainerBuilder("Chris").codeamon(new CodeamonFactory()
+                npcs.add(new Trainer.TrainerBuilder("Chris").codeamon(CodeamonFactory
                         .createCodeamon(Type.Psychic, level)).build());
-                npcs.add(new Trainer.TrainerBuilder("Burgundy").codeamon(new CodeamonFactory()
+                npcs.add(new Trainer.TrainerBuilder("Burgundy").codeamon(CodeamonFactory
                         .createCodeamon(Type.Normal, level)).build());
-                npcs.add(new Trainer.TrainerBuilder("Billy Bob Jones").codeamon(new CodeamonFactory()
+                npcs.add(new Trainer.TrainerBuilder("Billy Bob Jones").codeamon(CodeamonFactory
                         .createCodeamon(Type.Dark, level)).build());
-                npcs.add(new Trainer.TrainerBuilder("Joe-Anne Fabrics").codeamon(new CodeamonFactory()
+                npcs.add(new Trainer.TrainerBuilder("Joe-Anne Fabrics").codeamon(CodeamonFactory
                         .createCodeamon(Type.Bug, level)).build());
-                npcs.add(new Trainer.TrainerBuilder("Warrick Oul").codeamon(new CodeamonFactory()
+                npcs.add(new Trainer.TrainerBuilder("Warrick Oul").codeamon(CodeamonFactory
                         .createCodeamon(Type.Fairy, level)).build());
-                npcs.add(new Trainer.TrainerBuilder("Grug Smith").codeamon(new CodeamonFactory()
+                npcs.add(new Trainer.TrainerBuilder("Grug Smith").codeamon(CodeamonFactory
                         .createCodeamon(Type.Ground, level)).build());
 
-                if (choice == 1) {
-                    for (int i = 0; i < 3; i++) {
-                        int randomNpc = rand.nextInt(npcs.size());
-                        trainers.add(npcs.get(randomNpc));
-                        npcs.remove(npcs.get(randomNpc));
-                    }
-                } else {
-                    for (int i = 0; i < 7; i++) {
-                        int randomNpc = rand.nextInt(npcs.size());
-                        trainers.add(npcs.get(randomNpc));
-                        npcs.remove(npcs.get(randomNpc));
-                    }
+                for (int i = 0; i < numTrainers - 1; i++) {
+                    int randomNpc = rand.nextInt(npcs.size());
+                    trainers.add(npcs.get(randomNpc));
+                    npcs.remove(npcs.get(randomNpc));
                 }
 
                 cycle = new TimeCycleContext(wildBattles, level - 2, trainers);

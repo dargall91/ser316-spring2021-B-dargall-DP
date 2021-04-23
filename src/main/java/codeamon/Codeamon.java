@@ -298,6 +298,7 @@ public abstract class Codeamon implements Comparable<Codeamon> {
     public void printBattleStatus() {
         System.out.println(getName() + ":");
         System.out.println("Level: " + level);
+        System.out.println("Type: " + getType());
         System.out.println("HP: " + getCurrentHitPoints() + "/" + getMaxHitPoints() + " HP");
     }
 

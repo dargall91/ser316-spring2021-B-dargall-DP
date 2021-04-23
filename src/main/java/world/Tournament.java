@@ -86,6 +86,7 @@ public class Tournament {
             if (playable && i == 0) {
                 winner = Battle.playableTrainerBattle(trainerOne,
                         trainerTwo);
+                System.out.println("Press enter to continue.");
             } else {
                 winner = Battle.trainerBattle(trainerOne,
                         trainerTwo);

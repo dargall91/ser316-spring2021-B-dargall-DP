@@ -507,7 +507,13 @@ public class Attack {
                 result += "Speed ";
             }
 
-            result += "by " + Math.abs(stages) + " stages.";
+            result += "by " + Math.abs(stages) + " stage";
+
+            if (Math.abs(stages) > 1) {
+                result += "s.";
+            } else {
+                result += ".";
+            }
         }
 
         if (heal > 0.0) {
@@ -529,7 +535,7 @@ public class Attack {
     @Override
     public String toString() {
         String result = name + ": " + type + "\n";
-        result += "Power: " + power + "Accuracy: " + accuracy + "";
+        result += "Power: " + power + " Accuracy: " + accuracy + "";
         result += getDescription();
 
         return result;

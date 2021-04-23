@@ -3,6 +3,8 @@ import codeamon.CodeamonFactory;
 import codeamon.Type;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import simulation.SampleSimulation;
+import simulation.Simulation;
 import trainer.Trainer;
 import world.TimeCycle;
 import world.TimeCycleContext;
@@ -35,7 +37,8 @@ public class TimeCycleTests {
         ArrayList<Trainer> list = new ArrayList<>();
         list.add(trainer);
 
-        TimeCycleContext timeCycle = new TimeCycleContext(1, 5, list);
+        Simulation sim = new SampleSimulation(1, 5, list);
+        TimeCycleContext timeCycle = new TimeCycleContext(sim);
         timeCycle.runEvents();
 
         System.out.println(trainer.getName() + ":");
@@ -65,7 +68,8 @@ public class TimeCycleTests {
         ArrayList<Trainer> list = new ArrayList<>();
         list.add(trainer);
 
-        TimeCycleContext timeCycle = new TimeCycleContext(1, 100, list);
+        Simulation sim = new SampleSimulation(1, 100, list);
+        TimeCycleContext timeCycle = new TimeCycleContext(sim);
         timeCycle.runEvents();
         timeCycle.runEvents();
 
@@ -99,7 +103,8 @@ public class TimeCycleTests {
         list.add(trainerOne);
         list.add(trainerTwo);
 
-        TimeCycleContext timeCycle = new TimeCycleContext(0, 5, list);
+        Simulation sim = new SampleSimulation(0, 5, list);
+        TimeCycleContext timeCycle = new TimeCycleContext(sim);
         timeCycle.runEvents();
 
         System.out.println("Winner: " + timeCycle.getTournament().getWinner().getName());
@@ -133,7 +138,8 @@ public class TimeCycleTests {
             list.add(trainerTwo);
         }
 
-        TimeCycleContext timeCycle = new TimeCycleContext(5, 20, list);
+        Simulation sim = new SampleSimulation(1, 20, list);
+        TimeCycleContext timeCycle = new TimeCycleContext(sim);
 
         while (!timeCycle.getTournament().isConcluded()) {
             timeCycle.runEvents();

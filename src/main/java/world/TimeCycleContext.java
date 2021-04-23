@@ -66,6 +66,7 @@ public class TimeCycleContext {
      * @param simulation The simulation that contains the data
      */
     public TimeCycleContext(Simulation simulation) {
+        this.simulation = simulation;
         this.wildBattles = simulation.getWildBattles();
         this.initialLevel = simulation.getWildLevel();
         tournament = new Tournament(simulation.getTrainers(), false);
@@ -84,8 +85,6 @@ public class TimeCycleContext {
 
     /**
      * Executes the current state's implementation of runEvents().
-     *
-     * @param trainers A list of Trainers participating in the simulation.
      */
     public void runEvents() {
         state.runEvents(this, tournament.getBracket());
@@ -142,6 +141,10 @@ public class TimeCycleContext {
      * @return True if this cycle is playable, otherwise false
      */
     public boolean getPlayable() {
-        return (simulation == null);
+        if (simulation == null) {
+            return true;
+        }
+
+        return false;
     }
 }

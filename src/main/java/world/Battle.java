@@ -98,6 +98,7 @@ public class Battle {
             int attackChoice = -1;
 
             do {
+                System.out.println();
                 System.out.println("Choose an attack:");
                 trainerCodeamon.printAttacks();
                 try {
@@ -125,8 +126,6 @@ public class Battle {
             System.out.println();
         }
 
-        scan.close();
-
         if (trainer.getRemainingPartySize() > 0) {
             wildCodeamon.giveExperience(trainer.getCodeamonParty());
 
@@ -136,6 +135,10 @@ public class Battle {
                 trainer.addCodeamon(wildCodeamon);
             }
 
+            System.out.println("Press enter to continue.");
+            scan.reset();
+            scan.nextLine();
+
             return true;
         }
 
@@ -143,6 +146,10 @@ public class Battle {
         System.out.println(trainer.getName() + " is out of usable Codeamon!");
         System.out.println(trainer.getName() + " fled from the Wild " + wildCodeamon.getName()
                 + "!");
+
+        System.out.println("Press enter to continue.");
+        scan.nextLine();
+        scan.nextLine();
 
         return false;
     }
@@ -254,6 +261,7 @@ public class Battle {
             int attackChoice = -1;
 
             do {
+                System.out.println();
                 System.out.println("Choose an attack:");
                 playerMon.printAttacks();
                 try {
@@ -300,17 +308,21 @@ public class Battle {
             System.out.println();
         }
 
-        scan.close();
-
         //Get the winner
         if (player.getRemainingPartySize() == 0) {
             System.out.println(opponent.getName() + " defeated " + player.getName() + "!");
             player.payout(opponent);
 
+            System.out.println("Press enter to continue.");
+            scan.nextLine();
+
             return opponent;
         } else {
             System.out.println(player.getName() + " defeated " + opponent.getName() + "!");
             opponent.payout(player);
+
+            System.out.println("Press enter to continue.");
+            scan.nextLine();
 
             return player;
         }
@@ -356,7 +368,7 @@ public class Battle {
         if (playableMon.getSpeedStat() > opponent.getSpeedStat()) {
             playableAttackFirst(playableMon, attack, opponent);
         } else if (playableMon.getSpeedStat() < opponent.getSpeedStat()) {
-            playableAttackSecond(opponent, attack, playableMon);
+            playableAttackSecond(playableMon, attack, opponent);
         } else {
             //For speed ties, select a Codeamon at random
             //If 0, playableMon goes first, if 1 nonPlayableMon goes first
@@ -367,7 +379,7 @@ public class Battle {
             if (turn == 0) {
                 playableAttackFirst(playableMon, attack, opponent);
             } else {
-                playableAttackSecond(opponent, attack, playableMon);
+                playableAttackSecond(playableMon, attack, opponent);
             }
         }
     }
@@ -396,12 +408,14 @@ public class Battle {
      * @param opponent The second Codeamon to act in this round
      */
     private static void playableAttackFirst(Codeamon playableMon, int attack, Codeamon opponent) {
+        System.out.print("Your ");
         playableMon.attack(opponent, attack);
 
         if (opponent.isFainted()) {
             return;
         }
 
+        System.out.print("Enemy ");
         opponent.attack(playableMon);
     }
 
@@ -413,12 +427,14 @@ public class Battle {
      * @param opponent The second Codeamon to act in this round
      */
     private static void playableAttackSecond(Codeamon playableMon, int attack, Codeamon opponent) {
+        System.out.print("Enemy ");
         opponent.attack(playableMon);
 
         if (playableMon.isFainted()) {
             return;
         }
 
+        System.out.print("Your ");
         playableMon.attack(opponent, attack);
     }
 }

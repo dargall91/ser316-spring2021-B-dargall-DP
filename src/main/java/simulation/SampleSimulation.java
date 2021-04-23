@@ -17,6 +17,12 @@ public class SampleSimulation implements Simulation {
     private int wildLevel;
     private int wildBattles;
 
+    public SampleSimulation(int wildBattles, int wildLevel, ArrayList<Trainer> trainers) {
+        this.wildBattles = wildBattles;
+        this.wildLevel = wildLevel;
+        this.trainers = trainers;
+    }
+
     /**
      * Creates the trainers to be used in the Sample Simulation.Simulation, and sets the level of
      * the wild Codeamon and the number of Wild Codeamon to battle.

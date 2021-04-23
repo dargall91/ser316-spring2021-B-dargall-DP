@@ -25,7 +25,7 @@ public class DragonCodeamon extends Codeamon {
             attacks[1] = new Attack.AttackBuilder("Tackle", Type.Normal)
                     .power(40)
                     .build();
-            attacks[2] = new Attack.AttackBuilder("Dragon Dance", Type.Normal)
+            attacks[2] = new Attack.AttackBuilder("Dragon Dance", Type.Dragon)
                     .statusEffect(100, Stat.Speed, 1, true)
                     .build();
             attacks[3] = new Attack.AttackBuilder("Mud Shot", Type.Ground)
@@ -40,7 +40,7 @@ public class DragonCodeamon extends Codeamon {
             attacks[1] = new Attack.AttackBuilder("Stomp", Type.Normal)
                     .power(65)
                     .build();
-            attacks[2] = new Attack.AttackBuilder("Dragon Dance", Type.Normal)
+            attacks[2] = new Attack.AttackBuilder("Dragon Dance", Type.Dragon)
                     .statusEffect(100, Stat.Speed, 1, true)
                     .build();
             attacks[3] = new Attack.AttackBuilder("Mud Shot", Type.Ground)
@@ -51,14 +51,14 @@ public class DragonCodeamon extends Codeamon {
         } else {
             attacks[0] = new Attack.AttackBuilder("Dragon Rage", Type.Dragon)
                     .power(80)
-                    .statusEffect(100, Stat.Attack, 1, true)
+                    .statusEffect(50, Stat.Attack, 1, true)
                     .build();
             attacks[1] = new Attack.AttackBuilder("Iron Tail", Type.Steel)
                     .power(100)
                     .accuracy(75)
                     .statusEffect(30, Stat.Defense, -1, false)
                     .build();
-            attacks[2] = new Attack.AttackBuilder("Dragon Dance", Type.Normal)
+            attacks[2] = new Attack.AttackBuilder("Dragon Dance", Type.Dragon)
                     .statusEffect(100, Stat.Speed, 1, true)
                     .build();
             attacks[3] = new Attack.AttackBuilder("Earth Power", Type.Ground)
