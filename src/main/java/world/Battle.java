@@ -2,6 +2,7 @@ package world;
 
 import codeamon.Codeamon;
 
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
@@ -136,9 +137,11 @@ public class Battle {
             }
 
             System.out.println("Press enter to continue.");
-            scan.reset();
-            scan.nextLine();
-
+            try {
+                System.in.read();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return true;
         }
 
@@ -148,8 +151,11 @@ public class Battle {
                 + "!");
 
         System.out.println("Press enter to continue.");
-        scan.nextLine();
-        scan.nextLine();
+        try {
+            System.in.read();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return false;
     }
@@ -313,16 +319,10 @@ public class Battle {
             System.out.println(opponent.getName() + " defeated " + player.getName() + "!");
             player.payout(opponent);
 
-            System.out.println("Press enter to continue.");
-            scan.nextLine();
-
             return opponent;
         } else {
             System.out.println(player.getName() + " defeated " + opponent.getName() + "!");
             opponent.payout(player);
-
-            System.out.println("Press enter to continue.");
-            scan.nextLine();
 
             return player;
         }

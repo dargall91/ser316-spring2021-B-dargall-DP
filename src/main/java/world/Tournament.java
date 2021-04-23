@@ -1,5 +1,6 @@
 package world;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import trainer.Trainer;
 
@@ -9,6 +10,7 @@ import trainer.Trainer;
  */
 public class Tournament {
     private ArrayList<Trainer> bracket;
+    private Trainer player;
     private int currentRound;
     private final int rounds;
     private boolean playable;
@@ -22,6 +24,10 @@ public class Tournament {
     public Tournament(ArrayList<Trainer> trainers, boolean playable) {
         bracket = trainers;
         this.playable = playable;
+
+        if (playable) {
+            player = bracket.get(0);
+        }
         currentRound = 1;
         rounds = (int) Math.ceil(Math.log(bracket.size()) / Math.log(2));
     }
@@ -48,7 +54,7 @@ public class Tournament {
         the formula can be simplified into P - (2 * P - 2 ^ N)
 
         Wow, I just realized this can greatly simplified. -1 * (P - 2 ^ N) = byes. I feel dumb now
-        Wow, I feel more dumb. That's just N ^ 2 - P
+        Wow, I feel more dumb. That's just 2 ^ N - P
          */
         if (currentRound == 1) {
             byes = (int) (Math.pow(2, rounds) - bracket.size());
@@ -65,9 +71,13 @@ public class Tournament {
 
         //Byes are considered to have won
         for (int i = 0; i < byes; i++) {
-            System.out.println(bracket.get(bracket.size() - 1 + i).getName()
+            System.out.println(bracket.get(bracket.size() - 1 - i).getName()
                     + " gets a Bye and advances straight to the next round!");
-            winners.add(bracket.get(bracket.size() - 1 + i));
+            winners.add(bracket.get(bracket.size() - 1 - i));
+
+            for (Trainer t : winners) {
+                System.out.println(t.getName());
+            }
         }
 
         /*
@@ -83,23 +93,33 @@ public class Tournament {
             Trainer trainerTwo = bracket.get(bracket.size() - 1 - byes - i);
             Trainer winner;
 
-            if (playable && i == 0) {
-                winner = Battle.playableTrainerBattle(trainerOne,
-                        trainerTwo);
+            if (playable && trainerOne == player) {
+                winner = Battle.playableTrainerBattle(player, trainerTwo);
                 System.out.println("Press enter to continue.");
+                try {
+                    System.in.read();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else if (playable && trainerTwo == player) {
+                winner = Battle.playableTrainerBattle(player, trainerOne);
+                System.out.println("Press enter to continue.");
+                try {
+                    System.in.read();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
-                winner = Battle.trainerBattle(trainerOne,
-                        trainerTwo);
+                winner = Battle.trainerBattle(trainerOne, trainerTwo);
             }
-
 
             if (winner == trainerOne) {
                 System.out.println(trainerTwo.getName() + " was eliminated from the Tournament!");
-                winners.add(trainerOne);
             } else {
                 System.out.println(trainerOne.getName() + " was eliminated from the Tournament!");
-                winners.add(trainerTwo);
             }
+
+            winners.add(winner);
         }
 
         bracket = winners;

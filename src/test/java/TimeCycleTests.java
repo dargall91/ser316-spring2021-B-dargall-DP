@@ -138,7 +138,7 @@ public class TimeCycleTests {
             list.add(trainerTwo);
         }
 
-        Simulation sim = new SampleSimulation(1, 20, list);
+        Simulation sim = new SampleSimulation(5, 20, list);
         TimeCycleContext timeCycle = new TimeCycleContext(sim);
 
         while (!timeCycle.getTournament().isConcluded()) {

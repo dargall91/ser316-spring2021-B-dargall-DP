@@ -67,7 +67,7 @@ public class Main {
                 sim = new SampleSimulation();
                 cycle = new TimeCycleContext(sim);
             } else {
-                System.out.println("Enter your name:");
+                System.out.print("Enter your name: ");
                 String name = scan.nextLine();
 
                 Type[] types = Type.values();
@@ -85,10 +85,11 @@ public class Main {
                         System.out.println();
                     }
 
-                    System.out.println("Enter the number of your Starter Codeamon:");
+                    System.out.print("Enter the number of your Starter Codeamon: ");
 
                     try {
                         choice = scan.nextInt();
+                        scan.nextLine();
 
                         if (choice < 1 || choice > 18) {
                             System.out.println("Please select an option 1-18.");
@@ -96,16 +97,18 @@ public class Main {
                     } catch (InputMismatchException e) {
                         System.out.println("Please select an option 1-18.");
                         choice = -1;
+                        scan.next();
                     }
                 } while (choice < 1 || choice > 18);
 
                 int level = -1;
 
                 do {
-                    System.out.println("Enter your Codeamon's level (from 1-100):");
+                    System.out.print("Enter your Codeamon's level (from 1-100): ");
 
                     try {
                         level = scan.nextInt();
+                        scan.nextLine();
 
                         if (level < 1 || level > 100) {
                             System.out.println("Please select an option 1-100.");
@@ -113,6 +116,7 @@ public class Main {
                     } catch (InputMismatchException e) {
                         System.out.println("Please select an option 1-100.");
                         level = -1;
+                        scan.next();
                     }
                 } while (level < 1 || level > 100);
 
@@ -124,10 +128,11 @@ public class Main {
                 int wildBattles = -1;
 
                 do {
-                    System.out.println("Enter the number of Wild Codeamon to battle (from 0-10): ");
+                    System.out.print("Enter the number of Wild Codeamon to battle (from 0-10): ");
 
                     try {
                         wildBattles = scan.nextInt();
+                        scan.nextLine();
 
                         if (wildBattles < 0 || wildBattles > 10) {
                             System.out.println("Please select an option from 0-10.");
@@ -135,17 +140,19 @@ public class Main {
                     } catch (InputMismatchException e) {
                         System.out.println("Please select an option from 0-10.");
                         wildBattles = -1;
+                        scan.next();
                     }
                 } while (wildBattles < 0 || wildBattles > 10);
 
                 int numTrainers = 0;
 
                 do {
-                    System.out.println("Enter the number of Trainers (including you) who will "
-                            + "compete in the tournament (2-8):");
+                    System.out.print("Enter the number of Trainers (including you) who will "
+                            + "compete in the tournament (2-8): ");
 
                     try {
                         numTrainers = scan.nextInt();
+                        scan.nextLine();
 
                         if (numTrainers < 2 || numTrainers > 8) {
                             System.out.println("Please select an option from 1-8.");
@@ -153,6 +160,7 @@ public class Main {
                     } catch (InputMismatchException e) {
                         System.out.println("Please select an option from 1-8.");
                         numTrainers = -1;
+                        scan.next();
                     }
                 } while (numTrainers < 2 || numTrainers > 8);
 
