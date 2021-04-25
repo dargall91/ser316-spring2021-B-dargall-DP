@@ -32,7 +32,7 @@ public class TimeCycleContext {
     private final int wildBattles;
     private final int initialLevel;
     private Tournament tournament;
-    private Simulation simulation;
+    private Simulation simulation = null;
 
     /**
      * Constructor for the playable version of Codeamon. It sets the number of Wild Codeamon
@@ -54,7 +54,7 @@ public class TimeCycleContext {
             this.initialLevel = initialLevel;
         }
 
-        tournament = new Tournament(trainers, true);
+        tournament = new Tournament(trainers);
         simulation = null;
         setState(new Day());
     }
@@ -69,7 +69,7 @@ public class TimeCycleContext {
         this.simulation = simulation;
         this.wildBattles = simulation.getWildBattles();
         this.initialLevel = simulation.getWildLevel();
-        tournament = new Tournament(simulation.getTrainers(), false);
+        tournament = new Tournament(simulation.getTrainers());
         setState(new Day());
     }
 
@@ -133,18 +133,5 @@ public class TimeCycleContext {
      */
     public Tournament getTournament() {
         return tournament;
-    }
-
-    /**
-     * Checks if this cycle is for the Playable version of Codeamon or not.
-     *
-     * @return True if this cycle is playable, otherwise false
-     */
-    public boolean getPlayable() {
-        if (simulation == null) {
-            return true;
-        }
-
-        return false;
     }
 }

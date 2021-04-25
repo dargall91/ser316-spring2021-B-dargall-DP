@@ -121,7 +121,7 @@ public class Main {
                 } while (level < 1 || level > 100);
 
                 Codeamon starter = CodeamonFactory.createCodeamon(types[choice - 1], level);
-                Trainer player = new Trainer.TrainerBuilder(name).codeamon(starter).build();
+                Trainer player = new Trainer.TrainerBuilder(name).playable().codeamon(starter).build();
                 ArrayList<Trainer> trainers = new ArrayList<>();
                 trainers.add(player);
 
@@ -193,6 +193,8 @@ public class Main {
                 cycle = new TimeCycleContext(wildBattles, level - 2, trainers);
             }
         }
+
+        System.out.println();
 
         while (!cycle.getTournament().isConcluded()) {
             cycle.runEvents();

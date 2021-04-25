@@ -10,24 +10,17 @@ import trainer.Trainer;
  */
 public class Tournament {
     private ArrayList<Trainer> bracket;
-    private Trainer player;
     private int currentRound;
     private final int rounds;
-    private boolean playable;
 
     /**
      * Constructor for a Tournament that sets the list of competing Codeamon Trainers.
      *
      * @param trainers The list of competing Codeamon Trainers
-     * @param playable Sets if this Tournament can be played by a user or not.
      */
-    public Tournament(ArrayList<Trainer> trainers, boolean playable) {
+    public Tournament(ArrayList<Trainer> trainers) {
         bracket = trainers;
-        this.playable = playable;
 
-        if (playable) {
-            player = bracket.get(0);
-        }
         currentRound = 1;
         rounds = (int) Math.ceil(Math.log(bracket.size()) / Math.log(2));
     }
@@ -38,24 +31,7 @@ public class Tournament {
     public void executeNextRound() {
         int byes = 0;
 
-        /*
-        Determine byes. Byes are only given out in the first round, and enough are given out
-        to ensure that byes are not needed in further rounds
-
-        Math Explanation:
-
-        For a single elimination tournament with P participants and byes in only the first
-        round, the number of rounds N in the tournament is the ceiling of log(P)/log(2). To
-        get the number of byes, the formula is P - 2 * (P - 2 ^ (N -1)). 2 ^ (N - 1) is the
-        number of players remaining in the next round to not need byes. P - that result is the
-        number of matches that will take place in the next round. Multiple that number by 2 to
-        get the number of remaining players there should be in that round. P - that number is
-        the number of players that need byes in the first round. Using the distributive property,
-        the formula can be simplified into P - (2 * P - 2 ^ N)
-
-        Wow, I just realized this can greatly simplified. -1 * (P - 2 ^ N) = byes. I feel dumb now
-        Wow, I feel more dumb. That's just 2 ^ N - P
-         */
+        //give enough byes in the first round to avoid having to give more later
         if (currentRound == 1) {
             byes = (int) (Math.pow(2, rounds) - bracket.size());
         }
@@ -93,16 +69,16 @@ public class Tournament {
             Trainer trainerTwo = bracket.get(bracket.size() - 1 - byes - i);
             Trainer winner;
 
-            if (playable && trainerOne == player) {
-                winner = Battle.playableTrainerBattle(player, trainerTwo);
+            if (trainerOne.isPlayable()) {
+                winner = Battle.playableTrainerBattle(trainerOne, trainerTwo);
                 System.out.println("Press enter to continue.");
                 try {
                     System.in.read();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } else if (playable && trainerTwo == player) {
-                winner = Battle.playableTrainerBattle(player, trainerOne);
+            } else if (trainerTwo.isPlayable()) {
+                winner = Battle.playableTrainerBattle(trainerTwo, trainerOne);
                 System.out.println("Press enter to continue.");
                 try {
                     System.in.read();

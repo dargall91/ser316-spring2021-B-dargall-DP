@@ -37,7 +37,7 @@ public class TournamentTests {
             trainers.add(new Trainer.TrainerBuilder("Trainer " + i).codeamon(mon).build());
         }
 
-        Tournament tournament = new Tournament(trainers, false);
+        Tournament tournament = new Tournament(trainers);
 
         System.out.println("Trainers Before Tournament Begins:");
 
@@ -74,7 +74,7 @@ public class TournamentTests {
             trainers.add(new Trainer.TrainerBuilder("Trainer " + i).codeamon(mon).build());
         }
 
-        Tournament tournament = new Tournament(trainers, false);
+        Tournament tournament = new Tournament(trainers);
 
         System.out.println("Trainers Before Tournament Begins:");
 
@@ -117,7 +117,7 @@ public class TournamentTests {
             trainers.add(new Trainer.TrainerBuilder("Trainer " + i).codeamon(mon).build());
         }
 
-        Tournament tournament = new Tournament(trainers, false);
+        Tournament tournament = new Tournament(trainers);
 
         System.out.println("Trainers Before Tournament Begins:");
 

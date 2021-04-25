@@ -17,6 +17,7 @@ import java.util.Collections;
  */
 public class Trainer {
     private final String name;
+    private boolean playable;
     private int codeaDollars;
     private ArrayList<Codeamon> codeamonParty;
     private static final int MAX_PARTY = 6;
@@ -34,6 +35,7 @@ public class Trainer {
 
         //Default values
         private int codeaDollars = 3000;
+        private boolean playable = false;
 
         /**
          * Entry point for a TrainerBuilder that sets the Trainer's name.
@@ -43,6 +45,17 @@ public class Trainer {
         public TrainerBuilder(String name) {
             this.name = name;
             party = new ArrayList<>();
+        }
+
+        /**
+         * Flags this trainer as a playable character.
+         *
+         * @return The TrainerBuilder
+         */
+        public TrainerBuilder playable() {
+            playable = true;
+
+            return this;
         }
 
         /**
@@ -90,7 +103,16 @@ public class Trainer {
         name = builder.name;
         codeamonParty = builder.party;
         codeaDollars = builder.codeaDollars;
-        Collections.sort(codeamonParty);
+        playable = builder.playable;
+    }
+
+    /**
+     * Checks if this Trainer is playable or not.
+     *
+     * @return True if they are playable, otherwise false
+     */
+    public boolean isPlayable() {
+        return playable;
     }
 
     /**

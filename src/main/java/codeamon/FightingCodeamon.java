@@ -27,8 +27,8 @@ public class FightingCodeamon extends Codeamon {
                     .power(50)
                     .accuracy(90)
                     .build();
-            attacks[2] = new Attack.AttackBuilder("Work Up", Type.Normal)
-                    .statusEffect(100, Stat.Attack, 1, true)
+            attacks[2] = new Attack.AttackBuilder("Agility", Type.Psychic)
+                    .statusEffect(100, Stat.Speed, 2, true)
                     .build();
             attacks[3] = new Attack.AttackBuilder("Tackle", Type.Normal)
                     .power(40)
@@ -42,15 +42,15 @@ public class FightingCodeamon extends Codeamon {
                     .power(50)
                     .accuracy(90)
                     .build();
-            attacks[2] = new Attack.AttackBuilder("Work Up", Type.Normal)
-                    .statusEffect(100, Stat.Attack, 1, true)
+            attacks[2] = new Attack.AttackBuilder("Agility", Type.Psychic)
+                    .statusEffect(100, Stat.Speed, 2, true)
                     .build();
             attacks[3] = new Attack.AttackBuilder("Slam", Type.Normal)
                     .power(80)
                     .accuracy(80)
                     .build();
         } else {
-            attacks[0] = new Attack.AttackBuilder("Drain Punch", Type.Fire)
+            attacks[0] = new Attack.AttackBuilder("Drain Punch", Type.Fighting)
                     .power(75)
                     .statusEffect(15, Stat.Attack, 1, false)
                     .heal(25)
@@ -60,8 +60,8 @@ public class FightingCodeamon extends Codeamon {
                     .accuracy(80)
                     .critChance(50)
                     .build();
-            attacks[2] = new Attack.AttackBuilder("Swords Dance", Type.Normal)
-                    .statusEffect(100, Stat.Attack, 2, true)
+            attacks[2] = new Attack.AttackBuilder("Agility", Type.Psychic)
+                    .statusEffect(100, Stat.Speed, 2, true)
                     .build();
             attacks[3] = new Attack.AttackBuilder("Mega Kick", Type.Normal)
                     .power(120)
