@@ -332,7 +332,7 @@ public abstract class Codeamon implements Comparable<Codeamon> {
         if (isFainted() && !codeamon.isFainted()) {
             return 1;
         }
-        //bot Codeamon are fainted they considered to be equal for the purpose of sorting
+        //if both Codeamon are fainted they considered to be equal for the purpose of sorting
         if (isFainted() && codeamon.isFainted()) {
             return 0;
         }

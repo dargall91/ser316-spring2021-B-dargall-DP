@@ -52,7 +52,7 @@ public class Battle {
         }
 
         if (trainer.getRemainingPartySize() > 0) {
-            wildCodeamon.giveExperience(trainer.getCodeamonParty());
+            wildCodeamon.giveExperience(trainer.getParty());
 
             if (trainer.getPartySize() < 6) {
                 System.out.println("The Wild " + wildCodeamon.getName() + " joined "
@@ -78,76 +78,58 @@ public class Battle {
      * defeated if it is fainted. If a Trainer defeats a Wild Codeamon, it will join the Trainer's
      * party, provided the Trainer's party is not full.
      *
-     * @param trainer The player's Trainer
-     * @param wildCodeamon The Wild Codeamon
+     * @param player The player's Trainer
+     * @param wildMon The Wild Codeamon
      * @return True if the Trainer won the battle, otherwise false
      */
-    public static boolean playableWildBattle(Trainer trainer, Codeamon wildCodeamon) {
-        Scanner scan = new Scanner(System.in);
+    public static boolean playableWildBattle(Trainer player, Codeamon wildMon) {
+        Codeamon playerMon = player.getNextCodeamon();
+        System.out.println("A wild " + wildMon.getName() + " appeared!");
+        player.printPartyStatus();
+        System.out.println(player.getName() + " sent out " + playerMon.getName() + "!");
 
-        Codeamon trainerCodeamon = trainer.getNextCodeamon();
-        System.out.println("A wild " + wildCodeamon.getName() + " appeared!");
-        trainer.printPartyStatus();
-        System.out.println(trainer.getName() + " sent out " + trainerCodeamon.getName() + "!");
-
-        while (trainer.getRemainingPartySize() > 0 && !wildCodeamon.isFainted()) {
-            System.out.print(trainer.getName() + "'s ");
-            trainerCodeamon.printBattleStatus();
+        while (player.getRemainingPartySize() > 0 && !wildMon.isFainted()) {
+            System.out.print(player.getName() + "'s ");
+            playerMon.printBattleStatus();
 
             System.out.print("Wild ");
-            wildCodeamon.printBattleStatus();
-            int attackChoice = -1;
+            wildMon.printBattleStatus();
 
-            do {
-                System.out.println();
-                System.out.println("Choose an attack:");
-                trainerCodeamon.printAttacks();
-                try {
-                    attackChoice = scan.nextInt();
-                } catch (InputMismatchException e) {
-                    System.out.println("Please select a number from 1-4.");
-                    attackChoice = -1;
-                }
+            int choice = playerChoice(player, playerMon);
 
-                if (attackChoice < 1 || attackChoice > 4) {
-                    System.out.println("Please select a number from 1-4.");
-                }
-            } while (attackChoice < 1 || attackChoice > 4);
-
-            playableFight(trainerCodeamon, attackChoice, wildCodeamon);
+            if (choice == 5) {
+                playerMon = swapCodeamon(player, playerMon);
+                playableAttackSwitch(playerMon, wildMon);
+            } else {
+                playableFight(playerMon, choice, wildMon);
+            }
 
             //if trainer's Codeamon faints and they have more Codeamon, bring in the next one
-            if (trainerCodeamon.isFainted() && trainer.getRemainingPartySize() > 0) {
-                trainer.printPartyStatus();
-                trainerCodeamon = trainer.getNextCodeamon();
-                System.out.println(trainer.getName() + " sent out "
-                        + trainerCodeamon.getName() + "!");
+            if (playerMon.isFainted() && player.getRemainingPartySize() > 0) {
+                player.printPartyStatus();
+                playerMon = player.getNextCodeamon();
+                System.out.println(player.getName() + " sent out "
+                        + playerMon.getName() + "!");
             }
 
             System.out.println();
         }
 
-        if (trainer.getRemainingPartySize() > 0) {
-            wildCodeamon.giveExperience(trainer.getCodeamonParty());
+        if (player.getRemainingPartySize() > 0) {
+            wildMon.giveExperience(player.getParty());
 
-            if (trainer.getPartySize() < 6) {
-                System.out.println("The Wild " + wildCodeamon.getName() + " joined "
-                        + trainer.getName() + "'s party!");
-                trainer.addCodeamon(wildCodeamon);
+            if (player.getPartySize() < 6) {
+                System.out.println("The Wild " + wildMon.getName() + " joined "
+                        + player.getName() + "'s party!");
+                player.addCodeamon(wildMon);
             }
-
-            System.out.println("Press enter to continue.");
-            try {
-                System.in.read();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            
             return true;
         }
 
-        trainer.printPartyStatus();
-        System.out.println(trainer.getName() + " is out of usable Codeamon!");
-        System.out.println(trainer.getName() + " fled from the Wild " + wildCodeamon.getName()
+        player.printPartyStatus();
+        System.out.println(player.getName() + " is out of usable Codeamon!");
+        System.out.println(player.getName() + " fled from the Wild " + wildMon.getName()
                 + "!");
 
         System.out.println("Press enter to continue.");
@@ -192,7 +174,7 @@ public class Battle {
 
             //check if either Codeamon has fainted, then give out EXP and swap to next Codeamon
             if (codeamonOne.isFainted()) {
-                codeamonOne.giveExperience(trainerTwo.getCodeamonParty());
+                codeamonOne.giveExperience(trainerTwo.getParty());
 
                 System.out.println();
                 trainerOne.printPartyStatus();
@@ -204,7 +186,7 @@ public class Battle {
                             + codeamonOne.getName() + "!");
                 }
             } else if (codeamonTwo.isFainted()) {
-                codeamonTwo.giveExperience(trainerOne.getCodeamonParty());
+                codeamonTwo.giveExperience(trainerOne.getParty());
 
                 System.out.println();
                 trainerOne.printPartyStatus();
@@ -244,8 +226,6 @@ public class Battle {
      * @return The Trainer who won the battle
      */
     public static Trainer playableTrainerBattle(Trainer player, Trainer opponent) {
-        Scanner scan = new Scanner(System.in);
-
         System.out.println("The Battle Between " + player.getName() + " and "
                 + opponent.getName() + " is now underway!");
 
@@ -264,29 +244,18 @@ public class Battle {
             System.out.print(opponent.getName() + "'s ");
             opponentMon.printBattleStatus();
 
-            int attackChoice = -1;
+            int choice = playerChoice(player, playerMon);
 
-            do {
-                System.out.println();
-                System.out.println("Choose an attack:");
-                playerMon.printAttacks();
-                try {
-                    attackChoice = scan.nextInt();
-                } catch (InputMismatchException e) {
-                    System.out.println("Please select a number from 1-4.");
-                    attackChoice = -1;
-                }
-
-                if (attackChoice < 1 || attackChoice > 4) {
-                    System.out.println("Please select a number from 1-4.");
-                }
-            } while (attackChoice < 1 || attackChoice > 4);
-
-            playableFight(playerMon, attackChoice, opponentMon);
+            if (choice == 5) {
+                playerMon = swapCodeamon(player, playerMon);
+                playableAttackSwitch(playerMon, opponentMon);
+            } else {
+                playableFight(playerMon, choice, opponentMon);
+            }
 
             //check if either Codeamon has fainted, then give out EXP and swap to next Codeamon
             if (playerMon.isFainted()) {
-                playerMon.giveExperience(opponent.getCodeamonParty());
+                playerMon.giveExperience(opponent.getParty());
 
                 System.out.println();
                 player.printPartyStatus();
@@ -298,7 +267,7 @@ public class Battle {
                             + playerMon.getName() + "!");
                 }
             } else if (opponentMon.isFainted()) {
-                opponentMon.giveExperience(player.getCodeamonParty());
+                opponentMon.giveExperience(player.getParty());
 
                 System.out.println();
                 player.printPartyStatus();
@@ -336,6 +305,8 @@ public class Battle {
      * @param monTwo The second Codeamon in the battle
      */
     private static void fight(Codeamon monOne, Codeamon monTwo) {
+        System.out.println();
+
         if (monOne.getSpeedStat() > monTwo.getSpeedStat()) {
             attack(monOne, monTwo);
         } else if (monOne.getSpeedStat() < monTwo.getSpeedStat()) {
@@ -365,13 +336,15 @@ public class Battle {
      * @param opponent The second Codeamon in the battle
      */
     private static void playableFight(Codeamon playableMon, int attack, Codeamon opponent) {
+        System.out.println();
+
         if (playableMon.getSpeedStat() > opponent.getSpeedStat()) {
             playableAttackFirst(playableMon, attack, opponent);
         } else if (playableMon.getSpeedStat() < opponent.getSpeedStat()) {
             playableAttackSecond(playableMon, attack, opponent);
         } else {
             //For speed ties, select a Codeamon at random
-            //If 0, playableMon goes first, if 1 nonPlayableMon goes first
+            //If 0, playableMon goes first, if 1 opponent goes first
             Random rand = new Random();
 
             int turn = rand.nextInt(2);
@@ -403,9 +376,9 @@ public class Battle {
     /**
      * Handles the Player's Codeamon attacking the opponent first.
      *
-     * @param playableMon The first Codeamon to act in this round
+     * @param playableMon The player's Codeamon
      * @param attack The number of the attack for the player's Codeamon
-     * @param opponent The second Codeamon to act in this round
+     * @param opponent The player's opponent
      */
     private static void playableAttackFirst(Codeamon playableMon, int attack, Codeamon opponent) {
         System.out.print("Your ");
@@ -422,9 +395,9 @@ public class Battle {
     /**
      * Handles the opponent attacking the Player's Codeamon first.
      *
-     * @param playableMon The first Codeamon to act in this round
+     * @param playableMon The player's Codeamon
      * @param attack The number of the attack for the player's Codeamon
-     * @param opponent The second Codeamon to act in this round
+     * @param opponent The player's opponent
      */
     private static void playableAttackSecond(Codeamon playableMon, int attack, Codeamon opponent) {
         System.out.print("Enemy ");
@@ -436,5 +409,80 @@ public class Battle {
 
         System.out.print("Your ");
         playableMon.attack(opponent, attack);
+    }
+
+    /**
+     * Handles the opponents attack if the player chooses to switch Codeamon.
+     *
+     * @param playableMon The player's Codeamon
+     * @param opponent The player's opponent
+     */
+    private static void playableAttackSwitch(Codeamon playableMon, Codeamon opponent) {
+        System.out.print("Enemy ");
+        opponent.attack(playableMon);
+    }
+
+    /**
+     * The player chooses either an attack or to swap Codeamon.
+     *
+     * @param player The player's Trainer
+     * @param codeamon The player's active Codeamon
+     * @return
+     */
+    private static int playerChoice(Trainer player, Codeamon codeamon) {
+        Scanner scan = new Scanner(System.in);
+        int choice = -1;
+
+        do {
+            System.out.println();
+            codeamon.printAttacks();
+            System.out.println("5. Switch Codeamon");
+            System.out.print("Choose an attack or to switch Codeamon: ");
+
+            try {
+                choice = scan.nextInt();
+                scan.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Please select a number from 1-5.");
+                choice = -1;
+                scan.next();
+            }
+
+            if (choice < 1 || choice > 5) {
+                System.out.println("Please select a number from 1-5.");
+            } else if (choice == 5 && player.getRemainingPartySize() == 1) {
+                System.out.println("You don't have any other Codeamon to switch to.");
+                choice = -1;
+            }
+        } while ((choice < 1 || choice > 5));
+
+        return choice;
+    }
+
+    /**
+     * Handles the player swapping Codeamon.
+     *
+     * @param player The player's Trainer
+     * @param playerMon The player's active Codeamon
+     */
+    private static Codeamon swapCodeamon(Trainer player, Codeamon playerMon) {
+        System.out.println();
+
+        Codeamon swap;
+
+        do {
+            swap = player.chooseCodeamon();
+
+            if (swap == playerMon) {
+                System.out.println(swap.getName() + " is already in battle!");
+            } else {
+                System.out.println("You recalled " + playerMon.getName() + " and sent out "
+                        + swap.getName() + "!");
+            }
+        } while (swap == playerMon);
+
+        System.out.println();
+
+        return swap;
     }
 }

@@ -28,8 +28,10 @@ public class Day implements TimeCycle {
         if (context.getWildBattleCount() < context.getWildBattleLimit()) {
             for (Trainer t : trainers) {
                 if (t.isPlayable()) {
-                    Battle.playableWildBattle(t,
-                            CodeamonFactory.createRandomCodeamon(context.getWildLevel()));
+                    if (!Battle.playableWildBattle(t,
+                            CodeamonFactory.createRandomCodeamon(context.getWildLevel()))) {
+                        System.out.println("Press enter to continue.");
+                    }
                 } else {
                     Battle.wildBattle(t,
                             CodeamonFactory.createRandomCodeamon(context.getWildLevel()));

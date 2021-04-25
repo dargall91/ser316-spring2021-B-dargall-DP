@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import simulation.SampleSimulation;
 import simulation.Simulation;
 import trainer.Trainer;
-import world.TimeCycle;
 import world.TimeCycleContext;
 
 import java.util.ArrayList;
@@ -43,12 +42,12 @@ public class TimeCycleTests {
 
         System.out.println(trainer.getName() + ":");
 
-        for (Codeamon c : trainer.getCodeamonParty()) {
+        for (Codeamon c : trainer.getParty()) {
             System.out.println(c.getName() + ": Level: " + c.getLevel());
         }
 
         assertAll(() -> assertEquals(2, trainer.getPartySize()),
-                () -> assertEquals(5, trainer.getCodeamonParty().get(1).getLevel()));
+                () -> assertEquals(5, trainer.getParty().get(1).getLevel()));
     }
 
     /**

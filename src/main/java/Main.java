@@ -72,16 +72,34 @@ public class Main {
 
                 Type[] types = Type.values();
 
+                int level = -1;
+
+                do {
+                    System.out.print("Enter your Starter Codeamon's level (from 1-100): ");
+
+                    try {
+                        level = scan.nextInt();
+                        scan.nextLine();
+
+                        if (level < 1 || level > 100) {
+                            System.out.println("Please select an option 1-100.");
+                        }
+                    } catch (InputMismatchException e) {
+                        System.out.println("Please select an option 1-100.");
+                        level = -1;
+                        scan.next();
+                    }
+                } while (level < 1 || level > 100);
+
                 do {
                     for (int i = 0; i < types.length; i++) {
-                        Codeamon mon = CodeamonFactory.createCodeamon(types[i], 1);
-                        CodeamonStats stats = CodeamonStatsFactory.getStats(types[i], 1);
+                        Codeamon mon = CodeamonFactory.createCodeamon(types[i], level);
                         System.out.println((i + 1) + ". " + mon.getName());
                         System.out.println("Type: " + mon.getType());
-                        System.out.println("Base Hit Points: " + stats.getBaseHitPoints());
-                        System.out.println("Base Attack: " + stats.getBaseAttack());
-                        System.out.println("Base Defense: " + stats.getBaseDefense());
-                        System.out.println("Base Speed: " + stats.getBaseSpeed());
+                        System.out.println("Hit Points: " + mon.getMaxHitPoints());
+                        System.out.println("Attack: " + mon.getAttackStat());
+                        System.out.println("Defense: " + mon.getDefenseStat());
+                        System.out.println("Speed: " + mon.getSpeedStat());
                         System.out.println();
                     }
 
@@ -101,27 +119,9 @@ public class Main {
                     }
                 } while (choice < 1 || choice > 18);
 
-                int level = -1;
-
-                do {
-                    System.out.print("Enter your Codeamon's level (from 1-100): ");
-
-                    try {
-                        level = scan.nextInt();
-                        scan.nextLine();
-
-                        if (level < 1 || level > 100) {
-                            System.out.println("Please select an option 1-100.");
-                        }
-                    } catch (InputMismatchException e) {
-                        System.out.println("Please select an option 1-100.");
-                        level = -1;
-                        scan.next();
-                    }
-                } while (level < 1 || level > 100);
-
                 Codeamon starter = CodeamonFactory.createCodeamon(types[choice - 1], level);
-                Trainer player = new Trainer.TrainerBuilder(name).playable().codeamon(starter).build();
+                Trainer player = new Trainer.TrainerBuilder(name).playable().build();
+                player.addCodeamon(starter);
                 ArrayList<Trainer> trainers = new ArrayList<>();
                 trainers.add(player);
 

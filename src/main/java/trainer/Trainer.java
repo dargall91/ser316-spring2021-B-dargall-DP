@@ -3,6 +3,8 @@ package trainer;
 import codeamon.Codeamon;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 /**
  * A Trainer is someone who captures and tames Codeamon. A trainer is created using a Builder
@@ -19,7 +21,7 @@ public class Trainer {
     private final String name;
     private boolean playable;
     private int codeaDollars;
-    private ArrayList<Codeamon> codeamonParty;
+    private ArrayList<Codeamon> party;
     private static final int MAX_PARTY = 6;
 
     /**
@@ -101,7 +103,7 @@ public class Trainer {
 
     private Trainer(TrainerBuilder builder) {
         name = builder.name;
-        codeamonParty = builder.party;
+        party = builder.party;
         codeaDollars = builder.codeaDollars;
         playable = builder.playable;
     }
@@ -169,7 +171,7 @@ public class Trainer {
      * @return The party size
      */
     public int getPartySize() {
-        return codeamonParty.size();
+        return party.size();
     }
 
     /**
@@ -180,7 +182,7 @@ public class Trainer {
     public int getRemainingPartySize() {
         int remaining = 0;
 
-        for (Codeamon i : codeamonParty) {
+        for (Codeamon i : party) {
             if (!i.isFainted()) {
                 remaining++;
             }
@@ -211,12 +213,42 @@ public class Trainer {
         if (codeamon == null) {
             System.out.println("Cannot add a null Codeamon to a Trainer's party.");
             return false;
-        } else if (codeamonParty.size() == MAX_PARTY) {
+        } else if (party.size() == MAX_PARTY) {
             System.out.println(codeamon.getName() + " not added. Party is full.");
             return false;
         }
 
-        codeamonParty.add(codeamon);
+        if (playable) {
+            Scanner scan = new Scanner(System.in);
+            int choice;
+
+            System.out.println("Give a nickname to " + codeamon.getName() + "?");
+            System.out.println("1. Yes");
+            System.out.println("2. No");
+
+            do {
+                try {
+                    choice = scan.nextInt();
+                    scan.nextLine();
+
+                    if (choice < 1 || choice > 2) {
+                        System.out.println("Please enter 1 for yes or 2 for no.");
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Please enter 1 for yes or 2 for no.");
+                    choice = -1;
+                    scan.next();
+                }
+            } while (choice < 1 || choice > 2);
+
+            if (choice == 1) {
+                System.out.print("Enter your " + codeamon.getName() + "'s nickname: ");
+                String nickname = scan.nextLine();
+                codeamon.setNickname(nickname);
+            }
+        }
+
+        party.add(codeamon);
 
         return true;
     }
@@ -225,11 +257,40 @@ public class Trainer {
      * All the Codeamon in this trainer's party rest and fully recover any lost Hit Points.
      */
     public void restParty() {
-        for (Codeamon i : codeamonParty) {
+        for (Codeamon i : party) {
             i.rest();
         }
 
-        Collections.sort(codeamonParty);
+        if (playable) {
+            Scanner scan = new Scanner(System.in);
+            int choice;
+
+            do {
+                System.out.println("Your lead Codeamon is currently " + party.get(0).getName() + ".");
+                System.out.println("Would you like to select another Codeamon to lead?");
+                System.out.println("1. Yes");
+                System.out.println("2. No");
+
+                try {
+                    choice = scan.nextInt();
+                    scan.nextLine();
+
+                    if (choice < 1 || choice > 2) {
+                        System.out.println("Please enter 1 for yes or 2 for no.");
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Please enter 1 for yes or 2 for no.");
+                    choice = -1;
+                    scan.next();
+                }
+            } while (choice < 1 || choice > 2);
+
+            if (choice == 1) {
+                Collections.swap(party, 0, party.indexOf(chooseCodeamon()));
+            }
+        } else {
+            Collections.sort(party);
+        }
     }
 
     /**
@@ -243,7 +304,49 @@ public class Trainer {
             return null;
         }
 
-        return codeamonParty.get(codeamonParty.size() - getRemainingPartySize());
+        if (playable && getRemainingPartySize() != party.size()) {
+            return chooseCodeamon();
+        }
+
+        return party.get(party.size() - getRemainingPartySize());
+    }
+
+    public Codeamon chooseCodeamon() {
+        for (int i = 0; i < party.size(); i++) {
+            System.out.print((i + 1) + ". " + party.get(i).getName() + " Lv: "
+                    + party.get(i).getLevel() + " Type: " + party.get(i).getType());
+            if (party.get(i).isFainted()) {
+                System.out.print(" (FAINTED)");
+            }
+
+            System.out.println();
+        }
+
+        int choice;
+        Scanner scan = new Scanner(System.in);
+
+        do {
+            System.out.print("Choose a Codeamon: ");
+
+            try {
+                choice = scan.nextInt();
+                scan.nextLine();
+
+                if (choice < 1 || choice > party.size()) {
+                    System.out.println("Please select one of the above valid numbers.");
+                } else if (party.get(choice - 1).isFainted()) {
+                    System.out.println("The Codeamon you selected has fainted."
+                            + " Please select another one.");
+                    choice = -1;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Please select a one of the above valid numbers.");
+                choice = -1;
+                scan.next();
+            }
+        } while (choice < 1 || choice > party.size());
+
+        return party.get(choice - 1);
     }
 
     /**
@@ -251,8 +354,8 @@ public class Trainer {
      *
      * @return The Codeamon party
      */
-    public ArrayList<Codeamon> getCodeamonParty() {
-        return codeamonParty;
+    public ArrayList<Codeamon> getParty() {
+        return party;
     }
 
     /**
@@ -264,7 +367,7 @@ public class Trainer {
     public void printPartyStatus() {
         System.out.print(getName() + ": ");
 
-        for (Codeamon c : codeamonParty) {
+        for (Codeamon c : party) {
             if (c.isFainted()) {
                 System.out.print("X");
             } else {
