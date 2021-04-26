@@ -430,7 +430,7 @@ public class Battle {
      * @return
      */
     private static int playerChoice(Trainer player, Codeamon codeamon) {
-        Scanner scan = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in, "UTF-8");
         int choice = -1;
 
         do {

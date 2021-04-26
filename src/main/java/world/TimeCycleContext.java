@@ -32,7 +32,6 @@ public class TimeCycleContext {
     private final int wildBattles;
     private final int initialLevel;
     private Tournament tournament;
-    private Simulation simulation = null;
 
     /**
      * Constructor for the playable version of Codeamon. It sets the number of Wild Codeamon
@@ -55,7 +54,6 @@ public class TimeCycleContext {
         }
 
         tournament = new Tournament(trainers);
-        simulation = null;
         setState(new Day());
     }
 
@@ -66,7 +64,6 @@ public class TimeCycleContext {
      * @param simulation The simulation that contains the data
      */
     public TimeCycleContext(Simulation simulation) {
-        this.simulation = simulation;
         this.wildBattles = simulation.getWildBattles();
         this.initialLevel = simulation.getWildLevel();
         tournament = new Tournament(simulation.getTrainers());

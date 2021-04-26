@@ -1,14 +1,17 @@
-import codeamon.*;
-import simulation.JsonSimulation;
-import simulation.SampleSimulation;
-import simulation.Simulation;
-import trainer.Trainer;
-import world.TimeCycleContext;
+import codeamon.Codeamon;
+import codeamon.CodeamonFactory;
+import codeamon.Type;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
+
+import simulation.JsonSimulation;
+import simulation.SampleSimulation;
+import simulation.Simulation;
+import trainer.Trainer;
+import world.TimeCycleContext;
 
 public class Main {
     /**
@@ -40,8 +43,8 @@ public class Main {
 
             cycle = new TimeCycleContext(sim);
         } else {
-            Scanner scan = new Scanner(System.in);
-            int choice = -1;
+            Scanner scan = new Scanner(System.in, "UTF-8");
+            int choice;
 
             do {
                 System.out.println("Choose a mode:");
@@ -72,7 +75,7 @@ public class Main {
 
                 Type[] types = Type.values();
 
-                int level = -1;
+                int level;
 
                 do {
                     System.out.print("Enter your Starter Codeamon's level (from 1-100): ");
@@ -125,7 +128,7 @@ public class Main {
                 ArrayList<Trainer> trainers = new ArrayList<>();
                 trainers.add(player);
 
-                int wildBattles = -1;
+                int wildBattles;
 
                 do {
                     System.out.print("Enter the number of Wild Codeamon to battle (from 0-10): ");
@@ -144,7 +147,7 @@ public class Main {
                     }
                 } while (wildBattles < 0 || wildBattles > 10);
 
-                int numTrainers = 0;
+                int numTrainers;
 
                 do {
                     System.out.print("Enter the number of Trainers (including you) who will "

@@ -219,12 +219,13 @@ public class Trainer {
         }
 
         if (playable) {
-            Scanner scan = new Scanner(System.in);
-            int choice;
+            Scanner scan = new Scanner(System.in, "UTF-8");
 
             System.out.println("Give a nickname to " + codeamon.getName() + "?");
             System.out.println("1. Yes");
             System.out.println("2. No");
+
+            int choice;
 
             do {
                 try {
@@ -262,11 +263,12 @@ public class Trainer {
         }
 
         if (playable) {
-            Scanner scan = new Scanner(System.in);
+            Scanner scan = new Scanner(System.in, "UTF-8");
             int choice;
 
             do {
-                System.out.println("Your lead Codeamon is currently " + party.get(0).getName() + ".");
+                System.out.println("Your lead Codeamon is currently " + party.get(0).getName()
+                        + ".");
                 System.out.println("Would you like to select another Codeamon to lead?");
                 System.out.println("1. Yes");
                 System.out.println("2. No");
@@ -311,6 +313,12 @@ public class Trainer {
         return party.get(party.size() - getRemainingPartySize());
     }
 
+    /**
+     * Prompts the player to chose a Codeamon from their party. They will not be allowed to choose
+     * a Codeamon that is fainted.
+     *
+     * @return The chosen Codeamon
+     */
     public Codeamon chooseCodeamon() {
         for (int i = 0; i < party.size(); i++) {
             System.out.print((i + 1) + ". " + party.get(i).getName() + " Lv: "
@@ -323,7 +331,7 @@ public class Trainer {
         }
 
         int choice;
-        Scanner scan = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in, "UTF-8");
 
         do {
             System.out.print("Choose a Codeamon: ");

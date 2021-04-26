@@ -17,6 +17,13 @@ public class SampleSimulation implements Simulation {
     private int wildLevel;
     private int wildBattles;
 
+    /**
+     * Constructs a simulation with the specified parameters.
+     *
+     * @param wildBattles The number of wild battles
+     * @param wildLevel The level of the first wild Codeamon
+     * @param trainers THe list of Trainers
+     */
     public SampleSimulation(int wildBattles, int wildLevel, ArrayList<Trainer> trainers) {
         this.wildBattles = wildBattles;
         this.wildLevel = wildLevel;
