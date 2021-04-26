@@ -118,6 +118,14 @@ public abstract class Codeamon implements Comparable<Codeamon> {
     }
 
     /**
+     * Resets this Codeamon stat stages. Should be called when this Pokemon is recalled from
+     * a battle.
+     */
+    public void resetStages() {
+        stats.resetStatStages();
+    }
+
+    /**
      * Heals the Codeamon by a specified amount. If the amount of healing is 0 or less, the
      * Codeamon will be healed for 1 hit point.
      *

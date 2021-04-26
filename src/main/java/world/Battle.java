@@ -123,7 +123,7 @@ public class Battle {
                         + player.getName() + "'s party!");
                 player.addCodeamon(wildMon);
             }
-            
+
             return true;
         }
 
@@ -478,6 +478,7 @@ public class Battle {
             } else {
                 System.out.println("You recalled " + playerMon.getName() + " and sent out "
                         + swap.getName() + "!");
+                playerMon.resetStages();
             }
         } while (swap == playerMon);
 
